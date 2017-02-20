@@ -1,0 +1,632 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1ED86A8D809B3158B1CDEA99 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E6B50181F56BD542C903C7 /* SwiftyJSON.framework */; };
+		35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */; };
+		35ECD58D1E5A473A008BBD9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58C1E5A473A008BBD9C /* ViewController.swift */; };
+		35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD58E1E5A473A008BBD9C /* Main.storyboard */; };
+		35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5911E5A473A008BBD9C /* Snapet.xcdatamodeld */; };
+		35ECD5951E5A473A008BBD9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD5941E5A473A008BBD9C /* Assets.xcassets */; };
+		35ECD5981E5A473A008BBD9C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD5961E5A473A008BBD9C /* LaunchScreen.storyboard */; };
+		35ECD5A31E5A473A008BBD9C /* SnapetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5A21E5A473A008BBD9C /* SnapetTests.swift */; };
+		35ECD5AE1E5A473A008BBD9C /* SnapetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5AD1E5A473A008BBD9C /* SnapetUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		35ECD59F1E5A473A008BBD9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35ECD57F1E5A473A008BBD9C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 35ECD5861E5A473A008BBD9C;
+			remoteInfo = Snapet;
+		};
+		35ECD5AA1E5A473A008BBD9C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 35ECD57F1E5A473A008BBD9C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 35ECD5861E5A473A008BBD9C;
+			remoteInfo = Snapet;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snapet/Pods-Snapet.release.xcconfig"; sourceTree = "<group>"; };
+		35ECD5871E5A473A008BBD9C /* Snapet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		35ECD58C1E5A473A008BBD9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		35ECD58F1E5A473A008BBD9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		35ECD5921E5A473A008BBD9C /* Snapet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Snapet.xcdatamodel; sourceTree = "<group>"; };
+		35ECD5941E5A473A008BBD9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		35ECD5971E5A473A008BBD9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		35ECD5991E5A473A008BBD9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35ECD59E1E5A473A008BBD9C /* SnapetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35ECD5A21E5A473A008BBD9C /* SnapetTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapetTests.swift; sourceTree = "<group>"; };
+		35ECD5A41E5A473A008BBD9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		35ECD5A91E5A473A008BBD9C /* SnapetUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapetUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		35ECD5AD1E5A473A008BBD9C /* SnapetUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapetUITests.swift; sourceTree = "<group>"; };
+		35ECD5AF1E5A473A008BBD9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9F4A97413B13E81697A8B690 /* Pods-Snapet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snapet/Pods-Snapet.debug.xcconfig"; sourceTree = "<group>"; };
+		A1E6B50181F56BD542C903C7 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		35ECD5841E5A473A008BBD9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1ED86A8D809B3158B1CDEA99 /* SwiftyJSON.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35ECD59B1E5A473A008BBD9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35ECD5A61E5A473A008BBD9C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		19608CAEBC5D4914A911AFBA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1E6B50181F56BD542C903C7 /* SwiftyJSON.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		35ECD57E1E5A473A008BBD9C = {
+			isa = PBXGroup;
+			children = (
+				35ECD5891E5A473A008BBD9C /* Snapet */,
+				35ECD5A11E5A473A008BBD9C /* SnapetTests */,
+				35ECD5AC1E5A473A008BBD9C /* SnapetUITests */,
+				35ECD5881E5A473A008BBD9C /* Products */,
+				930951599427C163859D90A6 /* Pods */,
+				19608CAEBC5D4914A911AFBA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		35ECD5881E5A473A008BBD9C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				35ECD5871E5A473A008BBD9C /* Snapet.app */,
+				35ECD59E1E5A473A008BBD9C /* SnapetTests.xctest */,
+				35ECD5A91E5A473A008BBD9C /* SnapetUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		35ECD5891E5A473A008BBD9C /* Snapet */ = {
+			isa = PBXGroup;
+			children = (
+				35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */,
+				35ECD58C1E5A473A008BBD9C /* ViewController.swift */,
+				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
+				35ECD5941E5A473A008BBD9C /* Assets.xcassets */,
+				35ECD5961E5A473A008BBD9C /* LaunchScreen.storyboard */,
+				35ECD5991E5A473A008BBD9C /* Info.plist */,
+				35ECD5911E5A473A008BBD9C /* Snapet.xcdatamodeld */,
+			);
+			path = Snapet;
+			sourceTree = "<group>";
+		};
+		35ECD5A11E5A473A008BBD9C /* SnapetTests */ = {
+			isa = PBXGroup;
+			children = (
+				35ECD5A21E5A473A008BBD9C /* SnapetTests.swift */,
+				35ECD5A41E5A473A008BBD9C /* Info.plist */,
+			);
+			path = SnapetTests;
+			sourceTree = "<group>";
+		};
+		35ECD5AC1E5A473A008BBD9C /* SnapetUITests */ = {
+			isa = PBXGroup;
+			children = (
+				35ECD5AD1E5A473A008BBD9C /* SnapetUITests.swift */,
+				35ECD5AF1E5A473A008BBD9C /* Info.plist */,
+			);
+			path = SnapetUITests;
+			sourceTree = "<group>";
+		};
+		930951599427C163859D90A6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9F4A97413B13E81697A8B690 /* Pods-Snapet.debug.xcconfig */,
+				2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		35ECD5861E5A473A008BBD9C /* Snapet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35ECD5B21E5A473A008BBD9C /* Build configuration list for PBXNativeTarget "Snapet" */;
+			buildPhases = (
+				26511D190DF6C841EA9F9538 /* [CP] Check Pods Manifest.lock */,
+				35ECD5831E5A473A008BBD9C /* Sources */,
+				35ECD5841E5A473A008BBD9C /* Frameworks */,
+				35ECD5851E5A473A008BBD9C /* Resources */,
+				8A3BB3AD2C032F4FDBB8C91F /* [CP] Embed Pods Frameworks */,
+				2D9A5CFB113D51637B6CD68F /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Snapet;
+			productName = Snapet;
+			productReference = 35ECD5871E5A473A008BBD9C /* Snapet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		35ECD59D1E5A473A008BBD9C /* SnapetTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35ECD5B51E5A473A008BBD9C /* Build configuration list for PBXNativeTarget "SnapetTests" */;
+			buildPhases = (
+				35ECD59A1E5A473A008BBD9C /* Sources */,
+				35ECD59B1E5A473A008BBD9C /* Frameworks */,
+				35ECD59C1E5A473A008BBD9C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				35ECD5A01E5A473A008BBD9C /* PBXTargetDependency */,
+			);
+			name = SnapetTests;
+			productName = SnapetTests;
+			productReference = 35ECD59E1E5A473A008BBD9C /* SnapetTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		35ECD5A81E5A473A008BBD9C /* SnapetUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 35ECD5B81E5A473A008BBD9C /* Build configuration list for PBXNativeTarget "SnapetUITests" */;
+			buildPhases = (
+				35ECD5A51E5A473A008BBD9C /* Sources */,
+				35ECD5A61E5A473A008BBD9C /* Frameworks */,
+				35ECD5A71E5A473A008BBD9C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				35ECD5AB1E5A473A008BBD9C /* PBXTargetDependency */,
+			);
+			name = SnapetUITests;
+			productName = SnapetUITests;
+			productReference = 35ECD5A91E5A473A008BBD9C /* SnapetUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		35ECD57F1E5A473A008BBD9C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Yang Ding";
+				TargetAttributes = {
+					35ECD5861E5A473A008BBD9C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 8L96CHEMV6;
+						ProvisioningStyle = Automatic;
+					};
+					35ECD59D1E5A473A008BBD9C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 8L96CHEMV6;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 35ECD5861E5A473A008BBD9C;
+					};
+					35ECD5A81E5A473A008BBD9C = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 8L96CHEMV6;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 35ECD5861E5A473A008BBD9C;
+					};
+				};
+			};
+			buildConfigurationList = 35ECD5821E5A473A008BBD9C /* Build configuration list for PBXProject "Snapet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 35ECD57E1E5A473A008BBD9C;
+			productRefGroup = 35ECD5881E5A473A008BBD9C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				35ECD5861E5A473A008BBD9C /* Snapet */,
+				35ECD59D1E5A473A008BBD9C /* SnapetTests */,
+				35ECD5A81E5A473A008BBD9C /* SnapetUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		35ECD5851E5A473A008BBD9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35ECD5981E5A473A008BBD9C /* LaunchScreen.storyboard in Resources */,
+				35ECD5951E5A473A008BBD9C /* Assets.xcassets in Resources */,
+				35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35ECD59C1E5A473A008BBD9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35ECD5A71E5A473A008BBD9C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26511D190DF6C841EA9F9538 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2D9A5CFB113D51637B6CD68F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snapet/Pods-Snapet-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8A3BB3AD2C032F4FDBB8C91F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snapet/Pods-Snapet-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		35ECD5831E5A473A008BBD9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */,
+				35ECD58D1E5A473A008BBD9C /* ViewController.swift in Sources */,
+				35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35ECD59A1E5A473A008BBD9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35ECD5A31E5A473A008BBD9C /* SnapetTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		35ECD5A51E5A473A008BBD9C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35ECD5AE1E5A473A008BBD9C /* SnapetUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		35ECD5A01E5A473A008BBD9C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 35ECD5861E5A473A008BBD9C /* Snapet */;
+			targetProxy = 35ECD59F1E5A473A008BBD9C /* PBXContainerItemProxy */;
+		};
+		35ECD5AB1E5A473A008BBD9C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 35ECD5861E5A473A008BBD9C /* Snapet */;
+			targetProxy = 35ECD5AA1E5A473A008BBD9C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		35ECD58E1E5A473A008BBD9C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35ECD58F1E5A473A008BBD9C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		35ECD5961E5A473A008BBD9C /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35ECD5971E5A473A008BBD9C /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		35ECD5B01E5A473A008BBD9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		35ECD5B11E5A473A008BBD9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		35ECD5B31E5A473A008BBD9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9F4A97413B13E81697A8B690 /* Pods-Snapet.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8L96CHEMV6;
+				INFOPLIST_FILE = Snapet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.Snapet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		35ECD5B41E5A473A008BBD9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8L96CHEMV6;
+				INFOPLIST_FILE = Snapet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.Snapet;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		35ECD5B61E5A473A008BBD9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8L96CHEMV6;
+				INFOPLIST_FILE = SnapetTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.SnapetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Snapet.app/Snapet";
+			};
+			name = Debug;
+		};
+		35ECD5B71E5A473A008BBD9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 8L96CHEMV6;
+				INFOPLIST_FILE = SnapetTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.SnapetTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Snapet.app/Snapet";
+			};
+			name = Release;
+		};
+		35ECD5B91E5A473A008BBD9C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 8L96CHEMV6;
+				INFOPLIST_FILE = SnapetUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.SnapetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Snapet;
+			};
+			name = Debug;
+		};
+		35ECD5BA1E5A473A008BBD9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 8L96CHEMV6;
+				INFOPLIST_FILE = SnapetUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.SnapetUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Snapet;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		35ECD5821E5A473A008BBD9C /* Build configuration list for PBXProject "Snapet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35ECD5B01E5A473A008BBD9C /* Debug */,
+				35ECD5B11E5A473A008BBD9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35ECD5B21E5A473A008BBD9C /* Build configuration list for PBXNativeTarget "Snapet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35ECD5B31E5A473A008BBD9C /* Debug */,
+				35ECD5B41E5A473A008BBD9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35ECD5B51E5A473A008BBD9C /* Build configuration list for PBXNativeTarget "SnapetTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35ECD5B61E5A473A008BBD9C /* Debug */,
+				35ECD5B71E5A473A008BBD9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		35ECD5B81E5A473A008BBD9C /* Build configuration list for PBXNativeTarget "SnapetUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				35ECD5B91E5A473A008BBD9C /* Debug */,
+				35ECD5BA1E5A473A008BBD9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		35ECD5911E5A473A008BBD9C /* Snapet.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				35ECD5921E5A473A008BBD9C /* Snapet.xcdatamodel */,
+			);
+			currentVersion = 35ECD5921E5A473A008BBD9C /* Snapet.xcdatamodel */;
+			path = Snapet.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 35ECD57F1E5A473A008BBD9C /* Project object */;
+}
