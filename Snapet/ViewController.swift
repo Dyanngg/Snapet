@@ -132,9 +132,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print( "Error code \(errorObj["code"]): \(errorObj["message"])")
             } else {
                 // Parse the response
+                print("This is the beginning of JSON response\n")
                 print(json)
+                if let ocrText = json[0]["textAnnotations"]["description"].string {
+                    print("ocrText is \(ocrText)")
+                    var ocrTextByLines:[String] = []
+                    ocrText.enumerateLines { (line, stop) -> () in
+                        ocrTextByLines.append(line)
+                    }
+                    for (_, item) in ocrTextByLines.enumerated(){
+                        if item.lowercased().range(of:"total") != nil{
+                           // get the amount that correspond to total
+                            let amount = self.retrieveAmount(input: item)
+                            print("detected amount: \(amount)")
+                        }
+                    }
+                }
             }
         })
+    }
+    
+    func retrieveAmount(input: String) -> Float {
+       var components = input.characters.split(separator: " ").map(String.init)
+        for i in 0..<components.count {
+            if let floatValue = Float(components[i]){
+                return floatValue
+            }
+        }
+        //TO-DO: this is bad!!!
+        return 0
     }
 
 
