@@ -134,7 +134,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 // Parse the response
                 print("This is the beginning of JSON response\n")
                 print(json)
-                if let ocrText = json[0]["textAnnotations"]["description"].string {
+                
+                if let ocrText = json["responses"][0]["description"].string {
                     print("ocrText is \(ocrText)")
                     var ocrTextByLines:[String] = []
                     ocrText.enumerateLines { (line, stop) -> () in
@@ -148,6 +149,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                         }
                     }
                 }
+                else {print(json["responses"][0]["description"].error)}
             }
         })
     }
