@@ -135,21 +135,50 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print("This is the beginning of JSON response\n")
                 print(json)
                 
-                if let ocrText = json["responses"][0]["description"].string {
-                    print("ocrText is \(ocrText)")
-                    var ocrTextByLines:[String] = []
-                    ocrText.enumerateLines { (line, stop) -> () in
-                        ocrTextByLines.append(line)
-                    }
-                    for (_, item) in ocrTextByLines.enumerated(){
-                        if item.lowercased().range(of:"total") != nil{
-                           // get the amount that correspond to total
-                            let amount = self.retrieveAmount(input: item)
-                            print("detected amount: \(amount)")
+                if let responseArray = json["responses"].array{
+                    for responseDict in responseArray {
+                        let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
+                        print("ocrText is \(ocrTxt)")
+                        var ocrTextByLines:[String] = []
+                        ocrTxt.enumerateLines { (line, stop) -> () in
+                            ocrTextByLines.append(line)
+                        }
+                        for (index, item) in ocrTextByLines.enumerated(){
+                            if item.lowercased().range(of:"total") != nil &&
+                                item.lowercased().range(of:"subtotal") == nil {
+                                // get the amount that correspond to total
+                                let amount = self.retrieveAmount(input: item)
+                                if amount != -1 {
+                                    print("detected amount: \(amount)")
+                                }
+                                else {
+                                    //print("index is: \(index)")
+                                    let element = ocrTextByLines[index + 1]
+                                    //print(element)
+                                    let newAmount = self.retrieveAmount(input: element)
+                                    print("detected amount: \(newAmount)")
+                                }
+                            }
                         }
                     }
                 }
-                else {print(json["responses"][0]["description"].error)}
+                
+                
+//                if let ocrText = json["responses"][0]["description"].string {
+//                    print("ocrText is \(ocrText)")
+//                    var ocrTextByLines:[String] = []
+//                    ocrText.enumerateLines { (line, stop) -> () in
+//                        ocrTextByLines.append(line)
+//                    }
+//                    for (_, item) in ocrTextByLines.enumerated(){
+//                        if item.lowercased().range(of:"total") != nil{
+//                           // get the amount that correspond to total
+//                            let amount = self.retrieveAmount(input: item)
+//                            print("detected amount: \(amount)")
+//                        }
+//                    }
+//                }
+//                else {print(json["responses"][0]["description"].error)}
             }
         })
     }
@@ -160,9 +189,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if let floatValue = Float(components[i]){
                 return floatValue
             }
+            // Remove the currency sign that hinders the amount to be parsed
+            else {
+                components[i].remove(at: components[i].startIndex)
+                if let floatValue = Float(components[i]){
+                    return floatValue
+                }
+            }
         }
-        //TO-DO: this is bad!!!
-        return 0
+        //No legit amount detected
+        return -1
     }
 
 
