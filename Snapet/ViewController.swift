@@ -105,6 +105,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         DispatchQueue.global().async { self.runRequestOnBackgroundThread(request) }
     }
     
+    
     func runRequestOnBackgroundThread(_ request: URLRequest) {
         // run the request
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
@@ -132,59 +133,50 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print( "Error code \(errorObj["code"]): \(errorObj["message"])")
             } else {
                 // Parse the response
-                print("This is the beginning of JSON response\n")
+                // print("This is the beginning of JSON response\n")
                 print(json)
                 
                 if let responseArray = json["responses"].array{
                     for responseDict in responseArray {
                         let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
-                        print("ocrText is \(ocrTxt)")
-                        var ocrTextByLines:[String] = []
-                        ocrTxt.enumerateLines { (line, stop) -> () in
-                            ocrTextByLines.append(line)
-                        }
-                        for (index, item) in ocrTextByLines.enumerated(){
-                            if item.lowercased().range(of:"total") != nil &&
-                                item.lowercased().range(of:"subtotal") == nil {
-                                // get the amount that correspond to total
-                                let amount = self.retrieveAmount(input: item)
-                                if amount != -1 {
-                                    print("detected amount: \(amount)")
-                                }
-                                else {
-                                    //print("index is: \(index)")
-                                    let element = ocrTextByLines[index + 1]
-                                    //print(element)
-                                    let newAmount = self.retrieveAmount(input: element)
-                                    print("detected amount: \(newAmount)")
-                                }
-                            }
-                        }
+                        self.analyzeAmount(ocrTxt: ocrTxt)
                     }
                 }
-                
-                
-//                if let ocrText = json["responses"][0]["description"].string {
-//                    print("ocrText is \(ocrText)")
-//                    var ocrTextByLines:[String] = []
-//                    ocrText.enumerateLines { (line, stop) -> () in
-//                        ocrTextByLines.append(line)
-//                    }
-//                    for (_, item) in ocrTextByLines.enumerated(){
-//                        if item.lowercased().range(of:"total") != nil{
-//                           // get the amount that correspond to total
-//                            let amount = self.retrieveAmount(input: item)
-//                            print("detected amount: \(amount)")
-//                        }
-//                    }
-//                }
-//                else {print(json["responses"][0]["description"].error)}
             }
         })
     }
     
+    
+    func analyzeAmount(ocrTxt: String){
+        
+        // break the ocr text in lines
+        var ocrTextByLines:[String] = []
+        ocrTxt.enumerateLines { (line, stop) -> () in
+            ocrTextByLines.append(line)
+        }
+        
+        for (index, item) in ocrTextByLines.enumerated(){
+            if item.lowercased().range(of:"total") != nil &&
+                item.lowercased().range(of:"subtotal") == nil {
+                // get the amount that correspond to total
+                let amount = self.retrieveAmount(input: item)
+                if amount != -1 {
+                    print("detected amount: \(amount)")
+                }
+                else {
+                    //print("index is: \(index)")
+                    let element = ocrTextByLines[index + 1]
+                    //print(element)
+                    let newAmount = self.retrieveAmount(input: element)
+                    print("detected amount: \(newAmount)")}
+            }
+        }
+    }
+    
+    
     func retrieveAmount(input: String) -> Float {
-       var components = input.characters.split(separator: " ").map(String.init)
+        // split the line in words
+        var components = input.characters.split(separator: " ").map(String.init)
         for i in 0..<components.count {
             if let floatValue = Float(components[i]){
                 return floatValue
