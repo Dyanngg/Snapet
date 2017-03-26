@@ -99,9 +99,24 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DL2-ZE-jSu">
+                                <rect key="frame" x="170" y="521" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveCoreData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tyb-FD-tWM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="accountTextField" destination="npV-wg-ijn" id="YCg-Gj-guN"/>
+                        <outlet property="amountTextField" destination="a8K-YT-V6T" id="i8O-3n-1q5"/>
+                        <outlet property="categoryTextField" destination="4q5-7W-nQQ" id="2nm-uX-QgH"/>
+                        <outlet property="dateTextField" destination="zso-4L-U7e" id="pFL-ad-ULS"/>
+                        <outlet property="merchantTextField" destination="hbn-R9-8Yp" id="yqH-7B-EYc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

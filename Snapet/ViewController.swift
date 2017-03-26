@@ -8,8 +8,16 @@
 
 import UIKit
 import SwiftyJSON
+import CoreData
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    var amount = 0
+    var merchant = ""
+    var account = ""
+    var date = "2017-01-27"
+    var category = "Food"
+    
 
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -17,7 +25,84 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var googleURL: URL {
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
     }
+    var expenses: [NSManagedObject] = []
+    @IBOutlet weak var amountTextField: UITextField!
+    @IBOutlet weak var merchantTextField: UITextField!
+    @IBOutlet weak var accountTextField: UITextField!
+    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var categoryTextField: UITextField!
     
+    @IBAction func saveCoreData(_ sender: UIButton) {
+        let amountToSave = amount
+        self.save(amount: amountToSave)
+    }
+    
+    /*
+     Saving to Core Data
+     */
+    func save(amount: Int) {
+        
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        // 1
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        // 2
+        let entity =
+            NSEntityDescription.entity(forEntityName: "Expense",
+                                       in: managedContext)!
+        
+        let expense = NSManagedObject(entity: entity,
+                                     insertInto: managedContext)
+        
+        // 3
+        expense.setValue(amount, forKeyPath: "amount")
+        
+        // 4
+        do {
+            try managedContext.save()
+            expenses.append(expense)
+            print("saved amount = \(amount)")
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    /*
+     Fetching from Core Data
+     */
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //1
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        //2
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        
+        //3
+        do {
+            expenses = try managedContext.fetch(fetchRequest)
+            print("fetched amount = \(amount)")
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        if (!expenses.isEmpty) {
+            let expense = expenses[0]
+            amountTextField.text = expense.value(forKeyPath: "amount") as? String
+        }
+    }
     
     @IBAction func uploadImage(_ sender: UIButton) {
         imagePicker.allowsEditing = false
@@ -28,6 +113,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
+        
     }
 
     override func didReceiveMemoryWarning() {
