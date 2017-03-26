@@ -175,7 +175,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 "features": [
                     [
                         "type": "TEXT_DETECTION",
-                    ]
+                    ],
+                    [
+                        "type": "LOGO_DETECTION",
+                        "maxResults": 5
+                    ],
                 ]
             ]
         ]
@@ -225,6 +229,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let amount = self.analyzeAmount(json: json)
             }
         })
+        
     }
     
     
