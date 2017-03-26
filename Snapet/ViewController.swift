@@ -224,9 +224,46 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 print(json)
                 
                 let amount = self.analyzeAmount(json: json)
+                //let chrono = Chrono.shared
+                let date = self.analyzeDate(json: json)
+                print(date)
             }
         })
     }
+    
+    
+    func analyzeDate(json: JSON) -> String {
+       let chrono = Chrono.shared
+        if let responseArray = json["responses"].array{
+            for responseDict in responseArray {
+                let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
+                print("ocrtext is")
+                print(ocrTxt)
+                let date = retrieveDate(input: ocrTxt)
+                print(date)
+            }
+        }
+        return date
+    }
+    
+    
+    func retrieveDate(input: String) -> String {
+        var returnDate = "nil"
+        let chrono = Chrono.shared
+        var components = input.characters.split(separator: "\n").map(String.init)
+        for i in 0..<components.count {
+            if let date = chrono.dateFrom(naturalLanguageString: components[i]){
+                //print("found")
+                //print(components[i])
+                returnDate = date.description
+                let result = chrono.parsedResultsFrom(naturalLanguageString: components[i], referenceDate: nil)
+                print(result)
+            }
+        }
+        return returnDate
+    }
+    
+    
     
     
     func analyzeAmount(json: JSON) -> Float {
