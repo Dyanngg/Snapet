@@ -234,46 +234,68 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         if let responseArray = json["responses"].array{
             for responseDict in responseArray {
-                let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
-                let initialResult = self.analyzePureTextAmount(ocrTxt: ocrTxt)
-                
-                // The simple approach worked
-                if initialResult != -1{
-                    finalAmount = initialResult
-                }
-                // Analyze based ont location
-                else {
-                    finalAmount = analyzeAmountBasedOnLocation(json: json)
-                }
+//                let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
+//                let initialResult = self.analyzePureTextAmount(ocrTxt: ocrTxt)
+//                
+//                // The simple approach worked
+//                if initialResult != -1{
+//                    finalAmount = initialResult
+//                }
+//                // Analyze based ont location
+//                else {
+                    finalAmount = analyzeAmountByLocation(json: json)
+//                }
             }
         }
+        print("final amount is")
+        print (finalAmount)
         return finalAmount
     }
     
     
-    func analyzeAmountBasedOnLocation(json: JSON) -> Float{
-        
+    func analyzeAmountByLocation(json: JSON) -> Float{
         var returnAmount:Float = -1
         
         if let responseArray = json["responses"].array{
         for responseDict in responseArray {
         if let textArray = responseDict["textAnnotations"].array{
-            for (index, item) in textArray.enumerated() {
+            for (index, _) in textArray.enumerated() {
                 let descriptionText = textArray[index]["description"].string
                 if descriptionText?.lowercased().range(of:"total") != nil
                     && (descriptionText?.characters.count)! < 50
                     && descriptionText?.lowercased().range(of:"subtotal") == nil{
                     //print("location is")
                     //print(textArray[index]["boundingPoly"]["vertices"][0]["x"])
-                    let Yfloor = textArray[index]["boundingPoly"]["vertices"][0]["y"]
-                    let Yceiling = textArray[index]["boundingPoly"]["vertices"][2]["y"]
-                    let XrightEdge = textArray[index]["boundingPoly"]["vertices"][2]["x"]
+                    let yfloor = textArray[index]["boundingPoly"]["vertices"][0]["y"].int
+                    let yceiling = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
+                    let yrightEdge = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
+                    let result = retrieveAmountByLocation(yfloor: yfloor!, yceiling: yceiling!, yrightEdge: yrightEdge!, json: json)
+                    returnAmount = result
                 }
             }
         }}}
         return returnAmount
     }
     
+    
+    func retrieveAmountByLocation(yfloor: Int, yceiling: Int, yrightEdge: Int, json: JSON) -> Float {
+        var returnAmount:Float = -1
+        
+        if let responseArray = json["responses"].array{
+        for responseDict in responseArray {
+        if let textArray = responseDict["textAnnotations"].array{
+            for (index, _) in textArray.enumerated() {
+                let yfloorCandidate = textArray[index]["boundingPoly"]["vertices"][0]["y"].int
+                let yceilingCandidate = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
+                let yrightEdgeCandidate = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
+                if abs(yfloor - yfloorCandidate!) < 20 && abs(yceiling - yceilingCandidate!) < 20 && yrightEdge < yrightEdgeCandidate!{
+                    let candidateText = textArray[index]["description"].string!
+                    returnAmount = retrieveAmount(input: candidateText)
+                }
+            }
+        }}}
+        return returnAmount
+    }
     
     
     
