@@ -11,7 +11,7 @@
     </entity>
     <entity name="Expense" representedClassName="Expense" syncable="YES" codeGenerationType="class">
         <attribute name="account" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="amount" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="amount" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="merchant" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,9 +25,9 @@
         <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="merchants" inverseEntity="Expense" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Account" positionX="367" positionY="288" width="128" height="73"/>
+        <element name="Category" positionX="160" positionY="414" width="128" height="88"/>
         <element name="Expense" positionX="178" positionY="198" width="128" height="163"/>
         <element name="Merchant" positionX="-2" positionY="252" width="128" height="88"/>
-        <element name="Category" positionX="160" positionY="414" width="128" height="88"/>
-        <element name="Account" positionX="367" positionY="288" width="128" height="73"/>
     </elements>
 </model>

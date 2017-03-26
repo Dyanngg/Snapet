@@ -12,12 +12,15 @@ import CoreData
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var amount = 0
+    var amount = 3.0
     var merchant = ""
     var account = ""
     var date = "2017-01-27"
     var category = "Food"
-    
+    var expenses: [NSManagedObject] = []
+    var savedAmount = Float(-1.0)
+    var fetchedAmount = Float(-1.0)
+    var test = ["a", "b"]
 
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -25,51 +28,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var googleURL: URL {
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
     }
-    var expenses: [NSManagedObject] = []
-    @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var merchantTextField: UITextField!
-    @IBOutlet weak var accountTextField: UITextField!
-    @IBOutlet weak var dateTextField: UITextField!
-    @IBOutlet weak var categoryTextField: UITextField!
+
+    @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func saveCoreData(_ sender: UIButton) {
-        let amountToSave = amount
-        self.save(amount: amountToSave)
+    @IBAction func uploadImage(_ sender: UIButton) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    /*
-     Saving to Core Data
-     */
-    func save(amount: Int) {
-        
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
-        
-        // 1
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        
-        // 2
-        let entity =
-            NSEntityDescription.entity(forEntityName: "Expense",
-                                       in: managedContext)!
-        
-        let expense = NSManagedObject(entity: entity,
-                                     insertInto: managedContext)
-        
-        // 3
-        expense.setValue(amount, forKeyPath: "amount")
-        
-        // 4
-        do {
-            try managedContext.save()
-            expenses.append(expense)
-            print("saved amount = \(amount)")
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        imagePicker.delegate = self
+        title = "The List"
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: "Cell")
+        self.tableView.reloadData()
+        print("test0")
     }
     
     /*
@@ -94,31 +69,51 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //3
         do {
             expenses = try managedContext.fetch(fetchRequest)
-            print("fetched amount = \(amount)")
+            let expense = expenses[expenses.count - 1]
+            fetchedAmount = (expense.value(forKeyPath: "amount") as? Float)!
+            print("fetched amount = \(fetchedAmount)")
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        if (!expenses.isEmpty) {
-            let expense = expenses[0]
-            amountTextField.text = expense.value(forKeyPath: "amount") as? String
-        }
-    }
-    
-    @IBAction func uploadImage(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        imagePicker.delegate = self
+        self.tableView.reloadData()
+        print("test4")
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        print("test3")
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Return the number of rows in the section.
+        print("test2")
+        return test.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        // Configure the cell...
+        
+        cell.textLabel!.text = test[indexPath.row]
+        print("test1")
+        
+        return cell
+    }
+    
+    // display the constraints obtained from setting page
+    @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue) {
+        if let svc = unwindSegue.source as? DetailViewController {
+            expenses = svc.expenses
+            print("expenses is assigned")
+        }
     }
     
     
@@ -202,7 +197,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.analyzeResults(data)
         }
         task.resume()
+        self.performSegue(withIdentifier: "Detail", sender: nil)
     }
+    
     
     
     func analyzeResults(_ dataToParse: Data) {
@@ -225,6 +222,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let amount = self.analyzeAmount(json: json)
             }
         })
+        
+        
     }
     
     
@@ -331,4 +330,32 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
 
 }
+
+//extension ViewController: UITableViewDataSource {
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        // 1
+//        return 1
+//    }
+//    
+//    func tableView(_ tableView: UITableView,
+//                   numberOfRowsInSection section: Int) -> Int {
+//        return expenses.count
+//    }
+//    
+//    func tableView(_ tableView: UITableView,
+//                   cellForRowAt indexPath: IndexPath)
+//        -> UITableViewCell {
+//            
+//            let expense = expenses[indexPath.row]
+//            let cell =
+//                tableView.dequeueReusableCell(withIdentifier: "Cell",
+//                                              for: indexPath)
+//            print("table view is resetting")
+////            cell.textLabel?.text =
+////                expense.value(forKeyPath: "amount") as? String
+//            cell.textLabel!.text = test[indexPath.row]
+//            return cell
+//    }
+//}
 
