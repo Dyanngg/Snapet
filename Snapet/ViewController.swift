@@ -229,7 +229,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let amount = self.analyzeAmount(json: json)
                 //let chrono = Chrono.shared
                 let date = self.analyzeDate(json: json)
-                print(date)
+                //print(date)
             }
         })
     }
@@ -253,6 +253,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     func retrieveDate(input: String) -> String {
+        var results = [Date]()
         var returnDate = "nil"
         let chrono = Chrono.shared
         var components = input.characters.split(separator: "\n").map(String.init)
@@ -260,13 +261,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if let date = chrono.dateFrom(naturalLanguageString: components[i]){
                 //print("found")
                 //print(components[i])
-                returnDate = date.description
-                let result = chrono.parsedResultsFrom(naturalLanguageString: components[i], referenceDate: nil)
-                print(result)
+                //returnDate = date.description
+                //let result = chrono.parsedResultsFrom(naturalLanguageString: components[i], referenceDate: nil)
+                //print(result)
                 //print("result is")
                 //print(date.description)
+                results.append(date)
             }
         }
+        returnDate = results.min()!.description
         return returnDate
     }
     
