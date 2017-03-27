@@ -10,6 +10,12 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
+extension String {
+    func removingWhitespaces() -> String {
+        return components(separatedBy: .whitespaces).joined()
+    }
+}
+
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var amount = 3.0
@@ -31,6 +37,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBOutlet weak var tableView: UITableView!
     
+
     @IBAction func uploadImage(_ sender: UIButton) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
@@ -46,6 +53,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.tableView.reloadData()
         print("test0")
     }
+    
+    
+    
     
     /*
      Fetching from Core Data
@@ -340,13 +350,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let yceilingCandidate = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
                 let yrightEdgeCandidate = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
                 if abs(yfloor - yfloorCandidate!) < 20 && abs(yceiling - yceilingCandidate!) < 20 && yrightEdge < yrightEdgeCandidate!{
-                    candidateText = candidateText + textArray[index]["description"].string!
+                    candidateText = candidateText + textArray[index]["description"].string! + " "
                 }
             }
         }}}
         //print("candidateText is")
         //print(candidateText)
         returnAmount = retrieveAmount(input: candidateText)
+        if returnAmount == -1{
+            candidateText = candidateText.removingWhitespaces()
+            returnAmount = retrieveAmount(input: candidateText)
+        }
         return returnAmount
     }
     
@@ -402,6 +416,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         //No legit amount detected
         return -1
+//        var returnResult:Float = -1.0
+//        let scanner = Scanner(string: input)
+//        scanner.scanFloat(&returnResult)
+//        return returnResult
     }
 
 
