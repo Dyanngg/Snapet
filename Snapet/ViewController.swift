@@ -10,14 +10,17 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
+
 extension String {
     func removingWhitespaces() -> String {
         return components(separatedBy: .whitespaces).joined()
     }
 }
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+
+class ViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+
     var amount = 3.0
     var merchant = ""
     var account = ""
@@ -35,47 +38,47 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
     }
 
-    @IBOutlet weak var tableView: UITableView!
-    
+//    @IBOutlet weak var tableView: UITableView!
+
 
     @IBAction func uploadImage(_ sender: UIButton) {
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
         title = "The List"
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "Cell")
-        self.tableView.reloadData()
+//        tableView.register(UITableViewCell.self,
+//                           forCellReuseIdentifier: "Cell")
+//        self.tableView.reloadData()
         print("test0")
     }
-    
-    
-    
-    
+
+
+
+
     /*
      Fetching from Core Data
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         //1
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
-        
+
         let managedContext =
             appDelegate.persistentContainer.viewContext
-        
+
         //2
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        
+
         //3
         do {
             expenses = try managedContext.fetch(fetchRequest)
@@ -84,43 +87,43 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 fetchedAmount = (expense.value(forKeyPath: "amount") as? Float)!
                 print("fetched amount = \(fetchedAmount)")
             }
-            
+
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
         print("test4")
-        
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
         print("test3")
         return 1
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         print("test2")
         return test.count
     }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
+
         // Configure the cell...
-        
+
         cell.textLabel!.text = test[indexPath.row]
         print("test1")
-        
+
         return cell
     }
-    
+
     // display the constraints obtained from setting page
     @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue) {
         if let svc = unwindSegue.source as? DetailViewController {
@@ -128,8 +131,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             print("expenses is assigned")
         }
     }
-    
-    
+
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             // Base64 encode the image and create the request
@@ -138,11 +141,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         dismiss(animated: true, completion: nil)
     }
-    
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    
+
     func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
         UIGraphicsBeginImageContext(imageSize)
         image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
@@ -152,28 +155,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return resizedImage!
     }
 
-    
+
     func base64EncodeImage(_ image: UIImage) -> String {
         var imagedata = UIImagePNGRepresentation(image)
-        
+
         // Resize the image if it exceeds the 2MB Google vision API limit
         if (imagedata!.count > 2097152) {
             let oldSize: CGSize = image.size
             let newSize: CGSize = CGSize(width: 800, height: oldSize.height / oldSize.width * 800)
             imagedata = resizeImage(newSize, image: image)
         }
-        
+
         return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
     }
-    
+
     func createRequest(with imageBase64: String) {
         // Create our request URL
-        
+
         var request = URLRequest(url: googleURL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(Bundle.main.bundleIdentifier ?? "", forHTTPHeaderField: "X-Ios-Bundle-Identifier")
-        
+
         // Build our API request
         let jsonRequest = [
             "requests": [
@@ -192,18 +195,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             ]
         ]
         let jsonObject = JSON(jsonDictionary: jsonRequest)
-        
+
         // Serialize the JSON
         guard let data = try? jsonObject.rawData() else {
             return
         }
         request.httpBody = data
-        
+
         // Run the request on a background thread
         DispatchQueue.global().async { self.runRequestOnBackgroundThread(request) }
     }
-    
-    
+
+
     func runRequestOnBackgroundThread(_ request: URLRequest) {
         // run the request
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
@@ -216,18 +219,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         task.resume()
         self.performSegue(withIdentifier: "Detail", sender: nil)
     }
-    
-    
-    
+
+
+
     func analyzeResults(_ dataToParse: Data) {
-        
+
         // Update UI on the main thread
         DispatchQueue.main.async(execute: {
-            
+
             // Use SwiftyJSON to parse results
             let json = JSON(data: dataToParse)
             let errorObj: JSON = json["error"]
-            
+
             // Check for errors
             if (errorObj.dictionaryValue != [:]) {
                 print( "Error code \(errorObj["code"]): \(errorObj["message"])")
@@ -235,7 +238,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 // Parse the response
                 // print("This is the beginning of JSON response\n")
                 print(json)
-                
+
                 let amount = self.analyzeAmount(json: json)
                 //let chrono = Chrono.shared
                 let date = self.analyzeDate(json: json)
@@ -243,8 +246,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         })
     }
-    
-    
+
+
     func analyzeDate(json: JSON) -> String {
         var date: String = ""
         if let responseArray = json["responses"].array{
@@ -253,15 +256,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 //print("ocrtext is")
                 //print(ocrTxt)
                 date = retrieveDate(input: ocrTxt)
-                
+
             }
         }
         print("final date is")
         print(date)
         return date
     }
-    
-    
+
+
     func retrieveDate(input: String) -> String {
         var results = [Date]()
         var returnDate = "nil"
@@ -282,19 +285,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         returnDate = results.min()!.description
         return returnDate
     }
-    
-    
-    
-    
+
+
+
+
     func analyzeAmount(json: JSON) -> Float {
-        
+
 //        var finalAmount:Float = -1
-        
+
 //        if let responseArray = json["responses"].array{
 //            for responseDict in responseArray {
 //                let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
 //                let initialResult = self.analyzePureTextAmount(ocrTxt: ocrTxt)
-//                
+//
 //                // The simple approach worked
 //                if initialResult != -1{
 //                    finalAmount = initialResult
@@ -309,12 +312,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print (finalAmount)
         return finalAmount
     }
-    
-    
+
+
     func analyzeAmountByLocation(json: JSON) -> Float{
         var returnAmount:Float = -1
         var results = [Float]()
-        
+
         if let responseArray = json["responses"].array{
         for responseDict in responseArray {
         if let textArray = responseDict["textAnnotations"].array{
@@ -336,12 +339,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         returnAmount = results.max()!
         return returnAmount
     }
-    
-    
+
+
     func retrieveAmountByLocation(yfloor: Int, yceiling: Int, yrightEdge: Int, json: JSON) -> Float {
         var returnAmount:Float = -1
         var candidateText = ""
-        
+
         if let responseArray = json["responses"].array{
         for responseDict in responseArray {
         if let textArray = responseDict["textAnnotations"].array{
@@ -363,19 +366,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         return returnAmount
     }
-    
-    
-    
+
+
+
     func analyzePureTextAmount(ocrTxt: String) -> Float {
-        
+
         var returnAmount:Float = -1
-        
+
         // break the ocr text in lines
         var ocrTextByLines:[String] = []
         ocrTxt.enumerateLines { (line, stop) -> () in
             ocrTextByLines.append(line)
         }
-        
+
         for (index, item) in ocrTextByLines.enumerated(){
             if item.lowercased().range(of:"total") != nil &&
                 item.lowercased().range(of:"subtotal") == nil {
@@ -397,8 +400,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         return returnAmount
     }
-    
-    
+
+
     func retrieveAmount(input: String) -> Float {
         // split the line in words
         var components = input.characters.split(separator: " ").map(String.init)
@@ -431,16 +434,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //        // 1
 //        return 1
 //    }
-//    
+//
 //    func tableView(_ tableView: UITableView,
 //                   numberOfRowsInSection section: Int) -> Int {
 //        return expenses.count
 //    }
-//    
+//
 //    func tableView(_ tableView: UITableView,
 //                   cellForRowAt indexPath: IndexPath)
 //        -> UITableViewCell {
-//            
+//
 //            let expense = expenses[indexPath.row]
 //            let cell =
 //                tableView.dequeueReusableCell(withIdentifier: "Cell",
@@ -452,4 +455,3 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //            return cell
 //    }
 //}
-
