@@ -282,7 +282,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 results.append(date)
             }
         }
-        returnDate = results.min()!.description
+        if let min = results.min(){
+            returnDate = min.description
+        }
         return returnDate
     }
 
@@ -336,7 +338,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 }
             }
         }}}
-        returnAmount = results.max()!
+        if let max = results.max(){
+            returnAmount = max
+        }
         return returnAmount
     }
 
