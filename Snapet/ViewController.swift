@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var amount = 3.0
     var merchant = ""
@@ -29,7 +29,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
     }
 
-    @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func uploadImage(_ sender: UIButton) {
         imagePicker.allowsEditing = false
@@ -41,9 +41,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         imagePicker.delegate = self
         title = "The List"
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "Cell")
-        self.tableView.reloadData()
+//        tableView.register(UITableViewCell.self,
+//                           forCellReuseIdentifier: "Cell")
+//        self.tableView.reloadData()
         print("test0")
     }
     
@@ -78,7 +78,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        self.tableView.reloadData()
+//        self.tableView.reloadData()
         print("test4")
         
     }
@@ -88,19 +88,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         print("test3")
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         print("test2")
         return test.count
     }
     
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         // Configure the cell...
