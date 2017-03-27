@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ej9-FK-LuZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ayt-pB-6nI">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -40,30 +41,89 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="LAV-3w-11L">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="sLP-vR-pWV">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uBa-hH-K0d">
-                                <rect key="frame" x="254" y="7" width="105" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Upload Receipt"/>
-                                <connections>
-                                    <action selector="uploadImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Pb-d3-AGP"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="sLP-vR-pWV">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uBa-hH-K0d">
+                                    <rect key="frame" x="254" y="7" width="105" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Upload Receipt"/>
+                                    <connections>
+                                        <action selector="uploadImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5Pb-d3-AGP"/>
+                                    </connections>
+                                </button>
+                            </barButtonItem>
+                            <barButtonItem title="Button" style="plain" id="RmF-hZ-IAP">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="iOQ-t7-aPf" userLabel="Go">
+                                    <rect key="frame" x="-129" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Go"/>
+                                </button>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="xjd-2w-SrL" id="Fir-Lj-2UJ"/>
-                        <segue destination="FZT-r2-ikn" kind="show" identifier="Detail" id="U8x-JD-ciC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1092" y="53.523238380809602"/>
+            <point key="canvasLocation" x="934" y="-645"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="00B-RD-iVn">
+            <objects>
+                <tableViewController id="Q4i-LV-iwK" customClass="TableViewController" customModule="Snapet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="BYc-Yj-YFg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="era-3c-BzK">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="era-3c-BzK" id="bdc-gO-bBU">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Q4i-LV-iwK" id="5Uv-ux-OIU"/>
+                            <outlet property="delegate" destination="Q4i-LV-iwK" id="ycK-Xa-Axp"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="2Wl-Ky-QCL">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="g2j-fC-J0V">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="CkX-vG-OsD">
+                                <rect key="frame" x="16" y="7" width="83" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Upload"/>
+                                <connections>
+                                    <action selector="uploadImage:" destination="Q4i-LV-iwK" eventType="touchUpInside" id="59I-UH-ubA"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="UXe-Ss-sqi">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="UqN-OX-aze">
+                                <rect key="frame" x="302" y="7" width="57" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Go"/>
+                            </button>
+                            <connections>
+                                <segue destination="FZT-r2-ikn" kind="show" identifier="Go" id="S0d-yT-dDS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WP0-t6-hco" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="933.60000000000002" y="122.78860569715144"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="Fe0-he-k3i">
             <objects>
-                <viewController id="FZT-r2-ikn" customClass="DetailViewController" customModule="Snapet" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="test" id="FZT-r2-ikn" customClass="DetailViewController" customModule="Snapet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZSw-nz-D2q"/>
                         <viewControllerLayoutGuide type="bottom" id="Ctq-Am-kg7"/>
@@ -149,7 +209,7 @@
                                 <connections>
                                     <action selector="saveCoreData:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eOe-0j-lWK"/>
                                     <action selector="saveData:" destination="FZT-r2-ikn" eventType="touchUpInside" id="ryM-dM-Hjs"/>
-                                    <segue destination="H83-DQ-7YQ" kind="unwind" unwindAction="myUnwindAction:" id="bHt-3O-E0S"/>
+                                    <segue destination="H83-DQ-7YQ" kind="unwind" unwindAction="myUnwindAction:" id="sMD-53-TJ0"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faU-fr-Mgu">
@@ -173,7 +233,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oZl-RY-On4" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="H83-DQ-7YQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1886" y="54"/>
+            <point key="canvasLocation" x="1686" y="123"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kYg-PB-CMy">
@@ -192,6 +252,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LIT-kQ-nEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="176.80000000000001" y="-644.52773613193403"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="q40-Lw-47N">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ayt-pB-6nI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N78-4O-OOP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Q4i-LV-iwK" kind="relationship" relationship="rootViewController" id="DXk-t1-Jno"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AmT-ID-c8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="177" y="123"/>
         </scene>
     </scenes>
 </document>

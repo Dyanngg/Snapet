@@ -17,14 +17,14 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     
-    var amount = 2.0
+    var amount: Float = 0.0
     var merchant = ""
     var account = ""
-    var date = "2017-01-27"
+    var date: Date? = nil
     var category = "Food"
     var expenses: [NSManagedObject] = []
     var savedAmount = Float(-1.0)
-    var fetchedAmount = Float(-1.0)
+    var savedDate: Date? = nil
     
     @IBAction func saveData(_ sender: Any) {
         let amountToSave = amount
@@ -54,6 +54,9 @@ class DetailViewController: UIViewController {
         
         // 3
         expense.setValue(amount, forKeyPath: "amount")
+        if (date != nil) {
+            expense.setValue(date, forKeyPath: "date")
+        }
         
         // 4
         do {
@@ -61,6 +64,10 @@ class DetailViewController: UIViewController {
             expenses.append(expense)
             savedAmount = (expense.value(forKeyPath: "amount") as? Float)!
             print("saved amount = \(savedAmount)")
+            if (date != nil) {
+                savedDate = (expense.value(forKeyPath: "date") as? Date)!
+                print("saved Date = \(savedDate)")
+            }
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -68,6 +75,8 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        amountField.text = String(amount)
+        dateField.text = date?.description
 
         // Do any additional setup after loading the view.
     }
