@@ -236,16 +236,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     func analyzeDate(json: JSON) -> String {
-       let chrono = Chrono.shared
+        var date: String = ""
         if let responseArray = json["responses"].array{
             for responseDict in responseArray {
                 let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
-                print("ocrtext is")
-                print(ocrTxt)
-                let date = retrieveDate(input: ocrTxt)
-                print(date)
+                //print("ocrtext is")
+                //print(ocrTxt)
+                date = retrieveDate(input: ocrTxt)
+                
             }
         }
+        print("final date is")
+        print(date)
         return date
     }
     
@@ -261,6 +263,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 returnDate = date.description
                 let result = chrono.parsedResultsFrom(naturalLanguageString: components[i], referenceDate: nil)
                 print(result)
+                //print("result is")
+                //print(date.description)
             }
         }
         return returnDate
@@ -271,10 +275,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func analyzeAmount(json: JSON) -> Float {
         
-        var finalAmount:Float = -1
+//        var finalAmount:Float = -1
         
-        if let responseArray = json["responses"].array{
-            for responseDict in responseArray {
+//        if let responseArray = json["responses"].array{
+//            for responseDict in responseArray {
 //                let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
 //                let initialResult = self.analyzePureTextAmount(ocrTxt: ocrTxt)
 //                
@@ -284,10 +288,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 //                }
 //                // Analyze based ont location
 //                else {
-                    finalAmount = analyzeAmountByLocation(json: json)
+                    let finalAmount = analyzeAmountByLocation(json: json)
 //                }
-            }
-        }
+//            }
+//        }
         print("final amount is")
         print (finalAmount)
         return finalAmount
@@ -296,6 +300,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func analyzeAmountByLocation(json: JSON) -> Float{
         var returnAmount:Float = -1
+        var results = [Float]()
         
         if let responseArray = json["responses"].array{
         for responseDict in responseArray {
@@ -311,16 +316,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     let yceiling = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
                     let yrightEdge = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
                     let result = retrieveAmountByLocation(yfloor: yfloor!, yceiling: yceiling!, yrightEdge: yrightEdge!, json: json)
-                    returnAmount = result
+                    results.append(result)
                 }
             }
         }}}
+        returnAmount = results.max()!
         return returnAmount
     }
     
     
     func retrieveAmountByLocation(yfloor: Int, yceiling: Int, yrightEdge: Int, json: JSON) -> Float {
         var returnAmount:Float = -1
+        var candidateText = ""
         
         if let responseArray = json["responses"].array{
         for responseDict in responseArray {
@@ -330,11 +337,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let yceilingCandidate = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
                 let yrightEdgeCandidate = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
                 if abs(yfloor - yfloorCandidate!) < 20 && abs(yceiling - yceilingCandidate!) < 20 && yrightEdge < yrightEdgeCandidate!{
-                    let candidateText = textArray[index]["description"].string!
-                    returnAmount = retrieveAmount(input: candidateText)
+                    candidateText = candidateText + textArray[index]["description"].string!
                 }
             }
         }}}
+        //print("candidateText is")
+        //print(candidateText)
+        returnAmount = retrieveAmount(input: candidateText)
         return returnAmount
     }
     
