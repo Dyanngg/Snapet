@@ -69,9 +69,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         //3
         do {
             expenses = try managedContext.fetch(fetchRequest)
-            let expense = expenses[expenses.count - 1]
-            fetchedAmount = (expense.value(forKeyPath: "amount") as? Float)!
-            print("fetched amount = \(fetchedAmount)")
+            if !expenses.isEmpty{
+                let expense = expenses[expenses.count - 1]
+                fetchedAmount = (expense.value(forKeyPath: "amount") as? Float)!
+                print("fetched amount = \(fetchedAmount)")
+            }
+            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
