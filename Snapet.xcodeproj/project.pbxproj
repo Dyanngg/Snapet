@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1ED86A8D809B3158B1CDEA99 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E6B50181F56BD542C903C7 /* SwiftyJSON.framework */; };
-		3590A0721E8868070069DB2B /* Chrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A06E1E8868070069DB2B /* Chrono.swift */; };
-		3590A0731E8868070069DB2B /* chrono.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 3590A0701E8868070069DB2B /* chrono.min.js */; };
-		3590A0741E8868070069DB2B /* ChronoParsedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0711E8868070069DB2B /* ChronoParsedResult.swift */; };
+		3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0761E897BC20069DB2B /* Chrono.swift */; };
+		3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 3590A0781E897BC20069DB2B /* chrono.min.js */; };
+		3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */; };
 		35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */; };
 		35ECD58D1E5A473A008BBD9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58C1E5A473A008BBD9C /* ViewController.swift */; };
 		35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD58E1E5A473A008BBD9C /* Main.storyboard */; };
@@ -41,9 +41,9 @@
 
 /* Begin PBXFileReference section */
 		2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snapet/Pods-Snapet.release.xcconfig"; sourceTree = "<group>"; };
-		3590A06E1E8868070069DB2B /* Chrono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chrono.swift; sourceTree = "<group>"; };
-		3590A0701E8868070069DB2B /* chrono.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chrono.min.js; sourceTree = "<group>"; };
-		3590A0711E8868070069DB2B /* ChronoParsedResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChronoParsedResult.swift; sourceTree = "<group>"; };
+		3590A0761E897BC20069DB2B /* Chrono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chrono.swift; sourceTree = "<group>"; };
+		3590A0781E897BC20069DB2B /* chrono.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chrono.min.js; sourceTree = "<group>"; };
+		3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChronoParsedResult.swift; sourceTree = "<group>"; };
 		35ECD5871E5A473A008BBD9C /* Snapet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35ECD58C1E5A473A008BBD9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -97,21 +97,20 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3590A06D1E8868070069DB2B /* Chrono */ = {
+		3590A0751E897BC20069DB2B /* Chrono */ = {
 			isa = PBXGroup;
 			children = (
-				3590A06E1E8868070069DB2B /* Chrono.swift */,
-				3590A06F1E8868070069DB2B /* ChronoJS */,
-				3590A0711E8868070069DB2B /* ChronoParsedResult.swift */,
+				3590A0761E897BC20069DB2B /* Chrono.swift */,
+				3590A0771E897BC20069DB2B /* ChronoJS */,
+				3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */,
 			);
-			name = Chrono;
-			path = "../../Downloads/chrono-swift-master/Chrono";
+			path = Chrono;
 			sourceTree = "<group>";
 		};
-		3590A06F1E8868070069DB2B /* ChronoJS */ = {
+		3590A0771E897BC20069DB2B /* ChronoJS */ = {
 			isa = PBXGroup;
 			children = (
-				3590A0701E8868070069DB2B /* chrono.min.js */,
+				3590A0781E897BC20069DB2B /* chrono.min.js */,
 			);
 			path = ChronoJS;
 			sourceTree = "<group>";
@@ -119,7 +118,7 @@
 		35ECD57E1E5A473A008BBD9C = {
 			isa = PBXGroup;
 			children = (
-				3590A06D1E8868070069DB2B /* Chrono */,
+				3590A0751E897BC20069DB2B /* Chrono */,
 				35ECD5891E5A473A008BBD9C /* Snapet */,
 				35ECD5A11E5A473A008BBD9C /* SnapetTests */,
 				35ECD5AC1E5A473A008BBD9C /* SnapetUITests */,
@@ -297,7 +296,7 @@
 				35ECD5981E5A473A008BBD9C /* LaunchScreen.storyboard in Resources */,
 				35ECD5951E5A473A008BBD9C /* Assets.xcassets in Resources */,
 				35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */,
-				3590A0731E8868070069DB2B /* chrono.min.js in Resources */,
+				3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,9 +369,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3590A0721E8868070069DB2B /* Chrono.swift in Sources */,
-				3590A0741E8868070069DB2B /* ChronoParsedResult.swift in Sources */,
+				3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */,
 				35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */,
+				3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */,
 				35ECD58D1E5A473A008BBD9C /* ViewController.swift in Sources */,
 				35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */,
 				A70B72671E8856B900FC6573 /* DetailViewController.swift in Sources */,

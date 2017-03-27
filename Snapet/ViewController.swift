@@ -18,7 +18,7 @@ extension String {
 }
 
 
-class ViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
 
     var amount = 3.0
@@ -38,7 +38,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
     }
 
-//    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!
 
 
     @IBAction func uploadImage(_ sender: UIButton) {
@@ -51,9 +51,9 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         super.viewDidLoad()
         imagePicker.delegate = self
         title = "The List"
-//        tableView.register(UITableViewCell.self,
-//                           forCellReuseIdentifier: "Cell")
-//        self.tableView.reloadData()
+        tableView.register(UITableViewCell.self,
+                           forCellReuseIdentifier: "Cell")
+        self.tableView.reloadData()
         print("test0")
     }
 
@@ -91,7 +91,7 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-//        self.tableView.reloadData()
+        self.tableView.reloadData()
         print("test4")
 
     }
@@ -101,28 +101,28 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
         // Dispose of any resources that can be recreated.
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        print("test3")
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Return the number of rows in the section.
-        print("test2")
-        return test.count
-    }
-
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        // Configure the cell...
-
-        cell.textLabel!.text = test[indexPath.row]
-        print("test1")
-
-        return cell
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        print("test3")
+//        return 1
+//    }
+//
+//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        // Return the number of rows in the section.
+//        print("test2")
+//        return test.count
+//    }
+//
+//
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+//
+//        // Configure the cell...
+//
+//        cell.textLabel!.text = test[indexPath.row]
+//        print("test1")
+//
+//        return cell
+//    }
 
     // display the constraints obtained from setting page
     @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue) {
@@ -428,30 +428,30 @@ class ViewController: UITableViewController, UIImagePickerControllerDelegate, UI
 
 }
 
-//extension ViewController: UITableViewDataSource {
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        // 1
-//        return 1
-//    }
-//
-//    func tableView(_ tableView: UITableView,
-//                   numberOfRowsInSection section: Int) -> Int {
-//        return expenses.count
-//    }
-//
-//    func tableView(_ tableView: UITableView,
-//                   cellForRowAt indexPath: IndexPath)
-//        -> UITableViewCell {
-//
-//            let expense = expenses[indexPath.row]
-//            let cell =
-//                tableView.dequeueReusableCell(withIdentifier: "Cell",
-//                                              for: indexPath)
-//            print("table view is resetting")
-////            cell.textLabel?.text =
-////                expense.value(forKeyPath: "amount") as? String
-//            cell.textLabel!.text = test[indexPath.row]
-//            return cell
-//    }
-//}
+extension ViewController: UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // 1
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView,
+                   numberOfRowsInSection section: Int) -> Int {
+        return expenses.count
+    }
+
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath)
+        -> UITableViewCell {
+
+            let expense = expenses[indexPath.row]
+            let cell =
+                tableView.dequeueReusableCell(withIdentifier: "Cell",
+                                              for: indexPath)
+            print("table view is resetting")
+//            cell.textLabel?.text =
+//                expense.value(forKeyPath: "amount") as? String
+            cell.textLabel!.text = test[indexPath.row]
+            return cell
+    }
+}
