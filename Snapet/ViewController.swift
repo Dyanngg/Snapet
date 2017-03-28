@@ -226,6 +226,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.analyzeResults(data)
         }
         task.resume()
+
 //        let viewController:DetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "test") as! DetailViewController
 //        let s = UIStoryboardSegue(identifier: "trial", source: self, destination: viewController)
 //        self.prepare(for: s, sender: nil)
@@ -242,6 +243,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             secondViewController.date = detectedDate
             print("prepare for segue")
         //}
+
     }
 
 
