@@ -21,10 +21,11 @@ class DetailViewController: UIViewController {
     var merchant: String? = ""
     var account = ""
     var date: Date? = nil
-    var category = "Food"
+    var category = ""
     var expenses: [NSManagedObject] = []
-    var savedAmount = Double(-1.0)
-    var savedDate: Date? = nil
+//    var savedAmount = Double(-1.0)
+//    var savedDate: Date? = nil
+//    var savedMerchant = ""
     
     @IBAction func saveData(_ sender: Any) {
         let amountToSave = amount
@@ -57,17 +58,24 @@ class DetailViewController: UIViewController {
         if (date != nil) {
             expense.setValue(date, forKeyPath: "date")
         }
+        if (merchant != nil) {
+            expense.setValue(merchant, forKeyPath: "merchant")
+        }
         
         // 4
         do {
             try managedContext.save()
             expenses.append(expense)
-            savedAmount = (expense.value(forKeyPath: "amount") as? Double)!
-            print("saved amount = \(savedAmount)")
-            if (date != nil) {
-                savedDate = (expense.value(forKeyPath: "date") as? Date)!
-                print("saved Date = \(savedDate)")
-            }
+//            savedAmount = (expense.value(forKeyPath: "amount") as? Double)!
+//            print("saved amount = \(savedAmount)")
+//            if (date != nil) {
+//                savedDate = (expense.value(forKeyPath: "date") as? Date)!
+//                print("saved date = \(savedDate)")
+//            }
+//            if (merchant != nil) {
+//                savedMerchant = (expense.value(forKeyPath: "merchant") as? String)!
+//                print("saved merchant = \(savedMerchant)")
+//            }
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
@@ -78,7 +86,6 @@ class DetailViewController: UIViewController {
         amountField.text = String(amount)
         dateField.text = date?.description
         merchantField.text = merchant?.description
-
         // Do any additional setup after loading the view.
     }
 

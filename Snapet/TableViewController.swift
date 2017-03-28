@@ -31,6 +31,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     var detectedAmount: Double = 0.0
     var detectedDate: Date? = nil
     var detectedMerchant: String? = nil
+    var amountDone = false
+    var dateDone = false
     
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -55,6 +57,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         DeleteAllData()
+        amountDone = false
+        dateDone = false
         imagePicker.delegate = self
         title = "The List"
         tableView.register(UITableViewCell.self,
@@ -143,13 +147,10 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         print(expenses)
         let expense = expenses[indexPath.row]
         print("printing expense: ")
-        let cell =
-            tableView.dequeueReusableCell(withIdentifier: "Cell",
-                                          for: indexPath)
-                    cell.textLabel?.text =
-                        String (describing: expense.value(forKeyPath: "amount") as? Double)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let amountLabel = expense.value(forKeyPath: "amount") as? Double
+        cell.textLabel?.text = String (describing: amountLabel!)
         return cell
-
     }
     
 
@@ -274,12 +275,11 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         //        let viewController:DetailViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "test") as! DetailViewController
         //        let s = UIStoryboardSegue(identifier: "trial", source: self, destination: viewController)
         //        self.prepare(for: s, sender: nil)
-        self.performSegue(withIdentifier: "Go", sender: nil)
     }
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Go" {
+        if segue.identifier == "Go" && amountDone && dateDone {
         // get a reference to the second view controller
         let secondViewController = segue.destination as! DetailViewController
         // set the variables in the second view controller with the String to pass
@@ -287,14 +287,17 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         secondViewController.date = detectedDate
         secondViewController.merchant = detectedMerchant
         print("prepare for segue")
+        print("detected amount = \(detectedAmount)")
+        print("detected date = \(detectedDate)")
+        detectedMerchant = ""
+        detectedDate = nil
+        detectedAmount = 0.0
         }
     }
     
     func analyzeResults(_ dataToParse: Data) {
         
         // Update UI on the main thread
-        DispatchQueue.main.async(execute: {
-            
             // Use SwiftyJSON to parse results
             let json = JSON(data: dataToParse)
             let errorObj: JSON = json["error"]
@@ -307,14 +310,25 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 print(json)
                 
                 self.detectedAmount = self.analyzeAmount(json: json)
-                if let dateDetected = self.analyzeDate(json: json){
-                    self.detectedDate = dateDetected
-                }
+                
                 if let merchantDetected = self.analyzeLogo(json: json){
                     self.detectedMerchant = merchantDetected
                 }
+                //let chrono = Chrono.shared
+                if let dateDetected = self.analyzeDate(json: json){
+                    self.detectedDate = dateDetected
+                }
+                
+                //print(date)
+                self.amountDone = true
+                print("set detected amount = \(self.detectedAmount)")
+                self.dateDone = true
+                print("set detected date = \(self.detectedDate)")
             }
-        })
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "Go", sender: nil)
+        }
+       
     }
     
     
