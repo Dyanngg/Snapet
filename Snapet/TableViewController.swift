@@ -30,6 +30,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     var detectedAmount: Double = 0.0
     var detectedDate: Date? = nil
+    var detectedMerchant: String? = nil
     
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -284,6 +285,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         // set the variables in the second view controller with the String to pass
         secondViewController.amount = detectedAmount
         secondViewController.date = detectedDate
+        secondViewController.merchant = detectedMerchant
         print("prepare for segue")
         }
     }
@@ -302,19 +304,42 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 print( "Error code \(errorObj["code"]): \(errorObj["message"])")
             } else {
                 // Parse the response
-                // print("This is the beginning of JSON response\n")
                 print(json)
                 
                 self.detectedAmount = self.analyzeAmount(json: json)
-                //let chrono = Chrono.shared
                 if let dateDetected = self.analyzeDate(json: json){
                     self.detectedDate = dateDetected
                 }
-                //print(date)
+                if let merchantDetected = self.analyzeLogo(json: json){
+                    self.detectedMerchant = merchantDetected
+                }
             }
         })
     }
     
+    
+    
+    
+    /**
+     *Analyze Logo
+     */
+    func analyzeLogo(json: JSON) -> String? {
+        var result: String? = nil
+        if let responseArray = json["responses"].array{
+            for responseDict in responseArray {
+                if let logo: String = responseDict["logoAnnotations"][0]["description"].string{
+                    result = logo
+                }
+            }
+        }
+        return result
+    }
+    
+    
+    
+    /** 
+     *Analyze Date
+     */
     func analyzeDate(json: JSON) -> Date? {
         var date: Date? = nil
         if let responseArray = json["responses"].array{
@@ -355,8 +380,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     }
     
     
-    
-    
+    /**
+     *Analyze Amount
+     */
     func analyzeAmount(json: JSON) -> Double {
         
         //        var finalAmount:Double = -1.0

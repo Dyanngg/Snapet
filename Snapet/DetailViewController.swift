@@ -18,7 +18,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var categoryField: UITextField!
     
     var amount: Double = 0.0
-    var merchant = ""
+    var merchant: String? = ""
     var account = ""
     var date: Date? = nil
     var category = "Food"
@@ -77,6 +77,7 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         amountField.text = String(amount)
         dateField.text = date?.description
+        merchantField.text = merchant?.description
 
         // Do any additional setup after loading the view.
     }
