@@ -40,6 +40,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     var googleURL: URL {
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
     }
+    let googleKGURL = "https://kgsearch.googleapis.com/v1/entities:search"
+    
 
     // MARK: - Table view data source
 
@@ -277,6 +279,42 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         //        self.prepare(for: s, sender: nil)
     }
     
+    
+    
+    func createKGRequest(input:String) {
+        //let finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey
+        //let finalURL = URL(string: finalURLString)
+        let finalURL = URL(string: googleKGURL)
+        var request = URLRequest(url: finalURL!)
+        request.addValue(input, forHTTPHeaderField: "query")
+        request.addValue(googleAPIKey, forHTTPHeaderField: "key")
+        request.httpMethod = "GET"
+        DispatchQueue.global().async { self.runKGRequest(request) }
+    }
+    
+    
+    func runKGRequest(_ request: URLRequest) {
+        let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "")
+                return
+            }
+            let KGjson = JSON(data: data)
+            let errorObj: JSON = KGjson["error"]
+            if (errorObj.dictionaryValue != [:]) {
+                print( "Error code \(errorObj["code"]): \(errorObj["message"])")
+            } else {
+                print(KGjson)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
+    
+    
+    
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Go" && amountDone && dateDone {
@@ -294,6 +332,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         detectedAmount = 0.0
         }
     }
+    
+    
     
     func analyzeResults(_ dataToParse: Data) {
         
@@ -313,6 +353,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 
                 if let merchantDetected = self.analyzeLogo(json: json){
                     self.detectedMerchant = merchantDetected
+                    self.createKGRequest(input: merchantDetected)
                 }
                 //let chrono = Chrono.shared
                 if let dateDetected = self.analyzeDate(json: json){
