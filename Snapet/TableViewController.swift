@@ -19,20 +19,19 @@ extension String {
 
 class TableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    var merchant = ""
-    var account = ""
-    var category = "Food"
-    
     var expenses: [NSManagedObject] = []
     
     var fetchedAmount = Double(-1.0)
     var fetchedDate: Date? = nil
+    var fetchedAccount: Int? = nil
+    var fetchedMerchant: String? = nil
+    var fetchedCategory: String? = nil
     
     var detectedAmount: Double = 0.0
     var detectedDate: Date? = nil
     var detectedMerchant: String? = nil
-    var amountDone = false
-    var dateDone = false
+    var detectedAccount = 0
+    var detectedCategory = ""
     
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -59,12 +58,10 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         DeleteAllData()
-        amountDone = false
-        dateDone = false
         imagePicker.delegate = self
         title = "The List"
-        tableView.register(UITableViewCell.self,
-                           forCellReuseIdentifier: "Cell")
+//        tableView.register(ExpenseTableViewCell.self,
+//                           forCellReuseIdentifier: "Cell")
         self.tableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -114,6 +111,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 if (fetchedDate != nil) {
                     print("fetched Date = \(fetchedDate)")
                 }
+                fetchedAccount = (expense.value(forKeyPath: "account") as? Int)
+                fetchedMerchant = (expense.value(forKeyPath: "merchant") as? String)
+                fetchedCategory = (expense.value(forKeyPath: "category") as? String)
             }
             
         } catch let error as NSError {
@@ -149,9 +149,38 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         print(expenses)
         let expense = expenses[indexPath.row]
         print("printing expense: ")
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let dequeued: AnyObject = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = dequeued as! ExpenseTableViewCell
         let amountLabel = expense.value(forKeyPath: "amount") as? Double
-        cell.textLabel?.text = String (describing: amountLabel!)
+        let dateLabel = expense.value(forKeyPath: "date") as? Date
+        let categoryLabel = expense.value(forKeyPath: "category") as? String
+        let merchantLabel = expense.value(forKeyPath: "merchant") as? String
+        if (categoryLabel != nil) {
+            cell.categoryLabel?.text = categoryLabel
+        }
+//        else {
+//            cell.categoryLabel?.text = ""
+//        }
+        if (merchantLabel != nil) {
+            cell.merchantLabel.text = merchantLabel
+        }
+//        else {
+//            cell.merchantLabel?.text = ""
+//        }
+        if (amountLabel != nil) {
+            cell.amountLabel?.text = "$\(String(amountLabel!))"
+        }
+//        else {
+//            cell.amountLabel?.text = ""
+//        }
+        if (dateLabel != nil) {
+            let date = dateLabel!.description
+            cell.dateLabel?.text = date.substring(to: date.index(date.startIndex, offsetBy: 10))
+        }
+//        else {
+//            cell.dateLabel?.text = ""
+//        }
         return cell
     }
     
@@ -317,19 +346,23 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Go" && amountDone && dateDone {
-        // get a reference to the second view controller
-        let secondViewController = segue.destination as! DetailViewController
-        // set the variables in the second view controller with the String to pass
-        secondViewController.amount = detectedAmount
-        secondViewController.date = detectedDate
-        secondViewController.merchant = detectedMerchant
-        print("prepare for segue")
-        print("detected amount = \(detectedAmount)")
-        print("detected date = \(detectedDate)")
-        detectedMerchant = ""
-        detectedDate = nil
-        detectedAmount = 0.0
+        if segue.identifier == "Go"{
+            // get a reference to the second view controller
+            let secondViewController = segue.destination as! DetailViewController
+            // set the variables in the second view controller with the String to pass
+            secondViewController.amount = detectedAmount
+            secondViewController.date = detectedDate
+            secondViewController.merchant = detectedMerchant!
+            secondViewController.account = detectedAccount
+            secondViewController.category = detectedCategory
+            print("prepare for segue")
+            print("detected amount = \(detectedAmount)")
+            print("detected date = \(detectedDate)")
+            detectedMerchant = ""
+            detectedDate = nil
+            detectedAmount = 0.0
+            detectedAccount = 0
+            detectedCategory = ""
         }
     }
     
@@ -359,11 +392,14 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 if let dateDetected = self.analyzeDate(json: json){
                     self.detectedDate = dateDetected
                 }
-                
+                if (fetchedAccount != nil) {
+                    self.detectedAccount = fetchedAccount!
+                }
+                if (fetchedCategory != nil) {
+                    self.detectedCategory = fetchedCategory!
+                }
                 //print(date)
-                self.amountDone = true
                 print("set detected amount = \(self.detectedAmount)")
-                self.dateDone = true
                 print("set detected date = \(self.detectedDate)")
             }
         DispatchQueue.main.async {
