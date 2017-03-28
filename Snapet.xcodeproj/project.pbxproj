@@ -12,7 +12,6 @@
 		3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 3590A0781E897BC20069DB2B /* chrono.min.js */; };
 		3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */; };
 		35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */; };
-		35ECD58D1E5A473A008BBD9C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58C1E5A473A008BBD9C /* ViewController.swift */; };
 		35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD58E1E5A473A008BBD9C /* Main.storyboard */; };
 		35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5911E5A473A008BBD9C /* Snapet.xcdatamodeld */; };
 		35ECD5951E5A473A008BBD9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD5941E5A473A008BBD9C /* Assets.xcassets */; };
@@ -47,7 +46,6 @@
 		3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChronoParsedResult.swift; sourceTree = "<group>"; };
 		35ECD5871E5A473A008BBD9C /* Snapet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		35ECD58C1E5A473A008BBD9C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		35ECD58F1E5A473A008BBD9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		35ECD5921E5A473A008BBD9C /* Snapet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Snapet.xcdatamodel; sourceTree = "<group>"; };
 		35ECD5941E5A473A008BBD9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,7 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */,
-				35ECD58C1E5A473A008BBD9C /* ViewController.swift */,
 				A715BFF61E899ABF00EC42B8 /* TableViewController.swift */,
 				A70B72661E8856B900FC6573 /* DetailViewController.swift */,
 				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
@@ -376,7 +373,6 @@
 				A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */,
 				35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */,
 				3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */,
-				35ECD58D1E5A473A008BBD9C /* ViewController.swift in Sources */,
 				35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */,
 				A70B72671E8856B900FC6573 /* DetailViewController.swift in Sources */,
 			);

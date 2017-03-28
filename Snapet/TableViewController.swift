@@ -10,19 +10,25 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
+extension String {
+    func removingWhitespaces() -> String {
+        return components(separatedBy: .whitespaces).joined()
+    }
+}
+
 
 class TableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var amount = 3.0
+    
     var merchant = ""
     var account = ""
-    var date = "2017-01-27"
     var category = "Food"
-    var expenses: [NSManagedObject] = []
-    var fetchedAmount = Float(-1.0)
-    var fetchedDate: Date? = nil
-    var test = ["a", "b"]
     
-    var detectedAmount: Float = 0.0
+    var expenses: [NSManagedObject] = []
+    
+    var fetchedAmount = Double(-1.0)
+    var fetchedDate: Date? = nil
+    
+    var detectedAmount: Double = 0.0
     var detectedDate: Date? = nil
     
     let session = URLSession.shared
@@ -95,7 +101,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             expenses = try managedContext.fetch(fetchRequest)
             if !expenses.isEmpty{
                 let expense = expenses[expenses.count - 1]
-                fetchedAmount = (expense.value(forKeyPath: "amount") as? Float)!
+                fetchedAmount = (expense.value(forKeyPath: "amount") as? Double)!
                 print("fetched amount = \(fetchedAmount)")
                 fetchedDate = (expense.value(forKeyPath: "date") as? Date)
                 if (fetchedDate != nil) {
@@ -140,8 +146,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             tableView.dequeueReusableCell(withIdentifier: "Cell",
                                           for: indexPath)
                     cell.textLabel?.text =
-                        String (describing: expense.value(forKeyPath: "amount") as? Float)
-//        cell.textLabel?.text = test[indexPath.row]
+                        String (describing: expense.value(forKeyPath: "amount") as? Double)
         return cell
 
     }
@@ -179,16 +184,6 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
     */
     
@@ -230,7 +225,6 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     func createRequest(with imageBase64: String) {
         // Create our request URL
-        
         var request = URLRequest(url: googleURL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -284,17 +278,15 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //if segue.identifier == "trial" {
+        if segue.identifier == "Go" {
         // get a reference to the second view controller
         let secondViewController = segue.destination as! DetailViewController
         // set the variables in the second view controller with the String to pass
         secondViewController.amount = detectedAmount
         secondViewController.date = detectedDate
         print("prepare for segue")
-        //}
+        }
     }
-    
-    
     
     func analyzeResults(_ dataToParse: Data) {
         
@@ -323,7 +315,6 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         })
     }
     
-    
     func analyzeDate(json: JSON) -> Date? {
         var date: Date? = nil
         if let responseArray = json["responses"].array{
@@ -339,7 +330,6 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         print(date)
         return date
     }
-    
     
     func retrieveDate(input: String) -> Date? {
         var results = [Date]()
@@ -367,9 +357,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     
     
-    func analyzeAmount(json: JSON) -> Float {
+    func analyzeAmount(json: JSON) -> Double {
         
-        //        var finalAmount:Float = -1
+        //        var finalAmount:Double = -1.0
         
         //        if let responseArray = json["responses"].array{
         //            for responseDict in responseArray {
@@ -392,9 +382,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     }
     
     
-    func analyzeAmountByLocation(json: JSON) -> Float{
-        var returnAmount:Float = -1
-        var results = [Float]()
+    func analyzeAmountByLocation(json: JSON) -> Double{
+        var returnAmount:Double = -1.0
+        var results = [Double]()
         
         if let responseArray = json["responses"].array{
             for responseDict in responseArray {
@@ -421,8 +411,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     }
     
     
-    func retrieveAmountByLocation(yfloor: Int, yceiling: Int, yrightEdge: Int, json: JSON) -> Float {
-        var returnAmount:Float = -1
+    func retrieveAmountByLocation(yfloor: Int, yceiling: Int, yrightEdge: Int, json: JSON) -> Double {
+        var returnAmount:Double = -1.0
         var candidateText = ""
         
         if let responseArray = json["responses"].array{
@@ -449,9 +439,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     
     
-    func analyzePureTextAmount(ocrTxt: String) -> Float {
+    func analyzePureTextAmount(ocrTxt: String) -> Double {
         
-        var returnAmount:Float = -1
+        var returnAmount:Double = -1.0
         
         // break the ocr text in lines
         var ocrTextByLines:[String] = []
@@ -481,29 +471,27 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         return returnAmount
     }
     
-    
-    func retrieveAmount(input: String) -> Float {
+    func retrieveAmount(input: String) -> Double {
         // split the line in words
         var components = input.characters.split(separator: " ").map(String.init)
         for i in 0..<components.count {
-            if let floatValue = Float(components[i]){
-                return floatValue
+            if let doubleValue = Double(components[i]){
+                return doubleValue
             }
                 // Remove the currency sign that hinders the amount to be parsed
             else {
                 components[i].remove(at: components[i].startIndex)
-                if let floatValue = Float(components[i]){
-                    return floatValue
+                if let doubleValue = Double(components[i]){
+                    return doubleValue
                 }
             }
         }
         //No legit amount detected
         return -1
-        //        var returnResult:Float = -1.0
+        //        var returnResult:Double = -1.0
         //        let scanner = Scanner(string: input)
-        //        scanner.scanFloat(&returnResult)
+        //        scanner.scanDouble(&returnResult)
         //        return returnResult
     }
-
 
 }

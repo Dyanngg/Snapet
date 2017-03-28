@@ -17,23 +17,23 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     
-    var amount: Float = 0.0
+    var amount: Double = 0.0
     var merchant = ""
     var account = ""
     var date: Date? = nil
     var category = "Food"
     var expenses: [NSManagedObject] = []
-    var savedAmount = Float(-1.0)
+    var savedAmount = Double(-1.0)
     var savedDate: Date? = nil
     
     @IBAction func saveData(_ sender: Any) {
         let amountToSave = amount
-        self.save(amount: Float(amountToSave))
+        self.save(amount: Double(amountToSave))
     }
     /*
      Saving to Core Data
      */
-    func save(amount: Float) {
+    func save(amount: Double) {
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -62,7 +62,7 @@ class DetailViewController: UIViewController {
         do {
             try managedContext.save()
             expenses.append(expense)
-            savedAmount = (expense.value(forKeyPath: "amount") as? Float)!
+            savedAmount = (expense.value(forKeyPath: "amount") as? Double)!
             print("saved amount = \(savedAmount)")
             if (date != nil) {
                 savedDate = (expense.value(forKeyPath: "date") as? Date)!
