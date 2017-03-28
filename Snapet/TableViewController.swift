@@ -282,12 +282,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     
     func createKGRequest(input:String) {
-        //let finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey
-        //let finalURL = URL(string: finalURLString)
-        let finalURL = URL(string: googleKGURL)
+        let finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey + "&limit=5"
+        let finalURL = URL(string: finalURLString)
+        //let finalURL = URL(string: googleKGURL)
         var request = URLRequest(url: finalURL!)
-        request.addValue(input, forHTTPHeaderField: "query")
-        request.addValue(googleAPIKey, forHTTPHeaderField: "key")
+        //request.addValue(input, forHTTPHeaderField: "query")
+        //request.addValue(googleAPIKey, forHTTPHeaderField: "key")
         request.httpMethod = "GET"
         DispatchQueue.global().async { self.runKGRequest(request) }
     }
