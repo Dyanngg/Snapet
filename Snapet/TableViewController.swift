@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import CoreData
+import MobileCoreServices
 
 extension String {
     func removingWhitespaces() -> String {
@@ -33,6 +34,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     var detectedAccount = 0
     var detectedCategory = ""
     
+    var useCamera = false
+    
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
     let googleAPIKey = "AIzaSyBmcPFpapjEug_lKki4qnuiN-XYvE3xVYQ"
@@ -55,6 +58,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func takePhoto(_ sender: UIButton) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .camera
+        present(imagePicker, animated: true, completion: nil)
+        useCamera = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         DeleteAllData()
@@ -350,9 +359,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             // get a reference to the second view controller
             let secondViewController = segue.destination as! DetailViewController
             // set the variables in the second view controller with the String to pass
+            secondViewController.account = 0
+            secondViewController.category = "test"
             secondViewController.amount = detectedAmount
             secondViewController.date = detectedDate
-            secondViewController.merchant = detectedMerchant!
+            if (detectedMerchant != nil) {
+                secondViewController.merchant = detectedMerchant!}
             secondViewController.account = detectedAccount
             secondViewController.category = detectedCategory
             print("prepare for segue")
@@ -466,6 +478,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         }
         if let min = results.min(){
             returnDate = min
+        }
+        if returnDate != nil {
+            var date = returnDate!.description
         }
         return returnDate
     }

@@ -57,6 +57,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         expense.setValue(amount, forKeyPath: "amount")
         if (date != nil) {
             expense.setValue(date, forKeyPath: "date")
+            
         }
         if (merchant != "") {
             expense.setValue(merchant, forKeyPath: "merchant")
@@ -85,6 +86,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+        accountField.text = nil
+        dateField.text = nil
+        print("date is nil now")
+        merchantField.text = nil
+        categoryField.text = nil
+        amountField.text = nil
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -113,7 +120,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         if let temp = dateField.text{
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            let d = dateFormatter.date(from:temp)!
+            var d: Date
+            if (temp.characters.count >= 10) {
+                let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
+                d = dateFormatter.date(from:temp1)!
+            } else {
+                d = dateFormatter.date(from:temp)!
+            }
             let calendar = Calendar.current
             let components = calendar.dateComponents([.year, .month, .day], from: d)
             let finalDate = calendar.date(from:components)
@@ -126,16 +139,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        amountField.delegate = self
-        dateField.delegate = self
-        merchantField.delegate = self
-        accountField.delegate = self
-        categoryField.delegate = self
         amountField.text = String(amount)
         dateField.text = date?.description
         merchantField.text = merchant
         accountField.text = String(account)
         categoryField.text = category
+        amountField.delegate = self
+        dateField.delegate = self
+        merchantField.delegate = self
+        accountField.delegate = self
+        categoryField.delegate = self
         // Do any additional setup after loading the view.
     }
 
