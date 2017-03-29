@@ -437,12 +437,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 if let dateDetected = self.analyzeDate(json: json){
                     self.detectedDate = dateDetected
                 }
-                if (fetchedAccount != nil) {
-                    self.detectedAccount = fetchedAccount!
-                }
-                if (fetchedCategory != nil) {
-                    self.detectedCategory = fetchedCategory!
-                }
+//                if (fetchedAccount != nil) {
+//                    self.detectedAccount = fetchedAccount!
+//                }
+//                if (fetchedCategory != nil) {
+//                    self.detectedCategory = fetchedCategory!
+//                }
                 //print(date)
                 print("set detected amount = \(self.detectedAmount)")
                 print("set detected date = \(self.detectedDate)")
