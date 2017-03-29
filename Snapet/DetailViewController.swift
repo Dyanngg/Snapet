@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var amountField: UITextField!
     @IBOutlet weak var merchantField: UITextField!
@@ -18,8 +18,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var categoryField: UITextField!
     
     var amount: Double = 0.0
-    var merchant: String? = ""
-    var account = ""
+    var merchant = ""
+    var account = 0
     var date: Date? = nil
     var category = ""
     var expenses: [NSManagedObject] = []
@@ -57,9 +57,16 @@ class DetailViewController: UIViewController {
         expense.setValue(amount, forKeyPath: "amount")
         if (date != nil) {
             expense.setValue(date, forKeyPath: "date")
+            
         }
-        if (merchant != nil) {
+        if (merchant != "") {
             expense.setValue(merchant, forKeyPath: "merchant")
+        }
+        if (account != 0) {
+            expense.setValue(account, forKeyPath: "account")
+        }
+        if (category != "") {
+            expense.setValue(category, forKeyPath: "category")
         }
         
         // 4
@@ -79,13 +86,69 @@ class DetailViewController: UIViewController {
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+        accountField.text = nil
+        dateField.text = nil
+        print("date is nil now")
+        merchantField.text = nil
+        categoryField.text = nil
+        amountField.text = nil
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        amountField.resignFirstResponder()
+        merchantField.resignFirstResponder()
+        accountField.resignFirstResponder()
+        dateField.resignFirstResponder()
+        categoryField.resignFirstResponder()
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        amountField.resignFirstResponder()
+        merchantField.resignFirstResponder()
+        accountField.resignFirstResponder()
+        dateField.resignFirstResponder()
+        categoryField.resignFirstResponder()
+        if let temp = amountField.text{
+            amount = Double(temp)!
+        }
+        if let temp = merchantField.text{
+            merchant = temp
+        }
+        if let temp = accountField.text{
+            account = Int(temp)!
+        }
+        if let temp = dateField.text{
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            var d: Date
+            if (temp.characters.count >= 10) {
+                let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
+                d = dateFormatter.date(from:temp1)!
+            } else {
+                d = dateFormatter.date(from:temp)!
+            }
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month, .day], from: d)
+            let finalDate = calendar.date(from:components)
+            date = finalDate
+        }
+        if let temp = categoryField.text {
+            category = temp
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         amountField.text = String(amount)
         dateField.text = date?.description
-        merchantField.text = merchant?.description
+        merchantField.text = merchant
+        accountField.text = String(account)
+        categoryField.text = category
+        amountField.delegate = self
+        dateField.delegate = self
+        merchantField.delegate = self
+        accountField.delegate = self
+        categoryField.delegate = self
         // Do any additional setup after loading the view.
     }
 
