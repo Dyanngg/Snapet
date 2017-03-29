@@ -109,13 +109,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         dateField.resignFirstResponder()
         categoryField.resignFirstResponder()
         if let temp = amountField.text{
-            amount = Double(temp)!
+            if (temp.characters.count > 0) {
+                amount = Double(temp)!
+            }
         }
         if let temp = merchantField.text{
             merchant = temp
+            if (temp.characters.count > 0) {
+                merchant = temp
+            }
         }
         if let temp = accountField.text{
-            account = Int(temp)!
+            if (temp.characters.count > 0) {
+                account = Int(temp)!
+            }
         }
         if let temp = dateField.text{
             let dateFormatter = DateFormatter()
