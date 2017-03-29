@@ -488,10 +488,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 }
             }
         }
-        if let topMatch = results[0]{
-            detectedCategory = topMatch
-            print("final category is")
-            print(topMatch)
+        if !results.isEmpty{
+            if let topMatch = results[0]{
+                detectedCategory = topMatch
+                print("final category is")
+                print(topMatch)
+            }
         }
         DispatchQueue.main.async {
             self.performSegue(withIdentifier: "Go", sender: nil)
