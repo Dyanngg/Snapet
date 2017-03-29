@@ -31,6 +31,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     var detectedAmount: Double = 0.0
     var detectedDate: Date? = nil
     var detectedMerchant: String? = nil
+    var detectedCategory: String? = nil
     var amountDone = false
     var dateDone = false
     
@@ -304,14 +305,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             if (errorObj.dictionaryValue != [:]) {
                 print( "Error code \(errorObj["code"]): \(errorObj["message"])")
             } else {
-                print(KGjson)
+                //print(KGjson)
+                self.analyzeCategory(json: KGjson)
             }
         }
         task.resume()
     }
-    
-    
-    
     
     
     
@@ -390,6 +389,28 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         return result
     }
     
+    /**
+     *Analyze category
+     */
+    func analyzeCategory(json: JSON) {
+        var results = [String?]()
+        if let responseArray = json["itemListElement"].array{
+            for responseDict in responseArray {
+                if let category: String = responseDict["result"]["description"].string{
+                    //print("found")
+                    //print(category)
+                    results.append(category)
+                    //detectedCategoty = category
+                }
+            }
+        }
+        if let topMatch = results[0]{
+            detectedCategory = topMatch
+            print("final category is")
+            print(topMatch)
+        }
+    }
+
     
     
     /** 
