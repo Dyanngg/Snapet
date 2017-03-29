@@ -326,6 +326,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         
         var urlComponents = URLComponents(string: finalURLString)
         if let finalURL = urlComponents?.url{
+            print("url is")
+            print(finalURL)
             var request = URLRequest(url: finalURL)
             
             //request.addValue(input, forHTTPHeaderField: "query")
@@ -351,7 +353,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             if (errorObj.dictionaryValue != [:]) {
                 print( "Error code \(errorObj["code"]): \(errorObj["message"])")
             } else {
-                //print(KGjson)
+                print(KGjson)
                 self.analyzeCategory(json: KGjson)
             }
         }
@@ -530,9 +532,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         if let min = results.min(){
             returnDate = min
         }
-        if returnDate != nil {
-            var date = returnDate!.description
-        }
+//        if returnDate != nil {
+//            var date = returnDate!.description
+//        }
         return returnDate
     }
     
