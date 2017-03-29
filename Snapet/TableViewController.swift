@@ -322,22 +322,23 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     
     func createKGRequest(input:String) {
-        let finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey + "&limit=5"
-        
-        var urlComponents = URLComponents(string: finalURLString)
+        var finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey + "&limit=5"
+//        let finalURL = URL(string: finalURLString)
+//        var request = URLRequest(url: finalURL!)
+        finalURLString = NSString(string: finalURLString).addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        let urlComponents = URLComponents(string: finalURLString)
+        print(urlComponents)
         if let finalURL = urlComponents?.url{
             print("url is")
             print(finalURL)
             var request = URLRequest(url: finalURL)
-            
+        
             //request.addValue(input, forHTTPHeaderField: "query")
             //request.addValue(googleAPIKey, forHTTPHeaderField: "key")
             request.httpMethod = "GET"
-            DispatchQueue.global().async { self.runKGRequest(request) }
+            DispatchQueue.global().sync { self.runKGRequest(request) }
+            //self.runKGRequest(request)
         }
-        
-        //let finalURL = URL(string: finalURLString)
-        //let finalURL = URL(string: googleKGURL)
         
     }
     
@@ -398,6 +399,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             print("prepare for segue")
             print("detected amount = \(detectedAmount)")
             print("detected date = \(detectedDate)")
+            print("detected cat = \(detectedCategory)")
             detectedMerchant = ""
             detectedDate = nil
             detectedAmount = 0.0
@@ -409,6 +411,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     
     func analyzeResults(_ dataToParse: Data) {
+        
+        var isMerchantDetected = false
         
         // Update UI on the main thread
             // Use SwiftyJSON to parse results
@@ -427,6 +431,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 if let merchantDetected = self.analyzeLogo(json: json){
                     self.detectedMerchant = merchantDetected
                     self.createKGRequest(input: merchantDetected)
+                    isMerchantDetected = true
                 }
                 //let chrono = Chrono.shared
                 if let dateDetected = self.analyzeDate(json: json){
@@ -442,10 +447,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 print("set detected amount = \(self.detectedAmount)")
                 print("set detected date = \(self.detectedDate)")
             }
-        DispatchQueue.main.async {
-            self.performSegue(withIdentifier: "Go", sender: nil)
+        if(!isMerchantDetected){
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "Go", sender: nil)
+            }
         }
-       
+        
     }
     
     
@@ -485,6 +492,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             detectedCategory = topMatch
             print("final category is")
             print(topMatch)
+        }
+        DispatchQueue.main.async {
+            self.performSegue(withIdentifier: "Go", sender: nil)
         }
     }
 
