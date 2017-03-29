@@ -28,15 +28,11 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     var fetchedMerchant: String? = nil
     var fetchedCategory: String? = nil
     
-    var detectedAmount: Double = 0.0
+    var detectedAmount: Double? = nil
     var detectedDate: Date? = nil
     var detectedMerchant: String? = nil
-    
-
     var detectedCategory: String? = nil
-
-
-    var detectedAccount = 0
+    var detectedAccount: Int? = nil
 
     
     var useCamera = false
@@ -327,13 +323,20 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     func createKGRequest(input:String) {
         let finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey + "&limit=5"
-        let finalURL = URL(string: finalURLString)
+        
+        var urlComponents = URLComponents(string: finalURLString)
+        if let finalURL = urlComponents?.url{
+            var request = URLRequest(url: finalURL)
+            
+            //request.addValue(input, forHTTPHeaderField: "query")
+            //request.addValue(googleAPIKey, forHTTPHeaderField: "key")
+            request.httpMethod = "GET"
+            DispatchQueue.global().async { self.runKGRequest(request) }
+        }
+        
+        //let finalURL = URL(string: finalURLString)
         //let finalURL = URL(string: googleKGURL)
-        var request = URLRequest(url: finalURL!)
-        //request.addValue(input, forHTTPHeaderField: "query")
-        //request.addValue(googleAPIKey, forHTTPHeaderField: "key")
-        request.httpMethod = "GET"
-        DispatchQueue.global().async { self.runKGRequest(request) }
+        
     }
     
     
@@ -363,15 +366,32 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             // get a reference to the second view controller
             let secondViewController = segue.destination as! DetailViewController
             // set the variables in the second view controller with the String to pass
-            secondViewController.account = 0
-            secondViewController.category = "test"
-            secondViewController.amount = detectedAmount
-            secondViewController.date = detectedDate
-            if (detectedMerchant != nil) {
-                secondViewController.merchant = detectedMerchant!}
-            secondViewController.account = detectedAccount
-            if let categoryDetected = detectedCategory{
+//            if (detectedAccount != nil) {
+//                secondViewController.account = detectedAccount!}
+//            if (detectedCategory != nil) {
+//                secondViewController.category = detectedCategory!}
+//            if (detectedAmount != nil) {
+//                secondViewController.amount = detectedAmount}
+//            if (detectedDate != nil) {
+//                secondViewController.date = detectedDate!}
+//            secondViewController.amount = detectedAmount
+//            secondViewController.date = detectedDate
+//            if (detectedMerchant != nil) {
+//                secondViewController.merchant = detectedMerchant!}
+            if let amountDetected = detectedAmount {
+                secondViewController.amount = amountDetected
+            }
+            if let dateDetected = detectedDate {
+                secondViewController.date = dateDetected
+            }
+            if let accountDetected = detectedAccount {
+                secondViewController.account = accountDetected
+            }
+            if let categoryDetected = detectedCategory {
                 secondViewController.category = categoryDetected
+            }
+            if let merchantDetected = detectedMerchant {
+                secondViewController.merchant = merchantDetected
             }
             print("prepare for segue")
             print("detected amount = \(detectedAmount)")
@@ -483,7 +503,10 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             }
         }
         print("final date is")
-        print(date)
+        if let theDate = date {
+            print(theDate)
+        }
+        
         return date
     }
     
