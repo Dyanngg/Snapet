@@ -124,13 +124,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             if (temp.characters.count >= 10) {
                 let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
                 d = dateFormatter.date(from:temp1)!
-            } else {
-                d = dateFormatter.date(from:temp)!
+                let calendar = Calendar.current
+                let components = calendar.dateComponents([.year, .month, .day], from: d)
+                let finalDate = calendar.date(from:components)
+                date = finalDate
             }
-            let calendar = Calendar.current
-            let components = calendar.dateComponents([.year, .month, .day], from: d)
-            let finalDate = calendar.date(from:components)
-            date = finalDate
         }
         if let temp = categoryField.text {
             category = temp
