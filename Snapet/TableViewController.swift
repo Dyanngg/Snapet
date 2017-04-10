@@ -390,7 +390,27 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 secondViewController.amount = amountDetected
             }
             if let dateDetected = detectedDate {
-                secondViewController.date = dateDetected
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let inputDate = dateFormatter.string(from: dateDetected)
+                let inputDate2 = dateFormatter.date(from: inputDate)
+                print("dateDetected date is \(dateDetected)")
+                print("inputDate2 date is \(inputDate2)")
+//                if (inputDate.characters.count >= 10) {
+//                    let temp1 = inputDate.substring(to: inputDate.index((inputDate.startIndex), offsetBy: 10))
+//                    let d = dateFormatter.date(from:temp1)!
+//                    let calendar = Calendar.current
+//                    let components = calendar.dateComponents([.year, .month, .day], from: d)
+//                    let finalDate = calendar.date(from:components)
+//                    inputDate = dateFormatter.string(from: finalDate!)
+//                    print("inputDate2 date is \(inputDate)")
+//                }
+                dateFormatter.dateFormat = "MMM dd, yyyy"
+                let outputDate = dateFormatter.string(from: inputDate2!)
+                let outputDate2 = dateFormatter.date(from: outputDate)
+                print("output date is \(outputDate)")
+                print("output date2 is \(outputDate2)")
+                secondViewController.date = outputDate2
             }
             if let accountDetected = detectedAccount {
                 secondViewController.account = accountDetected

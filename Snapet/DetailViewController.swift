@@ -27,6 +27,28 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
 //    var savedDate: Date? = nil
 //    var savedMerchant = ""
     
+    @IBAction func dateFieldEditing(_ sender: UITextField) {
+        let datePickerView:UIDatePicker = UIDatePicker()
+        
+        datePickerView.datePickerMode = UIDatePickerMode.date
+        
+        sender.inputView = datePickerView
+        
+        datePickerView.addTarget(self, action: #selector(DetailViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+    }
+
+    
+    func datePickerValueChanged(sender:UIDatePicker) {
+        
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = DateFormatter.Style.medium
+        
+        dateFormatter.timeStyle = DateFormatter.Style.none
+        
+        dateField.text = dateFormatter.string(from: sender.date)
+    }
+    
     @IBAction func saveData(_ sender: Any) {
         let amountToSave = amount
         self.save(amount: Double(amountToSave))
@@ -94,12 +116,27 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         amountField.text = nil
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        amountField.resignFirstResponder()
-        merchantField.resignFirstResponder()
-        accountField.resignFirstResponder()
+    func donePressed(_ sender: UIBarButtonItem) {
+        
         dateField.resignFirstResponder()
-        categoryField.resignFirstResponder()
+        
+    }
+    
+    func tappedToolBarBtn(_ sender: UIBarButtonItem) {
+        
+        let dateformatter = DateFormatter()
+        
+        dateformatter.dateStyle = DateFormatter.Style.medium
+        
+        dateformatter.timeStyle = DateFormatter.Style.none
+        
+        dateField.text = dateformatter.string(from: Date())
+        
+        dateField.resignFirstResponder()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -126,16 +163,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         }
         if let temp = dateField.text{
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            var d: Date
-            if (temp.characters.count >= 10) {
-                let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
-                d = dateFormatter.date(from:temp1)!
-                let calendar = Calendar.current
-                let components = calendar.dateComponents([.year, .month, .day], from: d)
-                let finalDate = calendar.date(from:components)
-                date = finalDate
+            dateFormatter.dateFormat = "MMM dd, yyyy"
+            if (temp.characters.count >= 11) {
+                date = dateFormatter.date(from: temp)
             }
+//            dateFormatter.dateFormat = "yyyy-MM-dd"
+//            var d: Date
+//            if (temp.characters.count >= 10) {
+//                let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
+//                d = dateFormatter.date(from:temp1)!
+//                let calendar = Calendar.current
+//                let components = calendar.dateComponents([.year, .month, .day], from: d)
+//                let finalDate = calendar.date(from:components)
+//                date = finalDate
+//            }
         }
         if let temp = categoryField.text {
             category = temp
@@ -144,6 +185,24 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
+        toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
+        toolBar.barStyle = UIBarStyle.blackTranslucent
+        toolBar.tintColor = UIColor.white
+        toolBar.backgroundColor = UIColor.black
+        let todayBtn = UIBarButtonItem(title: "Today", style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController.tappedToolBarBtn))
+        let okBarBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(DetailViewController.donePressed))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
+        label.font = UIFont(name: "Helvetica", size: 12)
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor.white
+        label.text = "Select a due date"
+        label.textAlignment = NSTextAlignment.center
+        let textBtn = UIBarButtonItem(customView: label)
+        toolBar.setItems([todayBtn,flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
+        dateField.inputAccessoryView = toolBar
+        
         amountField.text = String(amount)
         dateField.text = date?.description
         merchantField.text = merchant
