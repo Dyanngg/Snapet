@@ -66,6 +66,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
         useCamera = true
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         DeleteAllData()
@@ -120,7 +121,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 print("fetched amount = \(fetchedAmount)")
                 fetchedDate = (expense.value(forKeyPath: "date") as? Date)
                 if (fetchedDate != nil) {
-                    print("fetched Date = \(fetchedDate)")
+                    print("fetched Date = \(String(describing: fetchedDate))")
                 }
                 fetchedAccount = (expense.value(forKeyPath: "account") as? Int)
                 fetchedMerchant = (expense.value(forKeyPath: "merchant") as? String)
@@ -284,8 +285,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                     [
                         "type": "TEXT_DETECTION",
                         ],
+//                    [
+//                        "type": "LOGO_DETECTION",
+//                        "maxResults": 5
+//                    ],
                     [
-                        "type": "LOGO_DETECTION",
+                        "type": "WEB_DETECTION",
                         "maxResults": 5
                     ],
                 ]
@@ -327,7 +332,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
 //        var request = URLRequest(url: finalURL!)
         finalURLString = NSString(string: finalURLString).addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
         let urlComponents = URLComponents(string: finalURLString)
-        print(urlComponents)
+        //print(urlComponents)
         if let finalURL = urlComponents?.url{
             print("url is")
             print(finalURL)
@@ -397,9 +402,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 secondViewController.merchant = merchantDetected
             }
             print("prepare for segue")
-            print("detected amount = \(detectedAmount)")
-            print("detected date = \(detectedDate)")
-            print("detected cat = \(detectedCategory)")
+            print("detected amount = \(String(describing: detectedAmount))")
+            print("detected date = \(String(describing: detectedDate))")
+            print("detected cat = \(String(describing: detectedCategory))")
             detectedMerchant = ""
             detectedDate = nil
             detectedAmount = 0.0
@@ -429,17 +434,31 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 self.detectedAmount = self.analyzeAmount(json: json)
                 
                 if let merchantDetected = self.analyzeLogo(json: json){
-                    self.detectedMerchant = merchantDetected
-                    self.createKGRequest(input: merchantDetected)
-                    isMerchantDetected = true
+                    if let webResults = self.analyzeWeb(json: json){
+                        if webResults.contains(merchantDetected){
+                            self.detectedMerchant = merchantDetected
+                            self.createKGRequest(input: merchantDetected)
+                            isMerchantDetected = true
+                        }
+                    }
                 }
+                
+                if !isMerchantDetected{
+                    if let webResults = self.analyzeWeb(json: json){
+                        self.detectedMerchant = webResults[0]
+                        self.createKGRequest(input: webResults[0])
+                        isMerchantDetected = true
+                    }
+                }
+                
+                
                 //let chrono = Chrono.shared
                 if let dateDetected = self.analyzeDate(json: json){
                     self.detectedDate = dateDetected
                 }
                 //print(date)
-                print("set detected amount = \(self.detectedAmount)")
-                print("set detected date = \(self.detectedDate)")
+                print("set detected amount = \(String(describing: self.detectedAmount))")
+                print("set detected date = \(String(describing: self.detectedDate))")
             }
         if(!isMerchantDetected){
             DispatchQueue.main.async {
@@ -450,6 +469,29 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     }
     
     
+    
+    /**
+     *Analyze Web
+     */
+    func analyzeWeb(json: JSON) -> [String]? {
+        var results: [String]? = nil
+        var temp:[String] = []
+        if let responseArray = json["responses"].array{
+            for responseDict in responseArray {
+                if let webArray = responseDict["webDetection"]["webEntities"].array {
+                    for webDict in webArray{
+                        if let webResult = webDict["description"].string{
+                            temp.append(webResult)
+                        }
+                    }
+                }
+            }
+        }
+        if !temp.isEmpty{
+            results = temp
+        }
+        return results
+    }
     
     
     /**
@@ -467,6 +509,7 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         return result
     }
     
+    
     /**
      *Analyze category
      */
@@ -475,8 +518,6 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         if let responseArray = json["itemListElement"].array{
             for responseDict in responseArray {
                 if let category: String = responseDict["result"]["description"].string{
-                    //print("found")
-                    //print(category)
                     results.append(category)
                     //detectedCategoty = category
                 }
@@ -514,9 +555,9 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         if let theDate = date {
             print(theDate)
         }
-        
         return date
     }
+    
     
     func retrieveDate(input: String) -> Date? {
         var results = [Date]()
@@ -549,7 +590,6 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
      *Analyze Amount
      */
     func analyzeAmount(json: JSON) -> Double {
-        
         //        var finalAmount:Double = -1.0
         
         //        if let responseArray = json["responses"].array{
