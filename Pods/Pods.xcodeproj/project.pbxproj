@@ -7,69 +7,136 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1428ABC3ECC6D4520A94013A711AD4BA /* Pods-Snapet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 534FED6F56D41AA5F692CE8D1C546229 /* Pods-Snapet-dummy.m */; };
-		51B906AAC0669A764E62457288C4AD7E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		7C7F0B467D6769F2F97E96D00DA3B571 /* Pods-Snapet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 14F75337E54EE7D67832E28D73A1AC29 /* Pods-Snapet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8546B224589FA1D31DF9F79F59776AF0 /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 05CA09B061E193906653AC21FD3A94F1 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8E6841246C671B37D04F86EF49EA5056 /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B9BBA8F5B33E56C38F5546432F66B7 /* SwiftyJSON-dummy.m */; };
-		A73E76C6E974B43BCC1DAEDF8C097BBC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		BBC997C7857A130497FA11AA16D75C90 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE506ECE97701EBA44FDBFF401C1A04 /* SwiftyJSON.swift */; };
+		1C07A3BD3D48293C03CF496B47A3D966 /* KCFABWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB2D01166A6B79F087A396F8AD0BBB6 /* KCFABWindow.swift */; };
+		35E8CA67DEC919A6152AE88CFBADC41E /* KCFloatingActionButton-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 189326AF0422B38A0701D0D4A896314E /* KCFloatingActionButton-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		35EC1FD9592E685E4701ABED767E30F4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
+		3C049DD110DE86B477B31E96D86F57DB /* KCFABViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6674AA7532FACBBD2AEB30272FF34FC6 /* KCFABViewController.swift */; };
+		4A65651F319720435C5B57AC6C410AEC /* SwiftyJSON-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F27D93B9DF868222C35C2216F5B561F8 /* SwiftyJSON-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		51CCA7DD70500EB613D4B629EBBE2535 /* Pods-Snapet-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 14F75337E54EE7D67832E28D73A1AC29 /* Pods-Snapet-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		56A83A3AAF30937FD2DFEAF4F4126A97 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
+		628F8BB6DF36AB89FFB63FF85EA4110B /* SwiftyJSON-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D89969F589D6100BAC74A6963E3566 /* SwiftyJSON-dummy.m */; };
+		7AEC4D4357DACF46689436014E0F1CC2 /* KCFloatingActionButton-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E6B39C37BC76B44B16F24A4E90C7982 /* KCFloatingActionButton-dummy.m */; };
+		BEFB286F797B17C412B2E0914B70F331 /* KCFloatingActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D837AAE15B028397574EE53417A3670 /* KCFloatingActionButton.swift */; };
+		CD6F705538BCD119DA4AE3F2B9255F31 /* KCFloatingActionButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3DA0092549E63BF3E0FD86E1561C2A7 /* KCFloatingActionButtonItem.swift */; };
+		D67DB0D45C517BF8279A119C812D27B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */; };
+		D89F9AB2B26DAB19871EA1B756DC4A59 /* Pods-Snapet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 534FED6F56D41AA5F692CE8D1C546229 /* Pods-Snapet-dummy.m */; };
+		E80F184AFC57C3EB80FEBBF9A641D14E /* KCFABManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C6C2583DDB56E2DDC55F24B26E28891 /* KCFABManager.swift */; };
+		E8D1507715E6215185D204C50C10F2E4 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76707608B69CEEFAA290B1685E7437CC /* SwiftyJSON.swift */; };
+		EF4A7F99BA895666480DE04025BB9922 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */; };
+		F64DE616FF0621E0DBE963A660B4C86C /* KCFloatingActionButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E27613B93FDB7CF1E717F7BDBA8F33 /* KCFloatingActionButtonDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8CC8D395C2CEB9DFE48B6E1E0B27DFBF /* PBXContainerItemProxy */ = {
+		9261F0A639917826FB3138050E50A02E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 41507CED6919DDCB1D5D709EF7CC1A57;
+			remoteGlobalIDString = 4470BB793AAA161394173C227B7C5190;
 			remoteInfo = SwiftyJSON;
+		};
+		A05252A1C4084BB9FE8E7A05284C2242 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6E9CEC9E5ACFE69D21456CCB70BEEA0;
+			remoteInfo = KCFloatingActionButton;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		01477703CBCFBA480A5D029FBA237862 /* Pods-Snapet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snapet.debug.xcconfig"; sourceTree = "<group>"; };
-		05CA09B061E193906653AC21FD3A94F1 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
+		02BFDA595972441D74DACB1BC28B4D78 /* KCFloatingActionButton-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KCFloatingActionButton-prefix.pch"; sourceTree = "<group>"; };
+		0CA481FDA4B01F2D36B71A6D658F7C89 /* KCFloatingActionButton.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = KCFloatingActionButton.modulemap; sourceTree = "<group>"; };
 		14F75337E54EE7D67832E28D73A1AC29 /* Pods-Snapet-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Snapet-umbrella.h"; sourceTree = "<group>"; };
+		189326AF0422B38A0701D0D4A896314E /* KCFloatingActionButton-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KCFloatingActionButton-umbrella.h"; sourceTree = "<group>"; };
+		1C6C2583DDB56E2DDC55F24B26E28891 /* KCFABManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KCFABManager.swift; path = Sources/KCFABManager.swift; sourceTree = "<group>"; };
+		1D837AAE15B028397574EE53417A3670 /* KCFloatingActionButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KCFloatingActionButton.swift; path = Sources/KCFloatingActionButton.swift; sourceTree = "<group>"; };
+		22D89969F589D6100BAC74A6963E3566 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
 		257FEEB740B667C8A3CCF02C9452525D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
-		32B9BBA8F5B33E56C38F5546432F66B7 /* SwiftyJSON-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftyJSON-dummy.m"; sourceTree = "<group>"; };
+		2ACE6B7725CC6D575A1A70695DC39E59 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
+		36479712563234F8C18E75199E1C0B21 /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
+		3FC7E7E2330E2E529E748D4AA3C7E831 /* KCFloatingActionButton.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KCFloatingActionButton.xcconfig; sourceTree = "<group>"; };
 		4210B0913B2DD4D7F1B6B5F6981F550A /* Pods-Snapet-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Snapet-acknowledgements.plist"; sourceTree = "<group>"; };
 		534FED6F56D41AA5F692CE8D1C546229 /* Pods-Snapet-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snapet-dummy.m"; sourceTree = "<group>"; };
+		616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6674AA7532FACBBD2AEB30272FF34FC6 /* KCFABViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KCFABViewController.swift; path = Sources/KCFABViewController.swift; sourceTree = "<group>"; };
+		76707608B69CEEFAA290B1685E7437CC /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
+		78E27613B93FDB7CF1E717F7BDBA8F33 /* KCFloatingActionButtonDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KCFloatingActionButtonDelegate.swift; path = Sources/KCFloatingActionButtonDelegate.swift; sourceTree = "<group>"; };
+		796974CB8E65F38659044EF565F62285 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyJSON.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7AB2D01166A6B79F087A396F8AD0BBB6 /* KCFABWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KCFABWindow.swift; path = Sources/KCFABWindow.swift; sourceTree = "<group>"; };
 		7D171B6C7E29F9FA0FA1E4327F489DA1 /* Pods-Snapet-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snapet-frameworks.sh"; sourceTree = "<group>"; };
+		7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		81BC95C139195EC3BE1AF8DBE35BF754 /* Pods-Snapet-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snapet-acknowledgements.markdown"; sourceTree = "<group>"; };
 		879783AC04528513875709063977BFC0 /* Pods-Snapet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snapet.release.xcconfig"; sourceTree = "<group>"; };
+		8E6B39C37BC76B44B16F24A4E90C7982 /* KCFloatingActionButton-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KCFloatingActionButton-dummy.m"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A19C305F45EAA3C7843A39E72F7E4ECE /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5842F9712504C5572E99FD732BBAFB9 /* Pods-Snapet-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snapet-resources.sh"; sourceTree = "<group>"; };
-		BBF610E40BDF6E542FA21FF7E5491205 /* SwiftyJSON-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-prefix.pch"; sourceTree = "<group>"; };
-		BDE506ECE97701EBA44FDBFF401C1A04 /* SwiftyJSON.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = Source/SwiftyJSON.swift; sourceTree = "<group>"; };
+		B557ADE7A30A6A99B073ED88C6FA8611 /* Pods_Snapet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Snapet.framework; path = "Pods-Snapet.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3BE6463A8AF70496510E94FAE5F9D73 /* Pods-Snapet.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Snapet.modulemap"; sourceTree = "<group>"; };
-		C4A9A658C966F6BB111BEDBDEA1F874A /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		D032A29E584B77AE187E586922267CF5 /* SwiftyJSON.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftyJSON.modulemap; sourceTree = "<group>"; };
-		E9B403A3B6D9F4A40CDA428F17521B07 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftyJSON.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F03F387AA2353D5980B4B64B4FA1E8A3 /* Pods_Snapet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Snapet.framework; path = "Pods-Snapet.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D528B5C53802D0C69871096ADF512BA8 /* SwiftyJSON.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftyJSON.xcconfig; sourceTree = "<group>"; };
+		E260CA4152B3CA068BBA463072F3FD8E /* KCFloatingActionButton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KCFloatingActionButton.framework; path = KCFloatingActionButton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E3DA0092549E63BF3E0FD86E1561C2A7 /* KCFloatingActionButtonItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KCFloatingActionButtonItem.swift; path = Sources/KCFloatingActionButtonItem.swift; sourceTree = "<group>"; };
+		E85D72B25CA7570F462848AA70A1CB78 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F27D93B9DF868222C35C2216F5B561F8 /* SwiftyJSON-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftyJSON-umbrella.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6D76FA88BC48179A19B3E3F9E38889DD /* Frameworks */ = {
+		5551F5F293EEED5658E8A31534943FA5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A73E76C6E974B43BCC1DAEDF8C097BBC /* Foundation.framework in Frameworks */,
+				56A83A3AAF30937FD2DFEAF4F4126A97 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7D561B0E0C93934A472E877E775B272A /* Frameworks */ = {
+		90C297C0AD447E41400CAD77B3DDBEA9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51B906AAC0669A764E62457288C4AD7E /* Foundation.framework in Frameworks */,
+				35EC1FD9592E685E4701ABED767E30F4 /* Foundation.framework in Frameworks */,
+				D67DB0D45C517BF8279A119C812D27B1 /* UIKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D9872FF1CB5E21C23F86D7323DC7EF33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF4A7F99BA895666480DE04025BB9922 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3218AFAE86F3F7CFD4B7E0B8707F60B0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C6036A80F0443AA593832A6D2234D70 /* KCFloatingActionButton */,
+				5C2FEB6DD04521E5EDC77D093A2D66FC /* SwiftyJSON */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6EE98446B568159EE277B68FD442AF0 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4E9BDD8D42139A8845DA9D39C4A1AF36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E260CA4152B3CA068BBA463072F3FD8E /* KCFloatingActionButton.framework */,
+				B557ADE7A30A6A99B073ED88C6FA8611 /* Pods_Snapet.framework */,
+				796974CB8E65F38659044EF565F62285 /* SwiftyJSON.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		5497EF27168C3E81B08A3EF0E0AD4FD1 /* Pods-Snapet */ = {
 			isa = PBXGroup;
 			children = (
@@ -88,72 +155,54 @@
 			path = "Target Support Files/Pods-Snapet";
 			sourceTree = "<group>";
 		};
-		70A8E4D3C62B6C203D238581DA091C21 /* SwiftyJSON */ = {
+		5C2FEB6DD04521E5EDC77D093A2D66FC /* SwiftyJSON */ = {
 			isa = PBXGroup;
 			children = (
-				BDE506ECE97701EBA44FDBFF401C1A04 /* SwiftyJSON.swift */,
-				8EC39E1DC11846207722B71AAFE40F98 /* Support Files */,
+				76707608B69CEEFAA290B1685E7437CC /* SwiftyJSON.swift */,
+				9B60D02A68CC964B75EF0ECBCDFC26EF /* Support Files */,
 			);
 			name = SwiftyJSON;
 			path = SwiftyJSON;
-			sourceTree = "<group>";
-		};
-		74950A663AA6014AB6D141A63BC4FA0A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F03F387AA2353D5980B4B64B4FA1E8A3 /* Pods_Snapet.framework */,
-				E9B403A3B6D9F4A40CDA428F17521B07 /* SwiftyJSON.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				BD1E3C710F12F4B4C092FC8E2AD22110 /* Pods */,
-				74950A663AA6014AB6D141A63BC4FA0A /* Products */,
+				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
+				3218AFAE86F3F7CFD4B7E0B8707F60B0 /* Pods */,
+				4E9BDD8D42139A8845DA9D39C4A1AF36 /* Products */,
 				D19FA4D7A16670524B37B323A1690002 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		8EC39E1DC11846207722B71AAFE40F98 /* Support Files */ = {
+		9B60D02A68CC964B75EF0ECBCDFC26EF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				C4A9A658C966F6BB111BEDBDEA1F874A /* Info.plist */,
-				D032A29E584B77AE187E586922267CF5 /* SwiftyJSON.modulemap */,
-				2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */,
-				32B9BBA8F5B33E56C38F5546432F66B7 /* SwiftyJSON-dummy.m */,
-				BBF610E40BDF6E542FA21FF7E5491205 /* SwiftyJSON-prefix.pch */,
-				05CA09B061E193906653AC21FD3A94F1 /* SwiftyJSON-umbrella.h */,
+				E85D72B25CA7570F462848AA70A1CB78 /* Info.plist */,
+				36479712563234F8C18E75199E1C0B21 /* SwiftyJSON.modulemap */,
+				D528B5C53802D0C69871096ADF512BA8 /* SwiftyJSON.xcconfig */,
+				22D89969F589D6100BAC74A6963E3566 /* SwiftyJSON-dummy.m */,
+				2ACE6B7725CC6D575A1A70695DC39E59 /* SwiftyJSON-prefix.pch */,
+				F27D93B9DF868222C35C2216F5B561F8 /* SwiftyJSON-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/SwiftyJSON";
 			sourceTree = "<group>";
 		};
-		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+		9C6036A80F0443AA593832A6D2234D70 /* KCFloatingActionButton */ = {
 			isa = PBXGroup;
 			children = (
-				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+				1C6C2583DDB56E2DDC55F24B26E28891 /* KCFABManager.swift */,
+				6674AA7532FACBBD2AEB30272FF34FC6 /* KCFABViewController.swift */,
+				7AB2D01166A6B79F087A396F8AD0BBB6 /* KCFABWindow.swift */,
+				1D837AAE15B028397574EE53417A3670 /* KCFloatingActionButton.swift */,
+				78E27613B93FDB7CF1E717F7BDBA8F33 /* KCFloatingActionButtonDelegate.swift */,
+				E3DA0092549E63BF3E0FD86E1561C2A7 /* KCFloatingActionButtonItem.swift */,
+				F169E19A614F317D73CBEB0C74C13804 /* Support Files */,
 			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		BD1E3C710F12F4B4C092FC8E2AD22110 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				70A8E4D3C62B6C203D238581DA091C21 /* SwiftyJSON */,
-			);
-			name = Pods;
+			name = KCFloatingActionButton;
+			path = KCFloatingActionButton;
 			sourceTree = "<group>";
 		};
 		D19FA4D7A16670524B37B323A1690002 /* Targets Support Files */ = {
@@ -164,35 +213,85 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
+		E6EE98446B568159EE277B68FD442AF0 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				616BEB51ECCAD129BDBCB7A956B56CC6 /* Foundation.framework */,
+				7EC994CDC2D681BA26389F78A7E4B325 /* UIKit.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		F169E19A614F317D73CBEB0C74C13804 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A19C305F45EAA3C7843A39E72F7E4ECE /* Info.plist */,
+				0CA481FDA4B01F2D36B71A6D658F7C89 /* KCFloatingActionButton.modulemap */,
+				3FC7E7E2330E2E529E748D4AA3C7E831 /* KCFloatingActionButton.xcconfig */,
+				8E6B39C37BC76B44B16F24A4E90C7982 /* KCFloatingActionButton-dummy.m */,
+				02BFDA595972441D74DACB1BC28B4D78 /* KCFloatingActionButton-prefix.pch */,
+				189326AF0422B38A0701D0D4A896314E /* KCFloatingActionButton-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/KCFloatingActionButton";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		88464E56F2A803568052AF106B63EEB1 /* Headers */ = {
+		062B7848E1C3A7A03CA64B9892023DEE /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8546B224589FA1D31DF9F79F59776AF0 /* SwiftyJSON-umbrella.h in Headers */,
+				51CCA7DD70500EB613D4B629EBBE2535 /* Pods-Snapet-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C0EF3CAE8009E1538320432240074D8A /* Headers */ = {
+		A9244200C20BB078C2801ACD0294EED4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C7F0B467D6769F2F97E96D00DA3B571 /* Pods-Snapet-umbrella.h in Headers */,
+				4A65651F319720435C5B57AC6C410AEC /* SwiftyJSON-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BED8062FF465FA3F4E97189464612F47 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				35E8CA67DEC919A6152AE88CFBADC41E /* KCFloatingActionButton-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		41507CED6919DDCB1D5D709EF7CC1A57 /* SwiftyJSON */ = {
+		1EC42C42A18CC65D342EDA5B755F37B3 /* Pods-Snapet */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 27551BE55FECBB54FDB76561A5F11802 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildConfigurationList = 0BE6E3E88C346E59F72BB2809F46BFE6 /* Build configuration list for PBXNativeTarget "Pods-Snapet" */;
 			buildPhases = (
-				A138427FB484DB0B3DC122B496DD3BE0 /* Sources */,
-				6D76FA88BC48179A19B3E3F9E38889DD /* Frameworks */,
-				88464E56F2A803568052AF106B63EEB1 /* Headers */,
+				BC1DD3951C9513C11A648D80256B3DAD /* Sources */,
+				5551F5F293EEED5658E8A31534943FA5 /* Frameworks */,
+				062B7848E1C3A7A03CA64B9892023DEE /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EACA446B63D1FAE4F1A3B31425CEE9E7 /* PBXTargetDependency */,
+				513DCD48650BB9E306F7D3D27E0D244C /* PBXTargetDependency */,
+			);
+			name = "Pods-Snapet";
+			productName = "Pods-Snapet";
+			productReference = B557ADE7A30A6A99B073ED88C6FA8611 /* Pods_Snapet.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		4470BB793AAA161394173C227B7C5190 /* SwiftyJSON */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0C55B59E40D66C54CC352911D15912AF /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildPhases = (
+				5FD4279E1B8DADE51961C9260E616C1E /* Sources */,
+				D9872FF1CB5E21C23F86D7323DC7EF33 /* Frameworks */,
+				A9244200C20BB078C2801ACD0294EED4 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -200,25 +299,24 @@
 			);
 			name = SwiftyJSON;
 			productName = SwiftyJSON;
-			productReference = E9B403A3B6D9F4A40CDA428F17521B07 /* SwiftyJSON.framework */;
+			productReference = 796974CB8E65F38659044EF565F62285 /* SwiftyJSON.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		7FB40D17E8E9D31A13BEBB0BE5B44F92 /* Pods-Snapet */ = {
+		A6E9CEC9E5ACFE69D21456CCB70BEEA0 /* KCFloatingActionButton */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 810E6160086746DA7213135504E0CAB8 /* Build configuration list for PBXNativeTarget "Pods-Snapet" */;
+			buildConfigurationList = 64332872CA000F9586A1EE3AB7931A2F /* Build configuration list for PBXNativeTarget "KCFloatingActionButton" */;
 			buildPhases = (
-				5EB48532E01A68712918B2562909911A /* Sources */,
-				7D561B0E0C93934A472E877E775B272A /* Frameworks */,
-				C0EF3CAE8009E1538320432240074D8A /* Headers */,
+				6447D2454052DF3D6542A514F0A524AE /* Sources */,
+				90C297C0AD447E41400CAD77B3DDBEA9 /* Frameworks */,
+				BED8062FF465FA3F4E97189464612F47 /* Headers */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				B56382A778F6C2EF13E9EB4FAA14D8B1 /* PBXTargetDependency */,
 			);
-			name = "Pods-Snapet";
-			productName = "Pods-Snapet";
-			productReference = F03F387AA2353D5980B4B64B4FA1E8A3 /* Pods_Snapet.framework */;
+			name = KCFloatingActionButton;
+			productName = KCFloatingActionButton;
+			productReference = E260CA4152B3CA068BBA463072F3FD8E /* KCFloatingActionButton.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -238,42 +336,63 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 74950A663AA6014AB6D141A63BC4FA0A /* Products */;
+			productRefGroup = 4E9BDD8D42139A8845DA9D39C4A1AF36 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7FB40D17E8E9D31A13BEBB0BE5B44F92 /* Pods-Snapet */,
-				41507CED6919DDCB1D5D709EF7CC1A57 /* SwiftyJSON */,
+				A6E9CEC9E5ACFE69D21456CCB70BEEA0 /* KCFloatingActionButton */,
+				1EC42C42A18CC65D342EDA5B755F37B3 /* Pods-Snapet */,
+				4470BB793AAA161394173C227B7C5190 /* SwiftyJSON */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5EB48532E01A68712918B2562909911A /* Sources */ = {
+		5FD4279E1B8DADE51961C9260E616C1E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1428ABC3ECC6D4520A94013A711AD4BA /* Pods-Snapet-dummy.m in Sources */,
+				628F8BB6DF36AB89FFB63FF85EA4110B /* SwiftyJSON-dummy.m in Sources */,
+				E8D1507715E6215185D204C50C10F2E4 /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A138427FB484DB0B3DC122B496DD3BE0 /* Sources */ = {
+		6447D2454052DF3D6542A514F0A524AE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E6841246C671B37D04F86EF49EA5056 /* SwiftyJSON-dummy.m in Sources */,
-				BBC997C7857A130497FA11AA16D75C90 /* SwiftyJSON.swift in Sources */,
+				E80F184AFC57C3EB80FEBBF9A641D14E /* KCFABManager.swift in Sources */,
+				3C049DD110DE86B477B31E96D86F57DB /* KCFABViewController.swift in Sources */,
+				1C07A3BD3D48293C03CF496B47A3D966 /* KCFABWindow.swift in Sources */,
+				7AEC4D4357DACF46689436014E0F1CC2 /* KCFloatingActionButton-dummy.m in Sources */,
+				BEFB286F797B17C412B2E0914B70F331 /* KCFloatingActionButton.swift in Sources */,
+				F64DE616FF0621E0DBE963A660B4C86C /* KCFloatingActionButtonDelegate.swift in Sources */,
+				CD6F705538BCD119DA4AE3F2B9255F31 /* KCFloatingActionButtonItem.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC1DD3951C9513C11A648D80256B3DAD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D89F9AB2B26DAB19871EA1B756DC4A59 /* Pods-Snapet-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		B56382A778F6C2EF13E9EB4FAA14D8B1 /* PBXTargetDependency */ = {
+		513DCD48650BB9E306F7D3D27E0D244C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftyJSON;
-			target = 41507CED6919DDCB1D5D709EF7CC1A57 /* SwiftyJSON */;
-			targetProxy = 8CC8D395C2CEB9DFE48B6E1E0B27DFBF /* PBXContainerItemProxy */;
+			target = 4470BB793AAA161394173C227B7C5190 /* SwiftyJSON */;
+			targetProxy = 9261F0A639917826FB3138050E50A02E /* PBXContainerItemProxy */;
+		};
+		EACA446B63D1FAE4F1A3B31425CEE9E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = KCFloatingActionButton;
+			target = A6E9CEC9E5ACFE69D21456CCB70BEEA0 /* KCFloatingActionButton */;
+			targetProxy = A05252A1C4084BB9FE8E7A05284C2242 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -322,9 +441,42 @@
 			};
 			name = Debug;
 		};
-		1ABDA77F03AC9DB788C99C6D16F3D8D3 /* Release */ = {
+		2D41F848DFD5039817C823AF0A1D2B64 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */;
+			baseConfigurationReference = 3FC7E7E2330E2E529E748D4AA3C7E831 /* KCFloatingActionButton.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/KCFloatingActionButton/KCFloatingActionButton-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KCFloatingActionButton/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/KCFloatingActionButton/KCFloatingActionButton.modulemap";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = KCFloatingActionButton;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		3AF53F573255F8A5B71895ABC485F041 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 879783AC04528513875709063977BFC0 /* Pods-Snapet.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -337,22 +489,58 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "Target Support Files/Pods-Snapet/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Snapet/Pods-Snapet.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_Snapet;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		413B047805E069075CBCC9C404B08FE8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D528B5C53802D0C69871096ADF512BA8 /* SwiftyJSON.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = SwiftyJSON;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		44CDBB6D11DE06DB64D6268622BDC47E /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -394,40 +582,39 @@
 			};
 			name = Release;
 		};
-		602215D797FEED9F8C7BEDDBE9FFA2B4 /* Debug */ = {
+		5A26E7B3D7E9F7ECF928C8C3160C9829 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E7F7C62EE34D2D271E6E1234A2002B2 /* SwiftyJSON.xcconfig */;
+			baseConfigurationReference = 3FC7E7E2330E2E529E748D4AA3C7E831 /* KCFloatingActionButton.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/KCFloatingActionButton/KCFloatingActionButton-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/KCFloatingActionButton/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = SwiftyJSON;
+				MODULEMAP_FILE = "Target Support Files/KCFloatingActionButton/KCFloatingActionButton.modulemap";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = KCFloatingActionButton;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
-		B2FC38EDB48035CBFCD6177A124B54BE /* Debug */ = {
+		73B76177220C4254AB662AE99CB829FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 01477703CBCFBA480A5D029FBA237862 /* Pods-Snapet.debug.xcconfig */;
 			buildSettings = {
@@ -463,9 +650,9 @@
 			};
 			name = Debug;
 		};
-		DC9E9C12CCCDC5497A4E20322CBD018D /* Release */ = {
+		D9A577E5FD286D344725AE7B4C3D56AD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 879783AC04528513875709063977BFC0 /* Pods-Snapet.release.xcconfig */;
+			baseConfigurationReference = D528B5C53802D0C69871096ADF512BA8 /* SwiftyJSON.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -478,20 +665,17 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "Target Support Files/Pods-Snapet/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/SwiftyJSON/SwiftyJSON-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SwiftyJSON/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Snapet/Pods-Snapet.modulemap";
+				MODULEMAP_FILE = "Target Support Files/SwiftyJSON/SwiftyJSON.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_Snapet;
+				PRODUCT_NAME = SwiftyJSON;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -501,11 +685,20 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		27551BE55FECBB54FDB76561A5F11802 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+		0BE6E3E88C346E59F72BB2809F46BFE6 /* Build configuration list for PBXNativeTarget "Pods-Snapet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				602215D797FEED9F8C7BEDDBE9FFA2B4 /* Debug */,
-				1ABDA77F03AC9DB788C99C6D16F3D8D3 /* Release */,
+				73B76177220C4254AB662AE99CB829FB /* Debug */,
+				3AF53F573255F8A5B71895ABC485F041 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0C55B59E40D66C54CC352911D15912AF /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				413B047805E069075CBCC9C404B08FE8 /* Debug */,
+				D9A577E5FD286D344725AE7B4C3D56AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -519,11 +712,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		810E6160086746DA7213135504E0CAB8 /* Build configuration list for PBXNativeTarget "Pods-Snapet" */ = {
+		64332872CA000F9586A1EE3AB7931A2F /* Build configuration list for PBXNativeTarget "KCFloatingActionButton" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				B2FC38EDB48035CBFCD6177A124B54BE /* Debug */,
-				DC9E9C12CCCDC5497A4E20322CBD018D /* Release */,
+				2D41F848DFD5039817C823AF0A1D2B64 /* Debug */,
+				5A26E7B3D7E9F7ECF928C8C3160C9829 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

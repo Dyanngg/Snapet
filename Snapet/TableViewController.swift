@@ -10,7 +10,10 @@ import UIKit
 import SwiftyJSON
 import CoreData
 import MobileCoreServices
+import KCFloatingActionButton
 
+
+// helper extension for string manipulation
 extension String {
     func removingWhitespaces() -> String {
         return components(separatedBy: .whitespaces).joined()
@@ -18,7 +21,10 @@ extension String {
 }
 
 
-class TableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class TableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, KCFloatingActionButtonDelegate {
+    
+    //floating action button on homepage
+    var fab = KCFloatingActionButton()
     
     var expenses: [NSManagedObject] = []
     
@@ -33,10 +39,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     var detectedMerchant: String? = nil
     var detectedCategory: String? = nil
     var detectedAccount: Int? = nil
-
     
     var useCamera = false
-
     
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -69,10 +73,13 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Add the floating action button
+        layoutFAB()
+        
         DeleteAllData()
         imagePicker.delegate = self
         title = "The List"
-//        tableView.register(ExpenseTableViewCell.self,
+//      tableView.register(ExpenseTableViewCell.self,
 //                           forCellReuseIdentifier: "Cell")
         self.tableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
@@ -195,6 +202,21 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
 //        }
         return cell
     }
+    
+    func layoutFAB() {
+        let item = KCFloatingActionButtonItem()
+        item.buttonColor = UIColor.blue
+        item.circleShadowColor = UIColor.black
+        item.titleShadowColor = UIColor.yellow
+        item.title = "Custom item"
+        
+        fab.addItem(item: item)
+        fab.fabDelegate = self
+        fab.sticky = true
+        
+        self.view.addSubview(fab)
+    }
+    
     
 
     /*

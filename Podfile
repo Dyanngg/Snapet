@@ -18,3 +18,6 @@ use_frameworks!
 target 'Snapet' do
     pod 'SwiftyJSON', '~> 3.1'
 end
+
+use_frameworks!
+pod "KCFloatingActionButton", "~> 2.2.0"

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>KCFloatingActionButton.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-Snapet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>41507CED6919DDCB1D5D709EF7CC1A57</key>
+		<key>1EC42C42A18CC65D342EDA5B755F37B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7FB40D17E8E9D31A13BEBB0BE5B44F92</key>
+		<key>4470BB793AAA161394173C227B7C5190</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A6E9CEC9E5ACFE69D21456CCB70BEEA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
