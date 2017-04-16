@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1ED86A8D809B3158B1CDEA99 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E6B50181F56BD542C903C7 /* SwiftyJSON.framework */; };
+		358C2CB91EA424A6006C136F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358C2CB81EA424A6006C136F /* MainPageController.swift */; };
 		3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0761E897BC20069DB2B /* Chrono.swift */; };
 		3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 3590A0781E897BC20069DB2B /* chrono.min.js */; };
 		3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snapet/Pods-Snapet.release.xcconfig"; sourceTree = "<group>"; };
+		358C2CB81EA424A6006C136F /* MainPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		3590A0761E897BC20069DB2B /* Chrono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chrono.swift; sourceTree = "<group>"; };
 		3590A0781E897BC20069DB2B /* chrono.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chrono.min.js; sourceTree = "<group>"; };
 		3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChronoParsedResult.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */,
 				A715BFF61E899ABF00EC42B8 /* TableViewController.swift */,
+				358C2CB81EA424A6006C136F /* MainPageController.swift */,
 				A70B72661E8856B900FC6573 /* DetailViewController.swift */,
 				A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */,
 				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */,
+				358C2CB91EA424A6006C136F /* MainPageController.swift in Sources */,
 				A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */,
 				A715BFF91E8AD00B00EC42B8 /* ExpenseTableViewCell.swift in Sources */,
 				35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */,
