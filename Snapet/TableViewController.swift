@@ -14,11 +14,11 @@ import KCFloatingActionButton
 
 
 // helper extension for string manipulation
-extension String {
-    func removingWhitespaces() -> String {
-        return components(separatedBy: .whitespaces).joined()
-    }
-}
+//extension String {
+//    func removingWhitespaces() -> String {
+//        return components(separatedBy: .whitespaces).joined()
+//    }
+//}
 
 
 class TableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, KCFloatingActionButtonDelegate {
