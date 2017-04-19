@@ -23,6 +23,10 @@
 		A70B72671E8856B900FC6573 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B72661E8856B900FC6573 /* DetailViewController.swift */; };
 		A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715BFF61E899ABF00EC42B8 /* TableViewController.swift */; };
 		A715BFF91E8AD00B00EC42B8 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */; };
+		A7FE71AE1EA703CD004087D6 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FE71AB1EA70343004087D6 /* Charts.framework */; };
+		A7FE71AF1EA703CD004087D6 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7FE71AB1EA70343004087D6 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7FE71B41EA70CD1004087D6 /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE71B31EA70CD1004087D6 /* UIColorExtensions.swift */; };
+		A7FE71B61EA70D04004087D6 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FE71B51EA70D04004087D6 /* Palette.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +44,42 @@
 			remoteGlobalIDString = 35ECD5861E5A473A008BBD9C;
 			remoteInfo = Snapet;
 		};
+		A7FE71AA1EA70343004087D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7FE71A51EA70342004087D6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F241D8110E600722320;
+			remoteInfo = Charts;
+		};
+		A7FE71AC1EA70343004087D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7FE71A51EA70342004087D6 /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06165F2E1D8110E600722320;
+			remoteInfo = ChartsTests;
+		};
+		A7FE71B01EA703CD004087D6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7FE71A51EA70342004087D6 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 06165F231D8110E600722320;
+			remoteInfo = Charts;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A7FE71B21EA703CD004087D6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A7FE71AF1EA703CD004087D6 /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snapet/Pods-Snapet.release.xcconfig"; sourceTree = "<group>"; };
@@ -67,6 +106,9 @@
 		A70B72661E8856B900FC6573 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A715BFF61E899ABF00EC42B8 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
+		A7FE71A51EA70342004087D6 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
+		A7FE71B31EA70CD1004087D6 /* UIColorExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		A7FE71B51EA70D04004087D6 /* Palette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7FE71AE1EA703CD004087D6 /* Charts.framework in Frameworks */,
 				1ED86A8D809B3158B1CDEA99 /* SwiftyJSON.framework in Frameworks */,
 				745116E0B64CE8A9D76B6593 /* Pods_Snapet.framework in Frameworks */,
 			);
@@ -126,6 +169,7 @@
 		35ECD57E1E5A473A008BBD9C = {
 			isa = PBXGroup;
 			children = (
+				A7FE71A51EA70342004087D6 /* Charts.xcodeproj */,
 				3590A0751E897BC20069DB2B /* Chrono */,
 				35ECD5891E5A473A008BBD9C /* Snapet */,
 				35ECD5A11E5A473A008BBD9C /* SnapetTests */,
@@ -154,6 +198,8 @@
 				358C2CB81EA424A6006C136F /* MainPageController.swift */,
 				A70B72661E8856B900FC6573 /* DetailViewController.swift */,
 				A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */,
+				A7FE71B31EA70CD1004087D6 /* UIColorExtensions.swift */,
+				A7FE71B51EA70D04004087D6 /* Palette.swift */,
 				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
 				35ECD5941E5A473A008BBD9C /* Assets.xcassets */,
 				35ECD5961E5A473A008BBD9C /* LaunchScreen.storyboard */,
@@ -190,6 +236,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A7FE71A61EA70342004087D6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A7FE71AB1EA70343004087D6 /* Charts.framework */,
+				A7FE71AD1EA70343004087D6 /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -203,10 +258,12 @@
 				35ECD5851E5A473A008BBD9C /* Resources */,
 				8A3BB3AD2C032F4FDBB8C91F /* [CP] Embed Pods Frameworks */,
 				2D9A5CFB113D51637B6CD68F /* [CP] Copy Pods Resources */,
+				A7FE71B21EA703CD004087D6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A7FE71B11EA703CD004087D6 /* PBXTargetDependency */,
 			);
 			name = Snapet;
 			productName = Snapet;
@@ -289,6 +346,12 @@
 			mainGroup = 35ECD57E1E5A473A008BBD9C;
 			productRefGroup = 35ECD5881E5A473A008BBD9C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A7FE71A61EA70342004087D6 /* Products */;
+					ProjectRef = A7FE71A51EA70342004087D6 /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				35ECD5861E5A473A008BBD9C /* Snapet */,
@@ -297,6 +360,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A7FE71AB1EA70343004087D6 /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = A7FE71AA1EA70343004087D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A7FE71AD1EA70343004087D6 /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = A7FE71AC1EA70343004087D6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		35ECD5851E5A473A008BBD9C /* Resources */ = {
@@ -379,12 +459,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7FE71B41EA70CD1004087D6 /* UIColorExtensions.swift in Sources */,
 				3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */,
 				358C2CB91EA424A6006C136F /* MainPageController.swift in Sources */,
 				A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */,
 				A715BFF91E8AD00B00EC42B8 /* ExpenseTableViewCell.swift in Sources */,
 				35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */,
 				3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */,
+				A7FE71B61EA70D04004087D6 /* Palette.swift in Sources */,
 				35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */,
 				A70B72671E8856B900FC6573 /* DetailViewController.swift in Sources */,
 			);
@@ -418,6 +500,11 @@
 			isa = PBXTargetDependency;
 			target = 35ECD5861E5A473A008BBD9C /* Snapet */;
 			targetProxy = 35ECD5AA1E5A473A008BBD9C /* PBXContainerItemProxy */;
+		};
+		A7FE71B11EA703CD004087D6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = A7FE71B01EA703CD004087D6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -536,9 +623,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9F4A97413B13E81697A8B690 /* Pods-Snapet.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8L96CHEMV6;
 				INFOPLIST_FILE = Snapet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.Snapet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -550,9 +639,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 8L96CHEMV6;
 				INFOPLIST_FILE = Snapet/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangding.Snapet;
 				PRODUCT_NAME = "$(TARGET_NAME)";

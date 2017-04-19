@@ -11,7 +11,8 @@ import SwiftyJSON
 import CoreData
 import MobileCoreServices
 import KCFloatingActionButton
-
+import Charts
+import Foundation
 
 // helper extension for string manipulation
 extension String {
@@ -22,6 +23,7 @@ extension String {
 
 class MainPageController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, KCFloatingActionButtonDelegate{
     
+    @IBOutlet weak var pieChartView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
     var fab = KCFloatingActionButton()
@@ -60,6 +62,48 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         imagePicker.delegate = self
 
         //!!!  self.tableView.reloadData()
+        // 1. create chart view
+        let chart = PieChartView( frame: self.pieChartView.frame)
+        
+        // 2. generate chart data entries
+        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July"]
+        let yVals: [Double] = [ 873, 568, 937, 726, 696, 687, 180]
+        var entries = [ ChartDataEntry]()
+        for (i, v) in yVals.enumerated() {
+            //            let entry = ChartDataEntry()
+            let entry = PieChartDataEntry()
+            //            entry.x = Double( i)
+            entry.y = v
+            entry.label = months[i]
+            //            let entry = PieChartDataEntry(value: Double(i), label: v, data:  months[i] as AnyObject)
+            entries.append( entry)
+        }
+        
+        // 3. chart setup
+        let set = PieChartDataSet( values: entries, label: "Pie Chart")
+        set.colors = UIColor.random(ofCount: entries.count)
+        
+        let data = PieChartData( dataSet: set)
+        chart.data = data
+        // no data text
+        chart.noDataText = "No data available"
+        // user interaction
+        chart.isUserInteractionEnabled = false
+        
+        // 3a. style
+//        chart.backgroundColor = Palette.Background
+        chart.holeColor = nil
+        chart.legend.textColor = Palette.InfoText
+//        chart.legend.textColor = Palette.Text
+        // description
+        let d = Description()
+        d.text = "iOSCharts.io"
+        chart.chartDescription = d
+        chart.centerText = "Pie Chart"
+        // size
+        chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
+        // 4. add chart to UI
+        self.pieChartView.addSubview( chart)
     }
 
     override func didReceiveMemoryWarning() {
@@ -132,6 +176,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     /****     Fetching from Core Data   ****/
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         
         //1
         guard let appDelegate =
