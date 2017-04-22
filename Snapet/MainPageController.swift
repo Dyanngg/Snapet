@@ -253,20 +253,20 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
 //            print(error)
 //        }
         // date query
-        do{
-            var sum = 0.0;
-            expenses = try managedContext.fetch(dateRequest)
-            if !expenses.isEmpty{
-                for result in expenses {
-                    let amt = (result.value(forKeyPath: "amount") as? Double)!
-                    sum += amt
-                    print("date result is \(sum)")
-                }
-            }
-            
-        } catch let error{
-            print(error)
-        }
+//        do{
+//            var sum = 0.0;
+//            expenses = try managedContext.fetch(dateRequest)
+//            if !expenses.isEmpty{
+//                for result in expenses {
+//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
+//                    sum += amt
+//                    print("date result is \(sum)")
+//                }
+//            }
+//            
+//        } catch let error{
+//            print(error)
+//        }
         // amount query
 //        do{
 //            var sum = 0.0;
@@ -283,24 +283,24 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
 //            print(error)
 //        }
         // all data
-//        do {
-//            expenses = try managedContext.fetch(fetchRequest)
-//            if !expenses.isEmpty{
-//                let expense = expenses[expenses.count - 1]
-//                fetchedAmount = (expense.value(forKeyPath: "amount") as? Double)!
-//                print("fetched amount = \(fetchedAmount)")
-//                fetchedDate = (expense.value(forKeyPath: "date") as? Date)
-//                if (fetchedDate != nil) {
-//                    print("fetched Date = \(String(describing: fetchedDate))")
-//                }
-//                fetchedAccount = (expense.value(forKeyPath: "account") as? Int)
-//                fetchedMerchant = (expense.value(forKeyPath: "merchant") as? String)
-//                fetchedCategory = (expense.value(forKeyPath: "category") as? String)
-//            }
-//            
-//        } catch let error as NSError {
-//            print("Could not fetch. \(error), \(error.userInfo)")
-//        }
+        do {
+            expenses = try managedContext.fetch(fetchRequest)
+            if !expenses.isEmpty{
+                let expense = expenses[expenses.count - 1]
+                fetchedAmount = (expense.value(forKeyPath: "amount") as? Double)!
+                print("fetched amount = \(fetchedAmount)")
+                fetchedDate = (expense.value(forKeyPath: "date") as? Date)
+                if (fetchedDate != nil) {
+                    print("fetched Date = \(String(describing: fetchedDate))")
+                }
+                fetchedAccount = (expense.value(forKeyPath: "account") as? Int)
+                fetchedMerchant = (expense.value(forKeyPath: "merchant") as? String)
+                fetchedCategory = (expense.value(forKeyPath: "category") as? String)
+            }
+            
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
         self.tableView.reloadData()
         print("test4")
         
@@ -776,9 +776,4 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         return -1
 
     }
-
-
-    
-
-    
 }
