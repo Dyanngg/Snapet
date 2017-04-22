@@ -97,7 +97,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
 //        chart.legend.textColor = Palette.Text
         // description
         let d = Description()
-        d.text = "iOSCharts.io"
+        d.text = ""
         chart.chartDescription = d
         chart.centerText = "Pie Chart"
         // size
