@@ -106,7 +106,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         self.pieChartView.addSubview( chart)
         tableView.delegate = self;
         tableView.dataSource = self;
-        tableView.rowHeight = 102;
+        tableView.rowHeight = 84;
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,6 +131,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         print("printing expense: ")
         let dequeued: AnyObject = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath)
         let cell = dequeued as! ExpenseTableViewCell
+        
         let amountLabel = expense.value(forKeyPath: "amount") as? Double
         let dateLabel = expense.value(forKeyPath: "date") as? Date
         let categoryLabel = expense.value(forKeyPath: "category") as? String
@@ -148,6 +149,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             let date = dateLabel!.description
             cell.dateLabel?.text = date.substring(to: date.index(date.startIndex, offsetBy: 10))
         }
+        cell.backgroundColor = UIColor.clear
+        cell.backgroundView = UIImageView(image: UIImage(named: "cellDesign.png")!)
         return cell
     }
     
