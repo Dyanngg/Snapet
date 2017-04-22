@@ -159,11 +159,16 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     /****   Floating action button stuff  ****/
     func layoutFAB() {
+        
+        fab.plusColor = UIColor.white
+        
         let item = KCFloatingActionButtonItem()
-        item.buttonColor = UIColor.blue
+        let uploadButtonColor = UIColor(red:90/255, green:174/255, blue:222/255, alpha:1.0)
+        item.buttonColor = uploadButtonColor
         item.circleShadowColor = UIColor.black
         item.titleShadowColor = UIColor.yellow
         item.title = "Upload image"
+        item.icon = UIImage(named: "upload.png")
         item.handler = { item in
             self.imagePicker.allowsEditing = false
             self.imagePicker.sourceType = .photoLibrary
@@ -171,6 +176,20 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             self.fab.close()
         }
         
+        let item2 = KCFloatingActionButtonItem()
+        item2.buttonColor = uploadButtonColor
+        item2.circleShadowColor = UIColor.black
+        item2.titleShadowColor = UIColor.yellow
+        item2.title = "Camera"
+        item2.icon = UIImage(named: "camera.png")
+        item2.handler = { item in
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.sourceType = .camera
+            self.present(self.imagePicker, animated: true, completion: nil)
+            self.useCamera = true
+        }
+        
+        fab.addItem(item: item2)
         fab.addItem(item: item)
         fab.fabDelegate = self
         fab.sticky = true
