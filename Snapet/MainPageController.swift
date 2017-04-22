@@ -104,6 +104,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
         // 4. add chart to UI
         self.pieChartView.addSubview( chart)
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.rowHeight = 102;
     }
 
     override func didReceiveMemoryWarning() {
@@ -123,10 +126,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("printing expenses: ")
-        print(expenses)
+        //print(expenses)
         let expense = expenses[indexPath.row]
         print("printing expense: ")
-        let dequeued: AnyObject = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let dequeued: AnyObject = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath)
         let cell = dequeued as! ExpenseTableViewCell
         let amountLabel = expense.value(forKeyPath: "amount") as? Double
         let dateLabel = expense.value(forKeyPath: "date") as? Date
