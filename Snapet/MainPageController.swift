@@ -215,6 +215,14 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    // display the constraints obtained from setting page
+    @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue) {
+        if let svc = unwindSegue.source as? DetailViewController {
+            expenses = svc.expenses
+            print("expenses is assigned")
+        }
+    }
+    
     func DeleteAllData(){
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -354,7 +362,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Go"{
+        if segue.identifier == "toDetail"{
             // get a reference to the second view controller
             let secondViewController = segue.destination as! DetailViewController
             if let amountDetected = detectedAmount {
