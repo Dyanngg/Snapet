@@ -26,6 +26,12 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var pieChartView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var analyzeTextLabel: UILabel!
+    @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var progressBar: UIImageView!
+    
+    
     var chart = PieChartView()
     
     var fab = KCFloatingActionButton()
@@ -48,6 +54,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var detectedAccount: Int? = nil
     
     var useCamera = false
+    var analyzeInProgress = false
     
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -65,6 +72,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
         DeleteAllData()
         imagePicker.delegate = self
+        
+        hideProgressBar()
 
         //!!!  self.tableView.reloadData()
         
@@ -157,7 +166,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
         
         // 4. add chart to UI
-        
         self.pieChartView.addSubview(chart)
         
         
@@ -262,12 +270,15 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         self.view.addSubview(fab)
     }
 
-    
+
     
     /****     Fetching from Core Data   ****/
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if !analyzeInProgress{
+            hideProgressBar()
+        }
         
         // 1 set context
         
@@ -472,6 +483,25 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    
+    /****   Progress bar  ****/
+    func showProgressBar(){
+        analyzeTextLabel.isHidden = false
+        progressView.isHidden = false
+        progressLabel.isHidden = false
+        progressBar.isHidden = false
+    }
+    
+    func hideProgressBar() {
+        analyzeTextLabel.isHidden = true
+        progressView.isHidden = true
+        progressLabel.isHidden = true
+        progressBar.isHidden = true
+    }
+    
+    
+    
+    
     /****    Sending requests to Google Vision API  ****/
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
@@ -480,6 +510,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             createRequest(with: binaryImageData)
         }
         dismiss(animated: true, completion: nil)
+        analyzeInProgress = true
+        showProgressBar()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -544,7 +576,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         request.httpBody = data
-        
+        self.progressView.setProgress(0.2, animated: true)
         // Run the request on a background thread
         DispatchQueue.global().async { self.runRequestOnBackgroundThread(request) }
     }
@@ -557,6 +589,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                 print(error?.localizedDescription ?? "")
                 return
             }
+            self.progressView.setProgress(0.5, animated: true)
             self.analyzeResults(data)
         }
         task.resume()
@@ -659,6 +692,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.detectedAmount = self.analyzeAmount(json: json)
             
+            
             if let merchantDetected = self.analyzeLogo(json: json){
                 if let webResults = self.analyzeWeb(json: json){
                     if webResults.contains(merchantDetected){
@@ -676,7 +710,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                     isMerchantDetected = true
                 }
             }
-
+            self.progressView.setProgress(0.9, animated: true)
             
             //let chrono = Chrono.shared
             if let dateDetected = self.analyzeDate(json: json){
@@ -688,6 +722,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         if(!isMerchantDetected){
             DispatchQueue.main.async {
+                self.analyzeInProgress = false
                 self.performSegue(withIdentifier: "toDetail", sender: nil)
             }
         }
@@ -757,6 +792,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         DispatchQueue.main.async {
+            self.analyzeInProgress = false
             self.performSegue(withIdentifier: "toDetail", sender: nil)
         }
     }
