@@ -164,6 +164,15 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.rowHeight = 84;
+        
+        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
+        /** Not working yet */
+        let height: CGFloat = 50
+        let bounds = self.navigationController!.navigationBar.bounds
+        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
     }
 
     override func didReceiveMemoryWarning() {

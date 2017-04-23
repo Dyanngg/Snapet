@@ -536,9 +536,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eym-yJ-fZu">
-                                <rect key="frame" x="167" y="562" width="80" height="49"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eym-yJ-fZu">
+                                <rect key="frame" x="167.5" y="583" width="40" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="0.94954258420000004" green="0.81255880380000001" blue="0.29638489039999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -551,6 +550,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="xeA-dj-lSR" firstAttribute="top" secondItem="eym-yJ-fZu" secondAttribute="bottom" constant="50" id="dcG-uc-Jff"/>
+                            <constraint firstItem="eym-yJ-fZu" firstAttribute="centerX" secondItem="623-ow-nbu" secondAttribute="centerX" id="w1I-hp-vGr"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="accountField" destination="FvA-3x-Dq6" id="qtW-6C-IGn"/>
