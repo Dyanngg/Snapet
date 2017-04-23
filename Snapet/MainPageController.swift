@@ -26,6 +26,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var pieChartView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
+    var chart = PieChartView()
+    
     var fab = KCFloatingActionButton()
     
     var expenses: [NSManagedObject] = []
@@ -59,24 +61,72 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // Add the floating action button
         layoutFAB()
         
-        DeleteAllData()
+//        DeleteAllData()
         imagePicker.delegate = self
 
         //!!!  self.tableView.reloadData()
+        
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        
+        // 0. Fetch data to prepare for pie chart display
+        
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+        distinctCategoryReq.propertiesToFetch = ["category"]
+        distinctCategoryReq.returnsDistinctResults = true
+        distinctCategoryReq.resultType = NSFetchRequestResultType.dictionaryResultType
+        // array for storing category displayed in the pie chart
+        var category = [String]()
+        // array for storing total amount of each category
+        var amount = [Double]()
+        do {
+            let results = try managedContext.fetch(distinctCategoryReq)
+            if !results.isEmpty {
+            let resultsDict = results as! [[String: String]]
+            // set category array values
+            for r in resultsDict {
+                if let temp = r["category"] {
+                    category.append(temp) }
+                }
+            }
+        } catch let err as NSError {
+            print(err.debugDescription)
+        }
+        for i in category {
+            let categoryReq =
+                NSFetchRequest<NSManagedObject>(entityName: "Expense")
+            categoryReq.predicate = NSPredicate(format: "category == %@", i)
+            var sum = 0.0;
+            // set amount array values
+            do {
+                results = try managedContext.fetch(categoryReq)
+                if !results.isEmpty{
+                    for result in results {
+                        let amt = (result.value(forKeyPath: "amount") as? Double)!
+                        sum += amt
+                    }
+                }
+            } catch let err as NSError {
+                print(err.debugDescription)
+            }
+            amount.append(sum)
+        }
+        
         // 1. create chart view
-        let chart = PieChartView( frame: self.pieChartView.frame)
+        chart = PieChartView( frame: self.pieChartView.frame)
         
         // 2. generate chart data entries
-        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July"]
-        let yVals: [Double] = [ 873, 568, 937, 726, 696, 687, 180]
+//        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July"]
+//        let yVals: [Double] = [ 873, 568, 937, 726, 696, 687, 180]
         var entries = [ ChartDataEntry]()
-        for (i, v) in yVals.enumerated() {
-            //            let entry = ChartDataEntry()
+        for (i, v) in amount.enumerated() {
             let entry = PieChartDataEntry()
-            //            entry.x = Double( i)
             entry.y = v
-            entry.label = months[i]
-            //            let entry = PieChartDataEntry(value: Double(i), label: v, data:  months[i] as AnyObject)
+            entry.label = category[i]
             entries.append( entry)
         }
         
@@ -91,7 +141,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // user interaction
         chart.isUserInteractionEnabled = false
         
-        // 3a. style
+        // 3a. set style
 //        chart.backgroundColor = Palette.Background
         chart.holeColor = nil
         chart.legend.textColor = Palette.InfoText
@@ -103,8 +153,12 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart.centerText = "Pie Chart"
         // size
         chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
+        
         // 4. add chart to UI
-        self.pieChartView.addSubview( chart)
+        
+        self.pieChartView.addSubview(chart)
+        
+        
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.rowHeight = 84;
@@ -204,26 +258,35 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         
         
-        //1
+        // 1 set context
+        
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
-        
         let managedContext =
             appDelegate.persistentContainer.viewContext
         
-        //2
-        // all data request
+        // 2 send query requests
+        
+        // 2.1 all data request
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        // category query request
+        
+        // 2.2 distinct categories request
+        let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+        distinctCategoryReq.propertiesToFetch = ["category"]
+        distinctCategoryReq.returnsDistinctResults = true
+        distinctCategoryReq.resultType = NSFetchRequestResultType.dictionaryResultType
+        
+        // 2.3 category query request
         let categoryRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         categoryRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@", "Com")
-        // date query request
-        let dateRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        
+        // 2.4 date query request
+//        let dateRequest =
+//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
 //        let endDate = Date().addingTimeInterval(-43200)
 //        dateRequest.predicate = NSPredicate(format: "endDate == %@", endDate as NSDate)
 //        let temp = "2017-04-20"
@@ -231,58 +294,14 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
 //        dateFormatter.dateFormat = "yyyy-MM-dd"
 //        let date = dateFormatter.date(from: temp)
 //        dateRequest.predicate = NSPredicate(format: "date > %@", date as! CVarArg)
-        // amount query request
+        // 2.5 amount query request
         let amountRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         amountRequest.predicate = NSPredicate(format: "amount > %@", "5")
         
-        //3
-        // category query
-//        do{
-//            var sum = 0.0;
-//            expenses = try managedContext.fetch(categoryRequest)
-//            if !expenses.isEmpty{
-//            for result in expenses {
-//                let amt = (result.value(forKeyPath: "amount") as? Double)!
-//                sum += amt
-//                print("cat result is \(sum)")
-//            }
-//            }
-//            
-//        } catch let error{
-//            print(error)
-//        }
-        // date query
-//        do{
-//            var sum = 0.0;
-//            expenses = try managedContext.fetch(dateRequest)
-//            if !expenses.isEmpty{
-//                for result in expenses {
-//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
-//                    sum += amt
-//                    print("date result is \(sum)")
-//                }
-//            }
-//            
-//        } catch let error{
-//            print(error)
-//        }
-        // amount query
-//        do{
-//            var sum = 0.0;
-//            expenses = try managedContext.fetch(amountRequest)
-//            if !expenses.isEmpty{
-//                for result in expenses {
-//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
-//                    sum += amt
-//                    print("amt result is \(sum)")
-//                }
-//            }
-//            
-//        } catch let error{
-//            print(error)
-//        }
-        // all data
+        // 3 fetch core data based on request
+        
+        // 3.1 fetch all data
         do {
             expenses = try managedContext.fetch(fetchRequest)
             if !expenses.isEmpty{
@@ -301,9 +320,124 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        self.tableView.reloadData()
-        print("test4")
         
+        // 3.2 fetch distinct categories data
+        var category = [String]()
+        var amount = [Double]()
+        do {
+            let results = try managedContext.fetch(distinctCategoryReq)
+            if !results.isEmpty {
+                let resultsDict = results as! [[String: String]]
+                // set category array values
+                for r in resultsDict {
+                    if let temp = r["category"] {
+                        category.append(temp) }
+                }
+            }
+        } catch let err as NSError {
+            print(err.debugDescription)
+        }
+        for i in category {
+            let categoryReq =
+                NSFetchRequest<NSManagedObject>(entityName: "Expense")
+            categoryReq.predicate = NSPredicate(format: "category == %@", i)
+            var sum = 0.0;
+            // set amount array values
+            do {
+                results = try managedContext.fetch(categoryReq)
+                if !results.isEmpty{
+                    for result in results {
+                        let amt = (result.value(forKeyPath: "amount") as? Double)!
+                        sum += amt
+                    }
+                }
+            } catch let err as NSError {
+                print(err.debugDescription)
+            }
+            amount.append(sum)
+        }
+        var entries = [ ChartDataEntry]()
+        for (i, v) in amount.enumerated() {
+            let entry = PieChartDataEntry()
+            entry.y = v
+            entry.label = category[i]
+            entries.append( entry)
+        }
+        let set = PieChartDataSet( values: entries, label: "")
+        set.colors = UIColor.random(ofCount: entries.count)
+        
+        let data = PieChartData( dataSet: set)
+        chart.data = data
+        chart.noDataText = "No data available"
+        chart.isUserInteractionEnabled = false
+        
+        // 3.3 fetcht category data
+        
+        //        do{
+        //            var sum = 0.0;
+        //            expenses = try managedContext.fetch(categoryRequest)
+        //            if !expenses.isEmpty{
+        //            for result in expenses {
+        //                let amt = (result.value(forKeyPath: "amount") as? Double)!
+        //                sum += amt
+        //                print("cat result is \(sum)")
+        //            }
+        //            }
+        //
+        //        } catch let error{
+        //            print(error)
+        //        }
+        
+        //        do
+        //        {
+        //            results = try managedContext.fetch(fetchRequest)
+        //            if !results.isEmpty{
+        //                for result in results {
+        //                    let cat = (result.value(forKeyPath: "category") as? String)!
+        //                    print("one of the category is \(cat)")
+        //                }
+        //            }
+        //        }
+        //        catch let error as NSError {
+        //            print("Could not fetch. \(error), \(error.userInfo)")
+        //        }
+        
+        // 3.4 date query
+//        do{
+//            var sum = 0.0;
+//            expenses = try managedContext.fetch(dateRequest)
+//            if !expenses.isEmpty{
+//                for result in expenses {
+//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
+//                    sum += amt
+//                    print("date result is \(sum)")
+//                }
+//            }
+//
+//        } catch let error{
+//            print(error)
+//        }
+        
+        // 3.5 amount query
+//        do{
+//            var sum = 0.0;
+//            expenses = try managedContext.fetch(amountRequest)
+//            if !expenses.isEmpty{
+//                for result in expenses {
+//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
+//                    sum += amt
+//                    print("amt result is \(sum)")
+//                }
+//            }
+//            
+//        } catch let error{
+//            print(error)
+//        }
+        
+        // 4 update table view and pie chart view
+        
+        self.tableView.reloadData()
+        self.pieChartView.reloadInputViews()
     }
     
     // display the constraints obtained from setting page
