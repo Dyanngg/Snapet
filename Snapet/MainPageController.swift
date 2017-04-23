@@ -31,7 +31,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var fab = KCFloatingActionButton()
     
     var expenses: [NSManagedObject] = []
-    var results: [NSManagedObject] = []
+    
+    /** core data crash */
+    //var results: [NSManagedObject] = []
     
     var fetchedAmount = Double(-1.0)
     var fetchedDate: Date? = nil
