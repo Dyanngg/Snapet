@@ -29,7 +29,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var fab = KCFloatingActionButton()
     
     var expenses: [NSManagedObject] = []
-    var results: [NSManagedObject] = []
+    
+    /** core data crash */
+    //var results: [NSManagedObject] = []
     
     var fetchedAmount = Double(-1.0)
     var fetchedDate: Date? = nil
@@ -216,25 +218,27 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         //2
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        let myRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        myRequest.predicate = NSPredicate(format: "category CONTAINS %@ || merchant CONTAINS %@", "cof")
+        /** core data crash */
+//        let myRequest =
+//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+//        myRequest.predicate = NSPredicate(format: "category CONTAINS %@ || merchant CONTAINS %@", "cof")
         
         //3
-        do{
-            var sum = 0.0;
-            results = try managedContext.fetch(myRequest)
-            if !results.isEmpty{
-            for result in results {
-                let amt = (result.value(forKeyPath: "amount") as? Double)!
-                sum += amt
-                print("result is \(sum)")
-            }
-            }
-            
-        } catch let error{
-            print(error)
-        }
+        /** core data crash */
+//        do{
+//            var sum = 0.0;
+//            results = try managedContext.fetch(myRequest)
+//            if !results.isEmpty{
+//            for result in results {
+//                let amt = (result.value(forKeyPath: "amount") as? Double)!
+//                sum += amt
+//                print("result is \(sum)")
+//            }
+//            }
+//            
+//        } catch let error{
+//            print(error)
+//        }
         do {
             expenses = try managedContext.fetch(fetchRequest)
             if !expenses.isEmpty{
