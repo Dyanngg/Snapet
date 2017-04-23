@@ -216,8 +216,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             appDelegate.persistentContainer.viewContext
         
         //2
+        // all data request
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
+
         /** core data crash */
 //        let myRequest =
 //            NSFetchRequest<NSManagedObject>(entityName: "Expense")
@@ -233,12 +235,72 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
 //                let amt = (result.value(forKeyPath: "amount") as? Double)!
 //                sum += amt
 //                print("result is \(sum)")
+        // category query request
+        let categoryRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        categoryRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@", "Com")
+        // date query request
+//        let dateRequest =
+//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+//        let endDate = Date().addingTimeInterval(-43200)
+//        dateRequest.predicate = NSPredicate(format: "endDate == %@", endDate as NSDate)
+//        let temp = "2017-04-20"
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let date = dateFormatter.date(from: temp)
+//        dateRequest.predicate = NSPredicate(format: "date > %@", date as! CVarArg)
+        // amount query request
+        let amountRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        amountRequest.predicate = NSPredicate(format: "amount > %@", "5")
+        
+        //3
+        // category query
+//        do{
+//            var sum = 0.0;
+//            expenses = try managedContext.fetch(categoryRequest)
+//            if !expenses.isEmpty{
+//            for result in expenses {
+//                let amt = (result.value(forKeyPath: "amount") as? Double)!
+//                sum += amt
+//                print("cat result is \(sum)")
 //            }
 //            }
 //            
 //        } catch let error{
 //            print(error)
 //        }
+        // date query
+//        do{
+//            var sum = 0.0;
+//            expenses = try managedContext.fetch(dateRequest)
+//            if !expenses.isEmpty{
+//                for result in expenses {
+//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
+//                    sum += amt
+//                    print("date result is \(sum)")
+//                }
+//            }
+//            
+//        } catch let error{
+//            print(error)
+//        }
+        // amount query
+//        do{
+//            var sum = 0.0;
+//            expenses = try managedContext.fetch(amountRequest)
+//            if !expenses.isEmpty{
+//                for result in expenses {
+//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
+//                    sum += amt
+//                    print("amt result is \(sum)")
+//                }
+//            }
+//            
+//        } catch let error{
+//            print(error)
+//        }
+        // all data
         do {
             expenses = try managedContext.fetch(fetchRequest)
             if !expenses.isEmpty{
@@ -732,9 +794,4 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         return -1
 
     }
-
-
-    
-
-    
 }
