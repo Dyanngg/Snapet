@@ -38,6 +38,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     var expenses: [NSManagedObject] = []
     var results: [NSManagedObject] = []
+    var total = 0.0
     
     /** core data crash */
     
@@ -70,7 +71,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // Add the floating action button
         layoutFAB()
         
-        DeleteAllData()
+//        DeleteAllData()
         imagePicker.delegate = self
         
         hideProgressBar()
@@ -163,7 +164,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart.chartDescription = d
         
         /*** TODO: set this to pie chart center text ***/
-        let totalAmount = "$960"
+        let totalAmount = "$\(total)"
         
         let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
         centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
@@ -384,6 +385,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             } catch let err as NSError {
                 print(err.debugDescription)
             }
+            total += sum
             amount.append(sum)
         }
         var entries = [ ChartDataEntry]()
@@ -400,7 +402,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart.data = data
         chart.noDataText = "No data available"
         chart.isUserInteractionEnabled = false
-        
+        let totalAmount = "$\(total)"
+        let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
+        centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
+        chart.centerAttributedText = centerTxt
         // 3.3 fetcht category data
         
         //        do{
