@@ -99,7 +99,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         row = indexPath.row
         addNewData = false
-        self.performSegue(withIdentifier: "toDetail", sender: nil)
+        self.performSegue(withIdentifier: "ReportToDetail", sender: nil)
     }
 
     /****     Fetching from Core Data   ****/

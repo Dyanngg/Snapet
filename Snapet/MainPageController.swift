@@ -74,7 +74,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // Add the floating action button
         layoutFAB()
         
-        DeleteAllData()
+//        DeleteAllData()
         imagePicker.delegate = self
         
         hideProgressBar()
