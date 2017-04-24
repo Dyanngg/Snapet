@@ -372,8 +372,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
-                    <navigationItem key="navigationItem" id="MYC-VU-6e8"/>
+                    <navigationItem key="navigationItem" id="MYC-VU-6e8">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="d5L-QB-Kc5">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="menuButton" destination="d5L-QB-Kc5" id="TAT-wv-Fdx"/>
                         <outlet property="searchBar" destination="Laq-1c-TrJ" id="kzg-o1-Vmp"/>
                         <outlet property="tableView" destination="2mR-Ep-Swn" id="sGO-jW-p9W"/>
                     </connections>

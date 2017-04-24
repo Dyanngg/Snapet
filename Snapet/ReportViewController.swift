@@ -14,6 +14,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+    
     var expenses: [NSManagedObject] = []
     
     var fetchedAmount = Double(-1.0)
@@ -37,6 +39,12 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self;
         tableView.rowHeight = 84;
         searchBar.delegate = self
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
     
     override func didReceiveMemoryWarning() {
