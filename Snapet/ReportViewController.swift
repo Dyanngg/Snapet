@@ -31,6 +31,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var detectedAccount: Int? = nil
     
     var searchActive : Bool = false
+    var addNewData = true
+    var row = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +93,13 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.backgroundColor = UIColor.clear
         cell.backgroundView = UIImageView(image: UIImage(named: "cellDesign.png")!)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        row = indexPath.row
+        addNewData = false
+        self.performSegue(withIdentifier: "toDetail", sender: nil)
     }
 
     /****     Fetching from Core Data   ****/
@@ -221,8 +230,41 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         updateTableView(searchActive, searchRequest)
     }
     
-    
+    // This function is called before the segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ReportToDetail"{
+            if !addNewData {
+                let secondViewController = segue.destination as! DetailViewController
+                let expense = expenses[row]
+                if let amount = (expense.value(forKeyPath: "amount") as? Double) {
+                    secondViewController.amount = amount
+                }
+                if let date = (expense.value(forKeyPath: "date") as? Date) {
+                    secondViewController.date = date
+                }
+                if let merchant = (expense.value(forKeyPath: "merchant") as? String) {
+                    secondViewController.merchant = merchant
+                }
+                if let category = (expense.value(forKeyPath: "category") as? String) {
+                    secondViewController.category = category
+                }
+                secondViewController.isEdit = true
+                secondViewController.row = row
+                secondViewController.expenses = expenses
+                addNewData = true
+            }
+        }
+    }
 
+    // display the constraints obtained from setting page
+    @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue) {
+        if let svc = unwindSegue.source as? DetailViewController {
+            if !svc.isEdit {
+                expenses = svc.expenses
+            }
+            print("expenses is assigned")
+        }
+    }
 
     @IBAction func amountSearch(_ sender: Any) {
         let searchRequest =
