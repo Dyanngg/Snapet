@@ -25,9 +25,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var isEdit = false
     var row = 0
     var expenses: [NSManagedObject] = []
-//    var savedAmount = Double(-1.0)
-//    var savedDate: Date? = nil
-//    var savedMerchant = ""
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -64,23 +61,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
-        
+        // edit existing data
         if isEdit {
             // 1
             let managedContext =
                 appDelegate.persistentContainer.viewContext
             // 2
-//            let updateRequest =
-//                NSFetchRequest<NSManagedObject>(entityName: "Expense")
-//            updateRequest.predicate = NSPredicate(format: "amount == %@ AND merchant == %@ AND category == %@", amount, merchant, category)
-//            do {
-//                let results = try managedContext.fetch(updateRequest)
-//                if results.count != 0 {
-//                    expense = results[0]
-//                }
-//            } catch let error as NSError {
-//                print("Could not fetch. \(error), \(error.userInfo)")
-//            }
             let expense = expenses[row]
             // 3
             expense.setValue(amount, forKeyPath: "amount")
@@ -104,6 +90,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
+        // add new data
         } else {
             // 1
             let managedContext =
@@ -135,16 +122,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             do {
                 try managedContext.save()
                     expenses.append(expense)
-                //            savedAmount = (expense.value(forKeyPath: "amount") as? Double)!
-                //            print("saved amount = \(savedAmount)")
-                //            if (date != nil) {
-                //                savedDate = (expense.value(forKeyPath: "date") as? Date)!
-                //                print("saved date = \(savedDate)")
-                //            }
-                //            if (merchant != nil) {
-                //                savedMerchant = (expense.value(forKeyPath: "merchant") as? String)!
-                //                print("saved merchant = \(savedMerchant)")
-                //            }
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
