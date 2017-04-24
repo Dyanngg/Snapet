@@ -20,7 +20,7 @@
 		35ECD5A31E5A473A008BBD9C /* SnapetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5A21E5A473A008BBD9C /* SnapetTests.swift */; };
 		35ECD5AE1E5A473A008BBD9C /* SnapetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5AD1E5A473A008BBD9C /* SnapetUITests.swift */; };
 		35FAD1D61EAE841700B3B99E /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FAD1D51EAE841700B3B99E /* SWRevealViewController.m */; };
-		35FAD1D91EAE986D00B3B99E /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FAD1D81EAE986D00B3B99E /* MenuController.swift */; };
+		35FAD1DE1EAEACCC00B3B99E /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FAD1DD1EAEACCC00B3B99E /* MenuController.swift */; };
 		745116E0B64CE8A9D76B6593 /* Pods_Snapet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 860CFD7F0C9448D1ADAC9E83 /* Pods_Snapet.framework */; };
 		A70B72671E8856B900FC6573 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B72661E8856B900FC6573 /* DetailViewController.swift */; };
 		A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715BFF61E899ABF00EC42B8 /* TableViewController.swift */; };
@@ -107,7 +107,7 @@
 		35ECD5AF1E5A473A008BBD9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35FAD1D41EAE840E00B3B99E /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = SWRevealController/SWRevealViewController.h; sourceTree = SOURCE_ROOT; };
 		35FAD1D51EAE841700B3B99E /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = SWRevealController/SWRevealViewController.m; sourceTree = SOURCE_ROOT; };
-		35FAD1D81EAE986D00B3B99E /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuController.swift; path = ../../../Downloads/SidebarMenu/SidebarMenu/MenuController.swift; sourceTree = "<group>"; };
+		35FAD1DD1EAEACCC00B3B99E /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		860CFD7F0C9448D1ADAC9E83 /* Pods_Snapet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Snapet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F4A97413B13E81697A8B690 /* Pods-Snapet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snapet/Pods-Snapet.debug.xcconfig"; sourceTree = "<group>"; };
 		A1E6B50181F56BD542C903C7 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,8 +221,8 @@
 				A7958DA41EAD28D80054F915 /* ReportViewController.swift */,
 				A7958DA71EAD317F0054F915 /* ReportTableViewCell.swift */,
 				A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */,
+				35FAD1DD1EAEACCC00B3B99E /* MenuController.swift */,
 				A7FE71B31EA70CD1004087D6 /* UIColorExtensions.swift */,
-				35FAD1D81EAE986D00B3B99E /* MenuController.swift */,
 				A7FE71B51EA70D04004087D6 /* Palette.swift */,
 				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
 				35ECD5941E5A473A008BBD9C /* Assets.xcassets */,
@@ -492,7 +492,7 @@
 				A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */,
 				A7958DA51EAD28D80054F915 /* ReportViewController.swift in Sources */,
 				A715BFF91E8AD00B00EC42B8 /* ExpenseTableViewCell.swift in Sources */,
-				35FAD1D91EAE986D00B3B99E /* MenuController.swift in Sources */,
+				35FAD1DE1EAEACCC00B3B99E /* MenuController.swift in Sources */,
 				35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */,
 				3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */,
 				A7FE71B61EA70D04004087D6 /* Palette.swift in Sources */,
