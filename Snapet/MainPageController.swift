@@ -72,7 +72,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // Add the floating action button
         layoutFAB()
         
-//        DeleteAllData()
+        DeleteAllData()
         imagePicker.delegate = self
         
         hideProgressBar()
@@ -216,10 +216,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("printing expenses: ")
-        //print(expenses)
         let expense = expenses[indexPath.row]
-        print("printing expense: ")
         let dequeued: AnyObject = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath)
         let cell = dequeued as! ExpenseTableViewCell
         
@@ -713,13 +710,24 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             
             self.detectedAmount = self.analyzeAmount(json: json)
             
+            //let chrono = Chrono.shared
+            if let dateDetected = self.analyzeDate(json: json){
+                self.detectedDate = dateDetected
+            }
+            //print(date)
+            print("set detected amount = \(String(describing: self.detectedAmount))")
+            print("set detected date = \(String(describing: self.detectedDate))")
             
             if let merchantDetected = self.analyzeLogo(json: json){
                 if let webResults = self.analyzeWeb(json: json){
                     if webResults.contains(merchantDetected){
                         self.detectedMerchant = merchantDetected
-                        self.createKGRequest(input: merchantDetected)
                         isMerchantDetected = true
+                        if(isMerchantDetected) {
+                            detectedCategory = checkCategory()
+                            print("detectedCategory is = \(detectedCategory)")
+                        }
+                        self.createKGRequest(input: merchantDetected)
                     }
                 }
             }
@@ -733,15 +741,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
             self.progressView.setProgress(0.9, animated: true)
             
-            //let chrono = Chrono.shared
-            if let dateDetected = self.analyzeDate(json: json){
-                self.detectedDate = dateDetected
-            }
-            //print(date)
-            print("set detected amount = \(String(describing: self.detectedAmount))")
-            print("set detected date = \(String(describing: self.detectedDate))")
         }
-        if(!isMerchantDetected){
+        
+        if !isMerchantDetected {
             DispatchQueue.main.async {
                 self.analyzeInProgress = false
                 self.performSegue(withIdentifier: "toDetail", sender: nil)
@@ -750,6 +752,26 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    func checkCategory() -> String {
+        var category = ""
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        let categoryReqest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        categoryReqest.predicate = NSPredicate(format: "merchant == %@", detectedMerchant)
+        print("detectedMerchant is = \(detectedMerchant)")
+        do {
+            let results = try managedContext.fetch(categoryReqest)
+            let result = results[results.count - 1]
+            category = (expense.value(forKeyPath: "category") as? String)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        return category
+    }
     
     
     /**
