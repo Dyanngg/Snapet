@@ -483,7 +483,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.tableView.reloadData()
         self.pieChartView.reloadInputViews()
-        self.pieChartView.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
+        self.chart.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
     }
     
     // display the constraints obtained from setting page
