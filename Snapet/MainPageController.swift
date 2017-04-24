@@ -180,8 +180,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
         // 4. add chart to UI
         self.pieChartView.addSubview(chart)
-        
-        
+
 
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -191,6 +190,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.barTintColor = barColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
+        
         /** Not working yet */
         let height: CGFloat = 50
         let bounds = self.navigationController!.navigationBar.bounds

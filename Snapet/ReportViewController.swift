@@ -45,6 +45,11 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        
+        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
     }
     
     override func didReceiveMemoryWarning() {
