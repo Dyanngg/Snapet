@@ -151,7 +151,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             }
         }
         if let temp = merchantField.text{
-            merchant = temp
             if (temp.characters.count > 0) {
                 merchant = temp
             }
@@ -165,7 +164,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "MMM dd, yyyy"
             if (temp.characters.count >= 11) {
-                date = dateFormatter.date(from: temp)
+                if let temp2 = dateFormatter.date(from: temp) {
+                    date = temp2
+                } else {
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
+                    let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
+                    date = dateFormatter.date(from: temp1)
+                }
             }
 //            dateFormatter.dateFormat = "yyyy-MM-dd"
 //            var d: Date
@@ -179,7 +184,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
 //            }
         }
         if let temp = categoryField.text {
-            category = temp
+            if (temp.characters.count > 0) {
+                category = temp
+            }
         }
     }
 
