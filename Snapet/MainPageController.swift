@@ -23,6 +23,7 @@ extension String {
 
 class MainPageController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, KCFloatingActionButtonDelegate{
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var pieChartView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
@@ -190,6 +191,13 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let height: CGFloat = 50
         let bounds = self.navigationController!.navigationBar.bounds
         self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
