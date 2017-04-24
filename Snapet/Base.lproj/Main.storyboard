@@ -759,6 +759,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.92620444300000004" green="0.93612229820000004" blue="0.94110381600000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <segue destination="qWS-qH-rxd" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="5da-rS-9E2"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="73" id="7PL-Ta-6Y3">
                                         <rect key="frame" x="0.0" y="298" width="414" height="73"/>
