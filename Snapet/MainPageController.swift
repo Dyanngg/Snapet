@@ -137,13 +137,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
 //        let yVals: [Double] = [ 873, 568, 937, 726, 696, 687, 180]
         var entries = [ ChartDataEntry]()
         
-        var displayTotal = 0.0
-        for (_, v) in amount.enumerated() {
-            displayTotal += v
-        }
         for (i, v) in amount.enumerated() {
             let entry = PieChartDataEntry()
-            entry.y = v / displayTotal * 100.0
+            entry.y = v
             entry.label = category[i]
             entries.append( entry)
         }
@@ -737,7 +733,12 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                             isCategoryDetected = true
                         }
                         if !isCategoryDetected {
-                        self.createKGRequest(input: merchantDetected)
+                            self.createKGRequest(input: merchantDetected)
+                        } else {
+                            DispatchQueue.main.async {
+                                self.analyzeInProgress = false
+                                self.performSegue(withIdentifier: "toDetail", sender: nil)
+                            }
                         }
                     }
                 }
