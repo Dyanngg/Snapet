@@ -161,7 +161,15 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let d = Description()
         d.text = ""
         chart.chartDescription = d
-        chart.centerText = "Pie Chart"
+        
+        /*** TODO: set this to pie chart center text ***/
+        let totalAmount = "$960"
+        
+        let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
+        centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
+        chart.centerAttributedText = centerTxt
+        
+        //chart.centerText = "Pie Chart"
         // size
         chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
         
