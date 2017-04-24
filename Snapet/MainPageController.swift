@@ -179,6 +179,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // 4. add chart to UI
         self.pieChartView.addSubview(chart)
         
+        
 
         tableView.delegate = self;
         tableView.dataSource = self;
@@ -412,6 +413,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
         centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
         chart.centerAttributedText = centerTxt
+        total = 0.0
         // 3.3 fetcht category data
         
         //        do{
@@ -479,7 +481,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.tableView.reloadData()
         self.pieChartView.reloadInputViews()
-        self.chart.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
+        if !analyzeInProgress{
+            self.chart.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
+        }
     }
     
     // display the constraints obtained from setting page
