@@ -22,6 +22,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var account = 0
     var date: Date? = nil
     var category = ""
+    var isEdit = false
+    var row = 0
     var expenses: [NSManagedObject] = []
 //    var savedAmount = Double(-1.0)
 //    var savedDate: Date? = nil
@@ -63,50 +65,89 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                 return
         }
         
-        // 1
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
-        
-        // 2
-        let entity =
-            NSEntityDescription.entity(forEntityName: "Expense",
-                                       in: managedContext)!
-        
-        let expense = NSManagedObject(entity: entity,
-                                      insertInto: managedContext)
-        
-        // 3
-        expense.setValue(amount, forKeyPath: "amount")
-        if (date != nil) {
-            expense.setValue(date, forKeyPath: "date")
+        if isEdit {
+            // 1
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            // 2
+//            let updateRequest =
+//                NSFetchRequest<NSManagedObject>(entityName: "Expense")
+//            updateRequest.predicate = NSPredicate(format: "amount == %@ AND merchant == %@ AND category == %@", amount, merchant, category)
+//            do {
+//                let results = try managedContext.fetch(updateRequest)
+//                if results.count != 0 {
+//                    expense = results[0]
+//                }
+//            } catch let error as NSError {
+//                print("Could not fetch. \(error), \(error.userInfo)")
+//            }
+            let expense = expenses[row]
+            // 3
+            expense.setValue(amount, forKeyPath: "amount")
+            if (date != nil) {
+                expense.setValue(date, forKeyPath: "date")
+                
+            }
+            if (merchant != "") {
+                expense.setValue(merchant, forKeyPath: "merchant")
+            }
+            if (account != 0) {
+                expense.setValue(account, forKeyPath: "account")
+            }
+            if (category != "") {
+                expense.setValue(category, forKeyPath: "category")
+            }
+            // 4
+            do {
+                expenses[row] = expense
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+        } else {
+            // 1
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            // 2
+            let entity =
+                NSEntityDescription.entity(forEntityName: "Expense",
+                                           in: managedContext)!
             
-        }
-        if (merchant != "") {
-            expense.setValue(merchant, forKeyPath: "merchant")
-        }
-        if (account != 0) {
-            expense.setValue(account, forKeyPath: "account")
-        }
-        if (category != "") {
-            expense.setValue(category, forKeyPath: "category")
-        }
-        
-        // 4
-        do {
-            try managedContext.save()
-            expenses.append(expense)
-//            savedAmount = (expense.value(forKeyPath: "amount") as? Double)!
-//            print("saved amount = \(savedAmount)")
-//            if (date != nil) {
-//                savedDate = (expense.value(forKeyPath: "date") as? Date)!
-//                print("saved date = \(savedDate)")
-//            }
-//            if (merchant != nil) {
-//                savedMerchant = (expense.value(forKeyPath: "merchant") as? String)!
-//                print("saved merchant = \(savedMerchant)")
-//            }
-        } catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
+            let expense = NSManagedObject(entity: entity,
+                                          insertInto: managedContext)
+            // 3
+            expense.setValue(amount, forKeyPath: "amount")
+            if (date != nil) {
+                expense.setValue(date, forKeyPath: "date")
+                
+            }
+            if (merchant != "") {
+                expense.setValue(merchant, forKeyPath: "merchant")
+            }
+            if (account != 0) {
+                expense.setValue(account, forKeyPath: "account")
+            }
+            if (category != "") {
+                expense.setValue(category, forKeyPath: "category")
+            }
+            
+            // 4
+            do {
+                try managedContext.save()
+                    expenses.append(expense)
+                //            savedAmount = (expense.value(forKeyPath: "amount") as? Double)!
+                //            print("saved amount = \(savedAmount)")
+                //            if (date != nil) {
+                //                savedDate = (expense.value(forKeyPath: "date") as? Date)!
+                //                print("saved date = \(savedDate)")
+                //            }
+                //            if (merchant != nil) {
+                //                savedMerchant = (expense.value(forKeyPath: "merchant") as? String)!
+                //                print("saved merchant = \(savedMerchant)")
+                //            }
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
         }
         accountField.text = nil
         dateField.text = nil

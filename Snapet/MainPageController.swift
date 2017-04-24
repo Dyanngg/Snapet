@@ -74,7 +74,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // Add the floating action button
         layoutFAB()
         
-        //DeleteAllData()
+        DeleteAllData()
         imagePicker.delegate = self
         
         hideProgressBar()
@@ -496,7 +496,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     // display the constraints obtained from setting page
     @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue) {
         if let svc = unwindSegue.source as? DetailViewController {
-            expenses = svc.expenses
+            if !svc.isEdit {
+                expenses = svc.expenses
+            }
             print("expenses is assigned")
         }
     }
@@ -716,6 +718,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                 if let category = (expense.value(forKeyPath: "category") as? String) {
                     secondViewController.category = category
                 }
+                secondViewController.isEdit = true
+                secondViewController.row = row
+                secondViewController.expenses = expenses
                 addNewData = true
             }
         }
