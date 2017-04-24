@@ -40,6 +40,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var expenses: [NSManagedObject] = []
     var results: [NSManagedObject] = []
     var total = 0.0
+    var row = 0
     
     /** core data crash */
     
@@ -57,6 +58,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     var useCamera = false
     var analyzeInProgress = false
+    var addNewData = true
     
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
@@ -244,7 +246,12 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        row = indexPath.row
+        addNewData = false
+        self.performSegue(withIdentifier: "toDetail", sender: nil)
+    }
     
     /****   Floating action button stuff  ****/
     func layoutFAB() {
@@ -656,6 +663,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetail"{
+            if addNewData {
             // get a reference to the second view controller
             let secondViewController = segue.destination as! DetailViewController
             if let amountDetected = detectedAmount {
@@ -693,6 +701,23 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             detectedAmount = 0.0
             detectedAccount = 0
             detectedCategory = ""
+            } else {
+                let secondViewController = segue.destination as! DetailViewController
+                let expense = expenses[row]
+                if let amount = (expense.value(forKeyPath: "amount") as? Double) {
+                    secondViewController.amount = amount
+                }
+                if let date = (expense.value(forKeyPath: "date") as? Date) {
+                    secondViewController.date = date
+                }
+                if let merchant = (expense.value(forKeyPath: "merchant") as? String) {
+                    secondViewController.merchant = merchant
+                }
+                if let category = (expense.value(forKeyPath: "category") as? String) {
+                    secondViewController.category = category
+                }
+                addNewData = true
+            }
         }
     }
     
