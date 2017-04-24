@@ -136,9 +136,14 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
 //        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July"]
 //        let yVals: [Double] = [ 873, 568, 937, 726, 696, 687, 180]
         var entries = [ ChartDataEntry]()
+        
+        var displayTotal = 0.0
+        for (_, v) in amount.enumerated() {
+            displayTotal += v
+        }
         for (i, v) in amount.enumerated() {
             let entry = PieChartDataEntry()
-            entry.y = v
+            entry.y = v / displayTotal * 100.0
             entry.label = category[i]
             entries.append( entry)
         }
@@ -178,7 +183,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // 4. add chart to UI
         self.pieChartView.addSubview(chart)
         
-        
+
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.rowHeight = 84;
@@ -478,6 +483,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.tableView.reloadData()
         self.pieChartView.reloadInputViews()
+        self.pieChartView.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
     }
     
     // display the constraints obtained from setting page
