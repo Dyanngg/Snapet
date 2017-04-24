@@ -772,8 +772,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let managedContext = appDelegate.persistentContainer.viewContext
             let results = try managedContext.fetch(categoryReqest)
-            let result = results[results.count - 1]
-            category = (result.value(forKeyPath: "category") as? String)!
+            if !results.isEmpty {
+                let result = results[results.count - 1]
+                category = (result.value(forKeyPath: "category") as? String)!
+            }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
