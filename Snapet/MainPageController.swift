@@ -695,6 +695,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     func analyzeResults(_ dataToParse: Data) {
         
         var isMerchantDetected = false
+        var isCategoryDetected = false
         
         // Update UI on the main thread
         // Use SwiftyJSON to parse results
@@ -723,11 +724,15 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                     if webResults.contains(merchantDetected){
                         self.detectedMerchant = merchantDetected
                         isMerchantDetected = true
-                        if(isMerchantDetected) {
-                            detectedCategory = checkCategory()
-                            print("detectedCategory is = \(detectedCategory)")
+                        let categoryDetected = checkExistingCategory(detectedMerchant!)
+                        print("detectedCategory is = \(categoryDetected)")
+                        self.detectedCategory = categoryDetected
+                        if !(detectedCategory!.isEmpty) {
+                            isCategoryDetected = true
                         }
+                        if !isCategoryDetected {
                         self.createKGRequest(input: merchantDetected)
+                        }
                     }
                 }
             }
@@ -752,26 +757,23 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func checkCategory() -> String {
+    func checkExistingCategory(_ detectedMerchant: String) -> String {
         var category = ""
-        guard let appDelegate =
-            UIApplication.shared.delegate as? AppDelegate else {
-                return
-        }
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
         let categoryReqest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
         categoryReqest.predicate = NSPredicate(format: "merchant == %@", detectedMerchant)
         print("detectedMerchant is = \(detectedMerchant)")
         do {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.persistentContainer.viewContext
             let results = try managedContext.fetch(categoryReqest)
             let result = results[results.count - 1]
-            category = (expense.value(forKeyPath: "category") as? String)
+            category = (result.value(forKeyPath: "category") as? String)!
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         return category
     }
+
     
     
     /**
