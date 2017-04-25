@@ -47,6 +47,12 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self;
         tableView.rowHeight = 84;
         searchBar.delegate = self
+        greaterButton.isHidden = true
+        equalButton.isHidden = true
+        lessButton.isHidden = true
+        ascendingButton.isHidden = true
+        descendingButton.isHidden = true
+        allDataButton.isHidden = true
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -197,12 +203,24 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchActive = true;
+        greaterButton.isHidden = false
+        equalButton.isHidden = false
+        lessButton.isHidden = false
+        ascendingButton.isHidden = false
+        descendingButton.isHidden = false
+        allDataButton.isHidden = false
         print("BeginEditing = \(searchActive)")
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
 //        searchActive = true;
         searchBar.resignFirstResponder()
+        greaterButton.isHidden = true
+        equalButton.isHidden = true
+        lessButton.isHidden = true
+        ascendingButton.isHidden = true
+        descendingButton.isHidden = true
+        allDataButton.isHidden = true
         print("EndEditing = \(searchActive)")
     }
     
@@ -229,8 +247,23 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let searchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         if (searchActive) {
-            let searchText = searchBar.text
-            searchRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@", searchText!, searchText!)
+            if let searchText = searchBar.text {
+                if (searchText.characters.first == ">") {
+                    let amount = searchText.substring(from: searchText.index((searchText.startIndex), offsetBy: 2))
+                    searchRequest.predicate = NSPredicate(format: "amount > %@", amount)
+                }
+                else if (searchText.characters.first == "=") {
+                    let amount = searchText.substring(from: searchText.index((searchText.startIndex), offsetBy: 2))
+                    searchRequest.predicate = NSPredicate(format: "amount = %@", amount)
+                }
+                else if (searchText.characters.first == "<") {
+                    let amount = searchText.substring(from: searchText.index((searchText.startIndex), offsetBy: 2))
+                    searchRequest.predicate = NSPredicate(format: "amount < %@", amount)
+                }
+                else {
+                    searchRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@", searchText, searchText)
+                }
+            }
         }
         
         updateTableView(searchActive, searchRequest)
@@ -273,16 +306,19 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func greaterAmountSearch(_ sender: Any) {
-        let searchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        searchRequest.predicate = NSPredicate(format: "amount > %@", "5")
-        updateTableView(searchActive, searchRequest)
+//        let searchRequest =
+//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+//        searchRequest.predicate = NSPredicate(format: "amount > %@", "5")
+//        updateTableView(searchActive, searchRequest)
+        searchBar.text = "> "
     }
-    @IBAction func equalAmountSearch(_ sender: Any) {
     
+    @IBAction func equalAmountSearch(_ sender: Any) {
+        searchBar.text = "= "
     }
     
     @IBAction func lessAmountSearch(_ sender: Any) {
+        searchBar.text = "< "
     }
     
     
