@@ -34,8 +34,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     var chart = PieChartView()
-    
     var fab = KCFloatingActionButton()
+    var imageInProcess = UIImage()
+    var isOCR = false
     
     var expenses: [NSManagedObject] = []
     var results: [NSManagedObject] = []
@@ -294,7 +295,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         item3.title = "Manual"
         item3.icon = UIImage(named: "manual.png")
         item3.handler = { item in
-           self.performSegue(withIdentifier: "toDetail", sender: nil)
+            self.isOCR = false
+            self.performSegue(withIdentifier: "toDetail", sender: nil)
         }
         
         fab.addItem(item: item2)
@@ -551,6 +553,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     /****    Sending requests to Google Vision API  ****/
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            imageInProcess = pickedImage
+            isOCR = true
             // Base64 encode the image and create the request
             let binaryImageData = base64EncodeImage(pickedImage)
             createRequest(with: binaryImageData)
@@ -706,6 +710,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
             if let merchantDetected = detectedMerchant {
                 secondViewController.merchant = merchantDetected
+            }
+            if isOCR{
+                secondViewController.currentImage = self.imageInProcess
+                //secondViewController.isOCR = true
             }
             print("prepare for segue")
             print("detected amount = \(String(describing: detectedAmount))")

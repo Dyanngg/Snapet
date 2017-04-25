@@ -26,6 +26,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var isEdit = false
     var row = 0
     var expenses: [NSManagedObject] = []
+    var currentImage = UIImage()
+    //var isOCR = false
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -211,6 +213,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        
+//        let width = currentImage.size.width;
+//        let height = currentImage.size.height;
+//        let aspect = width/height;
+        
+        
+        confirmImage.image = currentImage
+
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
         toolBar.barStyle = UIBarStyle.blackTranslucent
