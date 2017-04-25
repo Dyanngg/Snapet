@@ -15,6 +15,12 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    @IBOutlet weak var greaterButton: UIButton!
+    @IBOutlet weak var equalButton: UIButton!
+    @IBOutlet weak var lessButton: UIButton!
+    @IBOutlet weak var ascendingButton: UIButton!
+    @IBOutlet weak var descendingButton: UIButton!
+    @IBOutlet weak var allDataButton: UIButton!
     
     var expenses: [NSManagedObject] = []
     
