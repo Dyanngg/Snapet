@@ -175,7 +175,8 @@
 				3590A0771E897BC20069DB2B /* ChronoJS */,
 				3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */,
 			);
-			path = Chrono;
+			name = Chrono;
+			path = ../Chrono;
 			sourceTree = "<group>";
 		};
 		3590A0771E897BC20069DB2B /* ChronoJS */ = {
@@ -190,7 +191,6 @@
 			isa = PBXGroup;
 			children = (
 				A7FE71A51EA70342004087D6 /* Charts.xcodeproj */,
-				3590A0751E897BC20069DB2B /* Chrono */,
 				35ECD5891E5A473A008BBD9C /* Snapet */,
 				35ECD5A11E5A473A008BBD9C /* SnapetTests */,
 				35ECD5AC1E5A473A008BBD9C /* SnapetUITests */,
@@ -213,6 +213,7 @@
 		35ECD5891E5A473A008BBD9C /* Snapet */ = {
 			isa = PBXGroup;
 			children = (
+				3590A0751E897BC20069DB2B /* Chrono */,
 				352396541EAE779B0024172B /* SWRevealViewController */,
 				35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */,
 				A715BFF61E899ABF00EC42B8 /* TableViewController.swift */,
