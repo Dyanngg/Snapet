@@ -117,7 +117,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     /****     Fetching from Core Data   ****/
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        print("will appear")
         
         // 1 set context
         
@@ -198,7 +198,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     /*********** Search Bar **************/
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+        searchBar.endEditing(true)
+        searchBar.resignFirstResponder()
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -215,6 +216,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
 //        searchActive = true;
         searchBar.resignFirstResponder()
+        searchBar.endEditing(true)
         greaterButton.isHidden = true
         equalButton.isHidden = true
         lessButton.isHidden = true
@@ -226,17 +228,18 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchActive = false;
+        searchBar.endEditing(true)
         print("CancelButtonClicked = \(searchActive)")
-        searchBar.resignFirstResponder()
-        
-        let searchRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        if (searchActive) {
-            let searchText = searchBar.text
-            searchRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@", searchText!, searchText!)
-        }
-        
-        updateTableView(searchActive, searchRequest)
+//        searchBar.resignFirstResponder()
+//        
+//        let searchRequest =
+//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+//        if (searchActive) {
+//            let searchText = searchBar.text
+//            searchRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@", searchText!, searchText!)
+//        }
+//        
+//        updateTableView(searchActive, searchRequest)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -325,34 +328,40 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func ascendingDateSearch(_ sender: Any) {
         let searchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        
-        // Get the current calendar with local time zone
-        var calendar = Calendar.current
-        calendar.timeZone = NSTimeZone.local
-        
-        // Get today's beginning & end
-        let date = calendar.startOfDay(for: Date()) // eg. 2016-10-10 00:00:00
-        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute],from: date)
-        components.day! += 1
-        let dateTo = calendar.date(from: components)!
-        components.day! -= 30
-        let dateFrom = calendar.date(from: components)! // eg. 2016-10-11 00:00:00
-        // Note: Times are printed in UTC. Depending on where you live it won't print 00:00:00 but it will work with UTC times which can be converted to local time
-        
-        // Set predicate as date being today's date
-        let datePredicate = NSPredicate(format: "(%@ <= date) AND (date < %@)", argumentArray: [dateFrom, dateTo])
-        searchRequest.predicate = datePredicate
-        
+        let dateSort = NSSortDescriptor(key: "date", ascending: true)
+        searchRequest.sortDescriptors = [dateSort]
+        searchBar.endEditing(true)
         updateTableView(searchActive, searchRequest)
+//        // Get the current calendar with local time zone
+//        var calendar = Calendar.current
+//        calendar.timeZone = NSTimeZone.local
+//        
+//        // Get today's beginning & end
+//        let date = calendar.startOfDay(for: Date()) // eg. 2016-10-10 00:00:00
+//        var components = calendar.dateComponents([.year, .month, .day, .hour, .minute],from: date)
+//        components.day! += 1
+//        let dateTo = calendar.date(from: components)!
+//        components.day! -= 30
+//        let dateFrom = calendar.date(from: components)! // eg. 2016-10-11 00:00:00
+//        // Note: Times are printed in UTC. Depending on where you live it won't print 00:00:00 but it will work with UTC times which can be converted to local time
+//        // Set predicate as date being today's date
+//        let datePredicate = NSPredicate(format: "(%@ <= date) AND (date < %@)", argumentArray: [dateFrom, dateTo])
     }
     
     
     @IBAction func descendingDateSearch(_ sender: Any) {
+        let searchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        let dateSort = NSSortDescriptor(key: "date", ascending: false)
+        searchRequest.sortDescriptors = [dateSort]
+        searchBar.endEditing(true)
+        updateTableView(searchActive, searchRequest)
     }
     
     @IBAction func allDataSearch(_ sender: Any) {
         let searchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        searchBar.endEditing(true)
         updateTableView(searchActive, searchRequest)
     }
     
@@ -365,10 +374,10 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             appDelegate.persistentContainer.viewContext
         do {
             expenses = try managedContext.fetch(searchRequest)
+            print("expenses: \(expenses)")
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        
         self.tableView.reloadData()
     }
 }
