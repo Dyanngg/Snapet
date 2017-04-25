@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
-class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,UISearchResultsUpdating {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -36,6 +36,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var detectedCategory: String? = nil
     var detectedAccount: Int? = nil
     
+    var resultSearchController = UISearchController()
     var searchActive : Bool = false
     var addNewData = true
     var row = 0
@@ -64,6 +65,20 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.barTintColor = barColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
+        
+        resultSearchController = ({
+            let controller = UISearchController(searchResultsController: nil)
+            controller.searchResultsUpdater = self
+            controller.hidesNavigationBarDuringPresentation = false
+            controller.dimsBackgroundDuringPresentation = true
+            controller.searchBar.searchBarStyle = UISearchBarStyle.minimal
+            controller.searchBar.sizeToFit()
+            self.tableView.tableHeaderView = controller.searchBar
+            self.tableView.contentOffset = CGPoint(x: 0, y: controller.searchBar.frame.height)
+            return controller
+            
+        })()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -230,16 +245,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchActive = false;
         searchBar.endEditing(true)
         print("CancelButtonClicked = \(searchActive)")
-//        searchBar.resignFirstResponder()
-//        
-//        let searchRequest =
-//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-//        if (searchActive) {
-//            let searchText = searchBar.text
-//            searchRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@", searchText!, searchText!)
-//        }
-//        
-//        updateTableView(searchActive, searchRequest)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -271,6 +276,23 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         updateTableView(searchActive, searchRequest)
     }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        /*** TODO: Re-write this !!!! ***/
+        
+//        filteredData.removeAll(keepingCapacity: false)
+//        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+//        let array = (tableData as NSArray).filtered(using: searchPredicate)
+//        filteredData = array as! [String]
+//        tableView.reloadData()
+        
+    }
+
+    
+    
+    
+    
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
