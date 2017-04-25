@@ -259,7 +259,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         fab.plusColor = UIColor.white
         
         let item = KCFloatingActionButtonItem()
-        let uploadButtonColor = UIColor(red:90/255, green:174/255, blue:222/255, alpha:1.0)
+        let uploadButtonColor = UIColor(red:99/255, green:144/255, blue:115/255, alpha:1.0)
         item.buttonColor = uploadButtonColor
         item.circleShadowColor = UIColor.black
         item.titleShadowColor = UIColor.yellow
@@ -273,7 +273,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let item2 = KCFloatingActionButtonItem()
-        item2.buttonColor = uploadButtonColor
+        let cameraButtonColor = UIColor(red:122/255, green:141/255, blue:184/255, alpha:1.0)
+        item2.buttonColor = cameraButtonColor
         item2.circleShadowColor = UIColor.black
         item2.titleShadowColor = UIColor.yellow
         item2.title = "Camera"
@@ -285,8 +286,20 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             self.useCamera = true
         }
         
+        let item3 = KCFloatingActionButtonItem()
+        let manualButtonColor = UIColor(red:181/255, green:100/255, blue:96/255, alpha:1.0)
+        item3.buttonColor = manualButtonColor
+        item3.circleShadowColor = UIColor.black
+        item3.titleShadowColor = UIColor.yellow
+        item3.title = "Manual"
+        item3.icon = UIImage(named: "camera.png")
+        item3.handler = { item in
+           self.performSegue(withIdentifier: "toDetail", sender: nil)
+        }
+        
         fab.addItem(item: item2)
         fab.addItem(item: item)
+        fab.addItem(item: item3)
         fab.fabDelegate = self
         fab.sticky = true
         
