@@ -263,7 +263,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let uploadButtonColor = UIColor(red:99/255, green:144/255, blue:115/255, alpha:1.0)
         item.buttonColor = uploadButtonColor
         item.circleShadowColor = UIColor.black
-        item.titleShadowColor = UIColor.yellow
+        item.titleShadowColor = UIColor.black
         item.title = "Upload image"
         item.icon = UIImage(named: "upload.png")
         item.handler = { item in
@@ -277,7 +277,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let cameraButtonColor = UIColor(red:122/255, green:141/255, blue:184/255, alpha:1.0)
         item2.buttonColor = cameraButtonColor
         item2.circleShadowColor = UIColor.black
-        item2.titleShadowColor = UIColor.yellow
+        item2.titleShadowColor = UIColor.black
         item2.title = "Camera"
         item2.icon = UIImage(named: "camera.png")
         item2.handler = { item in
@@ -291,7 +291,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let manualButtonColor = UIColor(red:181/255, green:100/255, blue:96/255, alpha:1.0)
         item3.buttonColor = manualButtonColor
         item3.circleShadowColor = UIColor.black
-        item3.titleShadowColor = UIColor.yellow
+        item3.titleShadowColor = UIColor.black
         item3.title = "Manual"
         item3.icon = UIImage(named: "manual.png")
         item3.handler = { item in

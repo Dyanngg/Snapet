@@ -218,7 +218,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
 //        let height = currentImage.size.height;
 //        let aspect = width/height;
         
-        
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         confirmImage.image = currentImage
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
