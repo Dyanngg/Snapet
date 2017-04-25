@@ -32,7 +32,7 @@ class MenuController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let avatarImage:UIImage = UIImage(named: "blank-user")!
+        let avatarImage:UIImage = UIImage(named: "testProfile")!
         profileImage.maskCircle(anyImage: avatarImage)
         
         self.navigationController?.isNavigationBarHidden =  true

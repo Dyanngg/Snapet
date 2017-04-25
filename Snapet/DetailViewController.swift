@@ -16,6 +16,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var accountField: UITextField!
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
+    @IBOutlet weak var confirmImage: UIImageView!
     
     var amount: Double = 0.0
     var merchant = ""

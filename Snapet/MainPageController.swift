@@ -292,7 +292,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         item3.circleShadowColor = UIColor.black
         item3.titleShadowColor = UIColor.yellow
         item3.title = "Manual"
-        item3.icon = UIImage(named: "camera.png")
+        item3.icon = UIImage(named: "manual.png")
         item3.handler = { item in
            self.performSegue(withIdentifier: "toDetail", sender: nil)
         }
