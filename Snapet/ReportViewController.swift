@@ -265,18 +265,25 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print("expenses is assigned")
         }
     }
-
-    @IBAction func amountSearch(_ sender: Any) {
+    
+    @IBAction func greaterAmountSearch(_ sender: Any) {
         let searchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         searchRequest.predicate = NSPredicate(format: "amount > %@", "5")
         updateTableView(searchActive, searchRequest)
     }
+    @IBAction func equalAmountSearch(_ sender: Any) {
     
-    @IBAction func dateSearch(_ sender: Any) {
+    }
+    
+    @IBAction func lessAmountSearch(_ sender: Any) {
+    }
+    
+    
+    @IBAction func ascendingDateSearch(_ sender: Any) {
         let searchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
-
+        
         // Get the current calendar with local time zone
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.local
@@ -295,6 +302,10 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchRequest.predicate = datePredicate
         
         updateTableView(searchActive, searchRequest)
+    }
+    
+    
+    @IBAction func descendingDateSearch(_ sender: Any) {
     }
     
     @IBAction func allDataSearch(_ sender: Any) {

@@ -337,23 +337,40 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jn2-ty-qpB">
-                                <rect key="frame" x="87" y="119" width="30" height="30"/>
+                                <rect key="frame" x="20" y="119" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="&gt; 5"/>
+                                <state key="normal" title="&gt; "/>
                                 <connections>
-                                    <action selector="amountSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="t2w-92-pnW"/>
+                                    <action selector="greaterAmountSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="gH9-xg-TQb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dya-RB-Vdv">
+                                <rect key="frame" x="68" y="119" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="="/>
+                                <connections>
+                                    <action selector="equalAmountSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="Yc9-M1-hBb"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmp-e7-w7t">
+                                <rect key="frame" x="118" y="119" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="&lt;"/>
+                                <connections>
+                                    <action selector="lessAmountSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="mRM-Ri-GZc"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nN2-mT-dTb">
-                                <rect key="frame" x="167" y="119" width="55" height="30"/>
+                                <rect key="frame" x="170" y="119" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="1 month"/>
+                                <state key="normal" title="ascending"/>
                                 <connections>
+                                    <action selector="ascendingDateSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="iD6-QS-c0t"/>
                                     <action selector="dateSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="gyG-zG-28j"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMj-x5-t7i">
-                                <rect key="frame" x="272" y="119" width="30" height="30"/>
+                                <rect key="frame" x="364" y="119" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="All"/>
                                 <connections>
@@ -369,6 +386,14 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZA-Bl-1xo">
+                                <rect key="frame" x="270" y="119" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="descending"/>
+                                <connections>
+                                    <action selector="descendingDateSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="7yQ-Y0-Hze"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
