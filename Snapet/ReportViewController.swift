@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
-class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,UISearchResultsUpdating {
+class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,UISearchResultsUpdating, UISearchControllerDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
@@ -48,6 +48,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.dataSource = self;
         tableView.rowHeight = 84;
         searchBar.delegate = self
+        
         greaterButton.isHidden = true
         equalButton.isHidden = true
         lessButton.isHidden = true
@@ -76,8 +77,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             self.tableView.tableHeaderView = controller.searchBar
             self.tableView.contentOffset = CGPoint(x: 0, y: controller.searchBar.frame.height)
             return controller
-            
         })()
+        resultSearchController.delegate = self
         
     }
     
@@ -217,7 +218,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchBar.resignFirstResponder()
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    func didPresentSearchController(_ resultSearchController: UISearchController) {
         searchActive = true;
         greaterButton.isHidden = false
         equalButton.isHidden = false
@@ -228,7 +229,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print("BeginEditing = \(searchActive)")
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func didDismissSearchController(_ resultSearchBar: UISearchController) {
 //        searchActive = true;
         searchBar.resignFirstResponder()
         searchBar.endEditing(true)
@@ -289,10 +290,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
 
-    
-    
-    
-    
+
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
