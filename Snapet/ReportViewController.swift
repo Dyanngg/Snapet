@@ -12,7 +12,6 @@ import CoreData
 
 class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,UISearchResultsUpdating, UISearchControllerDelegate {
 
-    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var greaterButton: UIButton!
@@ -47,14 +46,13 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.rowHeight = 84;
-        searchBar.delegate = self
         
-        greaterButton.isHidden = true
-        equalButton.isHidden = true
-        lessButton.isHidden = true
-        ascendingButton.isHidden = true
-        descendingButton.isHidden = true
-        allDataButton.isHidden = true
+//        greaterButton.isHidden = true
+//        equalButton.isHidden = true
+//        lessButton.isHidden = true
+//        ascendingButton.isHidden = true
+//        descendingButton.isHidden = true
+//        allDataButton.isHidden = true
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -74,11 +72,13 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             controller.dimsBackgroundDuringPresentation = true
             controller.searchBar.searchBarStyle = UISearchBarStyle.minimal
             controller.searchBar.sizeToFit()
+            controller.searchBar.delegate = self
             self.tableView.tableHeaderView = controller.searchBar
             self.tableView.contentOffset = CGPoint(x: 0, y: controller.searchBar.frame.height)
             return controller
         })()
         resultSearchController.delegate = self
+        resultSearchController.searchBar.delegate = self
         
     }
     
@@ -160,7 +160,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let categoryRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         if searchActive {
-            let searchText = searchBar.text
+            let searchText = resultSearchController.searchBar.text
             categoryRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@" , searchText!, searchText!)
         }
         
@@ -213,32 +213,24 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     /*********** Search Bar **************/
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        searchBar.endEditing(true)
-        searchBar.resignFirstResponder()
+    @IBAction func displaySearchBar(_ sender: Any) {
+        resultSearchController.isActive = true
+        resultSearchController.searchBar.isHidden = false
     }
-    
+
     func didPresentSearchController(_ resultSearchController: UISearchController) {
         searchActive = true;
-        greaterButton.isHidden = false
-        equalButton.isHidden = false
-        lessButton.isHidden = false
-        ascendingButton.isHidden = false
-        descendingButton.isHidden = false
-        allDataButton.isHidden = false
+//        greaterButton.isHidden = false
+//        equalButton.isHidden = false
+//        lessButton.isHidden = false
+//        ascendingButton.isHidden = false
+//        descendingButton.isHidden = false
+//        allDataButton.isHidden = false
         print("BeginEditing = \(searchActive)")
     }
     
     func didDismissSearchController(_ resultSearchBar: UISearchController) {
 //        searchActive = true;
-        searchBar.resignFirstResponder()
-        searchBar.endEditing(true)
-        greaterButton.isHidden = true
-        equalButton.isHidden = true
-        lessButton.isHidden = true
-        ascendingButton.isHidden = true
-        descendingButton.isHidden = true
-        allDataButton.isHidden = true
         print("EndEditing = \(searchActive)")
     }
     
@@ -333,15 +325,16 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //            NSFetchRequest<NSManagedObject>(entityName: "Expense")
 //        searchRequest.predicate = NSPredicate(format: "amount > %@", "5")
 //        updateTableView(searchActive, searchRequest)
-        searchBar.text = "> "
+        resultSearchController.searchBar.text = "> "
+        didPresentSearchController(resultSearchController)
     }
     
     @IBAction func equalAmountSearch(_ sender: Any) {
-        searchBar.text = "= "
+        resultSearchController.searchBar.text = "= "
     }
     
     @IBAction func lessAmountSearch(_ sender: Any) {
-        searchBar.text = "< "
+        resultSearchController.searchBar.text = "< "
     }
     
     
@@ -350,7 +343,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         let dateSort = NSSortDescriptor(key: "date", ascending: true)
         searchRequest.sortDescriptors = [dateSort]
-        searchBar.endEditing(true)
+//        searchBar.endEditing(true)
         updateTableView(searchActive, searchRequest)
 //        // Get the current calendar with local time zone
 //        var calendar = Calendar.current
@@ -374,14 +367,12 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         let dateSort = NSSortDescriptor(key: "date", ascending: false)
         searchRequest.sortDescriptors = [dateSort]
-        searchBar.endEditing(true)
         updateTableView(searchActive, searchRequest)
     }
     
     @IBAction func allDataSearch(_ sender: Any) {
         let searchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        searchBar.endEditing(true)
         updateTableView(searchActive, searchRequest)
     }
     
