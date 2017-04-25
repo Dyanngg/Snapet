@@ -292,7 +292,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dya-RB-Vdv">
-                                <rect key="frame" x="68" y="119" width="30" height="30"/>
+                                <rect key="frame" x="74" y="119" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="="/>
                                 <connections>
@@ -300,7 +300,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmp-e7-w7t">
-                                <rect key="frame" x="118" y="119" width="30" height="30"/>
+                                <rect key="frame" x="130" y="119" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="&lt;"/>
                                 <connections>
@@ -308,9 +308,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nN2-mT-dTb">
-                                <rect key="frame" x="170" y="119" width="71" height="30"/>
+                                <rect key="frame" x="187" y="119" width="71" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="ascending"/>
+                                <state key="normal" title="Date↑"/>
                                 <connections>
                                     <action selector="ascendingDateSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="iD6-QS-c0t"/>
                                 </connections>
@@ -333,9 +333,9 @@
                                 </scopeButtonTitles>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZA-Bl-1xo">
-                                <rect key="frame" x="270" y="119" width="80" height="30"/>
+                                <rect key="frame" x="272" y="119" width="80" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="descending"/>
+                                <state key="normal" title="Date↓"/>
                                 <connections>
                                     <action selector="descendingDateSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="7yQ-Y0-Hze"/>
                                 </connections>
