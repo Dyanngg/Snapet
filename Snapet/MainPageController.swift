@@ -42,6 +42,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var imageInProcess = UIImage()
     var isOCR = false
     var batchAnalyzed = false
+    var category = [String]()
+    var amount = [Double]()
     
     var expenses: [NSManagedObject] = []
     var results: [NSManagedObject] = []
@@ -107,9 +109,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         distinctCategoryReq.returnsDistinctResults = true
         distinctCategoryReq.resultType = NSFetchRequestResultType.dictionaryResultType
         // array for storing category displayed in the pie chart
-        var category = [String]()
+        category = [String]()
         // array for storing total amount of each category
-        var amount = [Double]()
+        amount = [Double]()
         do {
             let results = try managedContext.fetch(distinctCategoryReq)
             if !results.isEmpty {
@@ -265,6 +267,29 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         self.performSegue(withIdentifier: "toDetail", sender: nil)
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let merchant = expenses[indexPath.row].value(forKey: "merchant")
+            expenses.remove(at: indexPath.row)
+            category.remove(at: indexPath.row)
+            amount.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            self.pieChartView.reloadInputViews()
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let req = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+            req.predicate = NSPredicate(format: "merchant == %@", merchant as! CVarArg)
+            let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: req)
+            do {
+                try managedContext.execute(DelAllReqVar)
+            }
+            catch {
+                print(error)
+            }
+        }
+    }
+    
     /****   Floating action button stuff  ****/
     func layoutFAB() {
         
@@ -393,8 +418,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         // 3.2 fetch distinct categories data
-        var category = [String]()
-        var amount = [Double]()
+        category = [String]()
+        amount = [Double]()
         do {
             let results = try managedContext.fetch(distinctCategoryReq)
             if !results.isEmpty {
