@@ -25,6 +25,7 @@
 		A70B72671E8856B900FC6573 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70B72661E8856B900FC6573 /* DetailViewController.swift */; };
 		A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715BFF61E899ABF00EC42B8 /* TableViewController.swift */; };
 		A715BFF91E8AD00B00EC42B8 /* ExpenseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */; };
+		A73212771EB0486000547B48 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73212761EB0486000547B48 /* SettingViewController.swift */; };
 		A7958DA51EAD28D80054F915 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7958DA41EAD28D80054F915 /* ReportViewController.swift */; };
 		A7958DA81EAD317F0054F915 /* ReportTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7958DA71EAD317F0054F915 /* ReportTableViewCell.swift */; };
 		A7FE71AE1EA703CD004087D6 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7FE71AB1EA70343004087D6 /* Charts.framework */; };
@@ -114,6 +115,7 @@
 		A70B72661E8856B900FC6573 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		A715BFF61E899ABF00EC42B8 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpenseTableViewCell.swift; sourceTree = "<group>"; };
+		A73212761EB0486000547B48 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		A7958DA41EAD28D80054F915 /* ReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		A7958DA71EAD317F0054F915 /* ReportTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReportTableViewCell.swift; sourceTree = "<group>"; };
 		A7FE71A51EA70342004087D6 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = Charts/Charts.xcodeproj; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				A7958DA71EAD317F0054F915 /* ReportTableViewCell.swift */,
 				A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */,
 				35FAD1DD1EAEACCC00B3B99E /* MenuController.swift */,
+				A73212761EB0486000547B48 /* SettingViewController.swift */,
 				A7FE71B31EA70CD1004087D6 /* UIColorExtensions.swift */,
 				A7FE71B51EA70D04004087D6 /* Palette.swift */,
 				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
@@ -490,6 +493,7 @@
 				3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */,
 				358C2CB91EA424A6006C136F /* MainPageController.swift in Sources */,
 				A7958DA81EAD317F0054F915 /* ReportTableViewCell.swift in Sources */,
+				A73212771EB0486000547B48 /* SettingViewController.swift in Sources */,
 				A715BFF71E899AC000EC42B8 /* TableViewController.swift in Sources */,
 				A7958DA51EAD28D80054F915 /* ReportViewController.swift in Sources */,
 				A715BFF91E8AD00B00EC42B8 /* ExpenseTableViewCell.swift in Sources */,

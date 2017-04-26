@@ -814,6 +814,59 @@
             </objects>
             <point key="canvasLocation" x="878" y="1737"/>
         </scene>
+        <!--Setting-->
+        <scene sceneID="nYv-gd-lPg">
+            <objects>
+                <viewController id="QRo-B9-BpQ" customClass="SettingViewController" customModule="Snapet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e0X-7E-eZs"/>
+                        <viewControllerLayoutGuide type="bottom" id="EkS-wh-zjO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YcV-49-cue">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6PK-q9-wfI">
+                                <rect key="frame" x="87" y="136" width="240" height="211"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Setting" id="SbY-Rz-E2g">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="9ul-xi-G01" userLabel="Menu Button"/>
+                        <barButtonItem key="rightBarButtonItem" image="upload" id="dYy-Qb-aue" userLabel="Upload">
+                            <connections>
+                                <action selector="uploadProfile:" destination="QRo-B9-BpQ" id="dJ5-iR-1w7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="profileView" destination="6PK-q9-wfI" id="0ze-t5-j4C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ei-ue-nWP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1813.0434782608697" y="2454.6195652173915"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="d1p-cX-S2T">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ymM-qb-Doc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C0A-4Z-efc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QRo-B9-BpQ" kind="relationship" relationship="rootViewController" id="OQv-im-1DK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="keq-lP-Re3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="876.81159420289862" y="2454.6195652173915"/>
+        </scene>
     </scenes>
     <resources>
         <image name="camera" width="55" height="55"/>
@@ -821,6 +874,7 @@
         <image name="progressBar" width="400" height="260"/>
         <image name="tempBackground" width="768" height="598"/>
         <image name="testProfile" width="200" height="200"/>
+        <image name="upload" width="50" height="50"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MAO-J6-Xdt"/>

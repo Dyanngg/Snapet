@@ -24,10 +24,14 @@
         <attribute name="merchant" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="expenses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Expense" inverseName="merchants" inverseEntity="Expense" syncable="YES"/>
     </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Account" positionX="367" positionY="288" width="128" height="73"/>
         <element name="Category" positionX="160" positionY="414" width="128" height="88"/>
         <element name="Expense" positionX="178" positionY="198" width="128" height="165"/>
         <element name="Merchant" positionX="-2" positionY="252" width="128" height="88"/>
+        <element name="User" positionX="180" positionY="324" width="128" height="60"/>
     </elements>
 </model>
