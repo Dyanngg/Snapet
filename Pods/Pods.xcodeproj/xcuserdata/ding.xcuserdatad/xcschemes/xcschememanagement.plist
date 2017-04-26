@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>DKImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KCFloatingActionButton.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -22,17 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1EC42C42A18CC65D342EDA5B755F37B3</key>
+		<key>17414C029C6E66747604499B206E14AD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4470BB793AAA161394173C227B7C5190</key>
+		<key>412970406678D6015FB84CCE1768B994</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>A6E9CEC9E5ACFE69D21456CCB70BEEA0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D29ECE69EF439D1FF5B5E9EB40FDFFE0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

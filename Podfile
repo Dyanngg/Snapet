@@ -21,3 +21,4 @@ end
 
 use_frameworks!
 pod "KCFloatingActionButton", "~> 2.2.0"
+pod 'DKImagePickerController'

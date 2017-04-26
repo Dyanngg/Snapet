@@ -13,6 +13,10 @@ import MobileCoreServices
 import KCFloatingActionButton
 import Charts
 import Foundation
+import Photos
+import AVKit
+import DKImagePickerController
+
 
 // helper extension for string manipulation
 extension String {
@@ -37,6 +41,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var fab = KCFloatingActionButton()
     var imageInProcess = UIImage()
     var isOCR = false
+    var batchAnalyzed = false
     
     var expenses: [NSManagedObject] = []
     var results: [NSManagedObject] = []
@@ -63,6 +68,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
+    let pickerController = DKImagePickerController()
+    // multi-pick
+    var assets: [DKAsset]?
+    
     let googleAPIKey = "AIzaSyBmcPFpapjEug_lKki4qnuiN-XYvE3xVYQ"
     var googleURL: URL {
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
@@ -77,6 +86,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
 //        DeleteAllData()
         imagePicker.delegate = self
+        pickerController.assetType = .allPhotos
+        pickerController.showsCancelButton = true
         
         hideProgressBar()
 
@@ -267,9 +278,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         item.title = "Upload image"
         item.icon = UIImage(named: "upload.png")
         item.handler = { item in
-            self.imagePicker.allowsEditing = false
-            self.imagePicker.sourceType = .photoLibrary
-            self.present(self.imagePicker, animated: true, completion: nil)
+//            self.imagePicker.allowsEditing = false
+//            self.imagePicker.sourceType = .photoLibrary
+//            self.present(self.imagePicker, animated: true, completion: nil)
+            self.showImagePicker()
             self.fab.close()
         }
         
@@ -307,8 +319,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.view.addSubview(fab)
     }
-
-
+    
     
     /****     Fetching from Core Data   ****/
     override func viewWillAppear(_ animated: Bool) {
@@ -564,9 +575,45 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         showProgressBar()
     }
     
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
+    
+    
+    
+    /****     Imagepicker Stuff    ****/
+    func showImagePicker() {
+        pickerController.defaultSelectedAssets?.removeAll()
+        pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
+            print("didSelectAssets")
+            self.assets = assets
+            
+            for (i, item) in assets.enumerated(){
+                let asset = item
+                asset.fetchFullScreenImage(true, completeBlock:{ image, info in
+                    self.imageInProcess = image!
+                })
+                self.isOCR = true
+                // Base64 encode the image and create the request
+                let binaryImageData = self.base64EncodeImage(self.imageInProcess)
+                self.analyzeInProgress = true
+                self.showProgressBar()
+                if i == assets.count - 1{
+                    self.batchAnalyzed = true
+                }
+                else {
+                    self.batchAnalyzed = false
+                }
+                self.createRequest(with: binaryImageData)
+            }
+        }
+        
+        self.present(pickerController, animated: true) {}
+    }
+
+
+    
     
     func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
         UIGraphicsBeginImageContext(imageSize)
@@ -1066,4 +1113,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         return -1
 
     }
+    
+    
+    
 }

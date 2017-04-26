@@ -1,15 +1,22 @@
 PODS:
+  - DKImagePickerController (3.5.1):
+    - DKImagePickerController/Camera (= 3.5.1)
+    - DKImagePickerController/ImageManager (= 3.5.1)
+  - DKImagePickerController/Camera (3.5.1)
+  - DKImagePickerController/ImageManager (3.5.1)
   - KCFloatingActionButton (2.2.0)
   - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
+  - DKImagePickerController
   - KCFloatingActionButton (~> 2.2.0)
   - SwiftyJSON (~> 3.1)
 
 SPEC CHECKSUMS:
+  DKImagePickerController: 8db7e76a88a7a66a893ba30e935cc4c9bb7ed335
   KCFloatingActionButton: 8c71fa25774e422c8d407f82b4b27809d0cd5233
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 26dd11336b90474bcab6f5d87f5a56d559922bc1
+PODFILE CHECKSUM: 90296a891f4f0b6684ff3908d6477f31951e554b
 
 COCOAPODS: 1.2.0
