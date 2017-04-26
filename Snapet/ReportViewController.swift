@@ -20,12 +20,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    @IBOutlet weak var greaterButton: UIButton!
-    @IBOutlet weak var equalButton: UIButton!
-    @IBOutlet weak var lessButton: UIButton!
-    @IBOutlet weak var ascendingButton: UIButton!
-    @IBOutlet weak var descendingButton: UIButton!
-    @IBOutlet weak var allDataButton: UIButton!
     
     var expenses: [NSManagedObject] = []
     var filtered: [NSManagedObject] = []
@@ -313,51 +307,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         tableView.reloadData()
     }
-    
-//    func didPresentSearchController(_ resultSearchController: UISearchController) {
-//        searchActive = true;
-//        print("BeginEditing = \(searchActive)")
-//    }
-//    
-//    func didDismissSearchController(_ resultSearchBar: UISearchController) {
-//        print("EndEditing = \(searchActive)")
-//    }
-//    
-//    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-//        searchActive = false;
-//        searchBar.endEditing(true)
-//        print("CancelButtonClicked = \(searchActive)")
-//    }
-//    
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        searchActive = true;
-//        print("SearchButtonClicked = \(searchActive)")
-//        searchBar.resignFirstResponder()
-//        
-//        let searchRequest =
-//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-//        if (searchActive) {
-//            if let searchText = searchBar.text {
-//                if (searchText.characters.first == ">") {
-//                    let amount = searchText.substring(from: searchText.index((searchText.startIndex), offsetBy: 2))
-//                    searchRequest.predicate = NSPredicate(format: "amount > %@", amount)
-//                }
-//                else if (searchText.characters.first == "=") {
-//                    let amount = searchText.substring(from: searchText.index((searchText.startIndex), offsetBy: 2))
-//                    searchRequest.predicate = NSPredicate(format: "amount = %@", amount)
-//                }
-//                else if (searchText.characters.first == "<") {
-//                    let amount = searchText.substring(from: searchText.index((searchText.startIndex), offsetBy: 2))
-//                    searchRequest.predicate = NSPredicate(format: "amount < %@", amount)
-//                }
-//                else {
-//                    searchRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@", searchText, searchText)
-//                }
-//            }
-//        }
-//        
-//        updateTableView(searchActive, searchRequest)
-//    }
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
