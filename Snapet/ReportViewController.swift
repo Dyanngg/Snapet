@@ -232,37 +232,39 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //                return merchant!.lowercased().contains(searchText.lowercased())
 //            })
 //        } else
-        
         if (scope == ">") {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var result = false
-                let amount = (expense.value(forKeyPath: "amount") as? Double)!
+                if let amount = (expense.value(forKeyPath: "amount") as? Double) {
                 if let amountEntered = searchText.toDouble() {
                     if (amount > amountEntered) {
                         result = true
                     }
+                }
                 }
                 return result
             })
         } else if (scope == "=") {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var result = false
-                let amount = (expense.value(forKeyPath: "amount") as? Double)!
+                if let amount = (expense.value(forKeyPath: "amount") as? Double) {
                 if let amountEntered = searchText.toDouble() {
                     if (amount == amountEntered) {
                         result = true
                     }
+                }
                 }
                 return result
             })
         } else if (scope == "<") {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var result = false
-                let amount = (expense.value(forKeyPath: "amount") as? Double)!
+                if let amount = (expense.value(forKeyPath: "amount") as? Double) {
                 if let amountEntered = searchText.toDouble() {
                     if (amount < amountEntered) {
                         result = true
                     }
+                }
                 }
                 return result
             })
@@ -298,11 +300,23 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         } else {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
-                let category = (expense.value(forKeyPath: "category") as? String)
-                let merchant = (expense.value(forKeyPath: "merchant") as? String)
-                let amount = (expense.value(forKeyPath: "amount") as? Double)!
-                let date = (expense.value(forKeyPath: "date") as? Date)!
-                return category!.lowercased().contains(searchText.lowercased()) || merchant!.lowercased().contains(searchText.lowercased()) || amount.description.contains(searchText) || date.description.contains(searchText)
+                var categoryMatch = false
+                var merchantMatch = false
+                var amountMatch = false
+                var dateMatch = false
+                if let category = (expense.value(forKeyPath: "category") as? String) {
+                    categoryMatch = category.lowercased().contains(searchText.lowercased())
+                }
+                if let merchant = (expense.value(forKeyPath: "merchant") as? String) {
+                    merchantMatch = merchant.lowercased().contains(searchText.lowercased())
+                }
+                if let amount = (expense.value(forKeyPath: "amount") as? Double) {
+                    amountMatch = amount.description.contains(searchText)
+                }
+                if let date = (expense.value(forKeyPath: "date") as? Date) {
+                    dateMatch = date.description.contains(searchText)
+                }
+                return categoryMatch || merchantMatch || amountMatch || dateMatch
             })
         }
         tableView.reloadData()
