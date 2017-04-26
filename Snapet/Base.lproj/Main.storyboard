@@ -283,56 +283,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jn2-ty-qpB">
-                                <rect key="frame" x="20" y="66" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="&gt; "/>
-                                <connections>
-                                    <action selector="greaterAmountSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="gH9-xg-TQb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dya-RB-Vdv">
-                                <rect key="frame" x="74" y="66" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="="/>
-                                <connections>
-                                    <action selector="equalAmountSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="Yc9-M1-hBb"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmp-e7-w7t">
-                                <rect key="frame" x="130" y="66" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="&lt;"/>
-                                <connections>
-                                    <action selector="lessAmountSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="mRM-Ri-GZc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nN2-mT-dTb">
-                                <rect key="frame" x="187" y="66" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Date↑"/>
-                                <connections>
-                                    <action selector="ascendingDateSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="iD6-QS-c0t"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMj-x5-t7i">
-                                <rect key="frame" x="364" y="66" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="All"/>
-                                <connections>
-                                    <action selector="allDataSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="h4n-Le-KoV"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nZA-Bl-1xo">
-                                <rect key="frame" x="272" y="66" width="80" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Date↓"/>
-                                <connections>
-                                    <action selector="descendingDateSearch:" destination="cKs-60-5MD" eventType="touchUpInside" id="7yQ-Y0-Hze"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="74" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2mR-Ep-Swn">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="sectionIndexBackgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -391,19 +343,8 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" id="d5L-QB-Kc5">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="dh5-Xg-EE5">
-                            <connections>
-                                <action selector="displaySearchBar:" destination="cKs-60-5MD" id="kJs-Hp-Kcb"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="allDataButton" destination="kMj-x5-t7i" id="x1R-Xm-3hJ"/>
-                        <outlet property="ascendingButton" destination="nN2-mT-dTb" id="ff9-6P-fuo"/>
-                        <outlet property="descendingButton" destination="nZA-Bl-1xo" id="qRf-Ee-Gl9"/>
-                        <outlet property="equalButton" destination="Dya-RB-Vdv" id="iNc-gW-Jrl"/>
-                        <outlet property="greaterButton" destination="jn2-ty-qpB" id="LqM-pN-2HR"/>
-                        <outlet property="lessButton" destination="Qmp-e7-w7t" id="UK3-P3-J36"/>
                         <outlet property="menuButton" destination="d5L-QB-Kc5" id="TAT-wv-Fdx"/>
                         <outlet property="tableView" destination="2mR-Ep-Swn" id="sGO-jW-p9W"/>
                         <segue destination="5Nh-t9-ffs" kind="show" identifier="ReportToDetail" id="gfU-sL-v53"/>
