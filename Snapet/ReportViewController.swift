@@ -10,6 +10,12 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
+extension String {
+    func toDouble() -> Double? {
+        return NumberFormatter().number(from: self)?.doubleValue
+    }
+}
+
 class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,UISearchResultsUpdating, UISearchControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
@@ -22,6 +28,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var allDataButton: UIButton!
     
     var expenses: [NSManagedObject] = []
+    var filtered: [NSManagedObject] = []
     
     var fetchedAmount = Double(-1.0)
     var fetchedDate: Date? = nil
@@ -35,7 +42,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var detectedCategory: String? = nil
     var detectedAccount: Int? = nil
     
-    var resultSearchController = UISearchController()
+    let searchController = UISearchController(searchResultsController: nil)
+//    var resultSearchController = UISearchController()
     var searchActive : Bool = false
     var addNewData = true
     var row = 0
@@ -46,6 +54,16 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.rowHeight = 84;
+        
+        // Setup the Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        definesPresentationContext = true
+        searchController.dimsBackgroundDuringPresentation = false
+        
+        // Setup the Scope Bar
+        searchController.searchBar.scopeButtonTitles = ["All", "Merchant", "Category", ">", "=", "<", "↑", "↓"]
+        tableView.tableHeaderView = searchController.searchBar
         
 //        greaterButton.isHidden = true
 //        equalButton.isHidden = true
@@ -65,20 +83,20 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
         
-        resultSearchController = ({
-            let controller = UISearchController(searchResultsController: nil)
-            controller.searchResultsUpdater = self
-            controller.hidesNavigationBarDuringPresentation = false
-            controller.dimsBackgroundDuringPresentation = true
-            controller.searchBar.searchBarStyle = UISearchBarStyle.minimal
-            controller.searchBar.sizeToFit()
-            controller.searchBar.delegate = self
-            self.tableView.tableHeaderView = controller.searchBar
-            self.tableView.contentOffset = CGPoint(x: 0, y: controller.searchBar.frame.height)
-            return controller
-        })()
-        resultSearchController.delegate = self
-        resultSearchController.searchBar.delegate = self
+//        resultSearchController = ({
+//            let controller = UISearchController(searchResultsController: nil)
+//            controller.searchResultsUpdater = self
+//            controller.hidesNavigationBarDuringPresentation = false
+//            controller.dimsBackgroundDuringPresentation = true
+//            controller.searchBar.searchBarStyle = UISearchBarStyle.minimal
+//            controller.searchBar.sizeToFit()
+//            controller.searchBar.delegate = self
+//            self.tableView.tableHeaderView = controller.searchBar
+//            self.tableView.contentOffset = CGPoint(x: 0, y: controller.searchBar.frame.height)
+//            return controller
+//        })()
+//        resultSearchController.delegate = self
+//        resultSearchController.searchBar.delegate = self
         
     }
     
@@ -93,11 +111,21 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return expenses.count
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return filtered.count
+        }
         return expenses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let expense = expenses[indexPath.row]
+//        let expense = expenses[indexPath.row]
+        let expense: NSManagedObject
+        if searchController.isActive && searchController.searchBar.text != "" {
+            expense = filtered[indexPath.row]
+        } else {
+            expense = expenses[indexPath.row]
+        }
         let dequeued: AnyObject = tableView.dequeueReusableCell(withIdentifier: "newCell", for: indexPath)
         let cell = dequeued as! ReportTableViewCell
         
@@ -160,7 +188,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let categoryRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         if searchActive {
-            let searchText = resultSearchController.searchBar.text
+//            let searchText = resultSearchController.searchBar.text
+            let searchText = searchController.searchBar.text
             categoryRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@ OR merchant CONTAINS[c] %@" , searchText!, searchText!)
         }
         
@@ -193,8 +222,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             print("Could not fetch. \(error), \(error.userInfo)")
         }
         }
-
-        
         self.tableView.reloadData()
     }
 
@@ -213,11 +240,121 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     /*********** Search Bar **************/
     
-    @IBAction func displaySearchBar(_ sender: Any) {
-        resultSearchController.isActive = true
-        resultSearchController.searchBar.isHidden = false
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
-
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
+        //        filteredData.removeAll(keepingCapacity: false)
+        //        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+        //        let array = (tableData as NSArray).filtered(using: searchPredicate)
+        //        filteredData = array as! [String]
+        //        tableView.reloadData()
+        
+    }
+    
+    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+//        filteredCandies = candies.filter({( candy : Candy) -> Bool in
+//            let categoryMatch = (scope == "All") || (candy.category == scope)
+//            return categoryMatch && candy.name.lowercased().contains(searchText.lowercased())
+//        })
+        if (scope == "Category") {
+            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
+                let category = (expense.value(forKeyPath: "category") as? String)
+                return category!.lowercased().contains(searchText.lowercased())
+            })
+        } else if (scope == "Merchant") {
+            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
+                let merchant = (expense.value(forKeyPath: "merchant") as? String)
+                return merchant!.lowercased().contains(searchText.lowercased())
+            })
+        } else if (scope == ">") {
+            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
+                var result = false
+                let amount = (expense.value(forKeyPath: "amount") as? Double)!
+                if let amountEntered = searchText.toDouble() {
+                    if (amount > amountEntered) {
+                        result = true
+                    }
+                }
+                return result
+            })
+        } else if (scope == "=") {
+            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
+                var result = false
+                let amount = (expense.value(forKeyPath: "amount") as? Double)!
+                if let amountEntered = searchText.toDouble() {
+                    if (amount == amountEntered) {
+                        result = true
+                    }
+                }
+                return result
+            })
+        } else if (scope == "<") {
+            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
+                var result = false
+                let amount = (expense.value(forKeyPath: "amount") as? Double)!
+                if let amountEntered = searchText.toDouble() {
+                    if (amount < amountEntered) {
+                        result = true
+                    }
+                }
+                return result
+            })
+        } else if (scope == "↑" || scope == "↓") {
+            let searchRequest =
+                NSFetchRequest<NSManagedObject>(entityName: "Expense")
+            var order = true
+            if scope == "↓" {
+                order = false
+            }
+            let sort: NSSortDescriptor
+            if (searchText.lowercased().contains("merchant")) {
+                sort = NSSortDescriptor(key: "merchant", ascending: order)
+            } else if (searchText.lowercased().contains("category")) {
+                sort = NSSortDescriptor(key: "category", ascending: order)
+            } else if (searchText.lowercased().contains("amount")) {
+                sort = NSSortDescriptor(key: "amount", ascending: order)
+            } else { // default sort descriptor is date
+                sort = NSSortDescriptor(key: "date", ascending: order)
+            }
+            searchRequest.sortDescriptors = [sort]
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            do {
+                filtered = try managedContext.fetch(searchRequest)
+                print("expenses: \(expenses)")
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+            }
+        } else {
+            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
+                let category = (expense.value(forKeyPath: "category") as? String)
+                let merchant = (expense.value(forKeyPath: "merchant") as? String)
+                let amount = (expense.value(forKeyPath: "amount") as? Double)!
+                let date = (expense.value(forKeyPath: "date") as? Date)!
+                return category!.lowercased().contains(searchText.lowercased()) || merchant!.lowercased().contains(searchText.lowercased()) || amount.description.contains(searchText) || date.description.contains(searchText)
+            })
+        }
+        tableView.reloadData()
+    }
+    
+    @IBAction func displaySearchBar(_ sender: Any) {
+//        resultSearchController.searchBar.frame = CGRect(x: 0, y: 100, width: 600, height: 44)
+//        resultSearchController.searchBar.frame = CGRect(x: 0, y: 30, width: 300, height: 44)
+//        resultSearchController.isActive = true
+//        resultSearchController.searchBar.isHidden = false
+//        didPresentSearchController(resultSearchController)
+    }
+    
     func didPresentSearchController(_ resultSearchController: UISearchController) {
         searchActive = true;
 //        greaterButton.isHidden = false
@@ -270,26 +407,18 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         updateTableView(searchActive, searchRequest)
     }
     
-    func updateSearchResults(for searchController: UISearchController) {
-        
-        /*** TODO: Re-write this !!!! ***/
-        
-//        filteredData.removeAll(keepingCapacity: false)
-//        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
-//        let array = (tableData as NSArray).filtered(using: searchPredicate)
-//        filteredData = array as! [String]
-//        tableView.reloadData()
-        
-    }
-
-
-    
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ReportToDetail"{
             if !addNewData {
                 let secondViewController = segue.destination as! DetailViewController
-                let expense = expenses[row]
+//                let expense = expenses[row]
+                let expense: NSManagedObject
+                if searchController.isActive && searchController.searchBar.text != "" {
+                    expense = filtered[row]
+                } else {
+                    expense = expenses[row]
+                }
                 if let amount = (expense.value(forKeyPath: "amount") as? Double) {
                     secondViewController.amount = amount
                 }
@@ -304,7 +433,12 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 secondViewController.isEdit = true
                 secondViewController.row = row
-                secondViewController.expenses = expenses
+//                secondViewController.expenses = expenses
+                if searchController.isActive && searchController.searchBar.text != "" {
+                    secondViewController.expenses = filtered
+                } else {
+                    secondViewController.expenses = expenses
+                }
                 addNewData = true
             }
         }
@@ -325,16 +459,21 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //            NSFetchRequest<NSManagedObject>(entityName: "Expense")
 //        searchRequest.predicate = NSPredicate(format: "amount > %@", "5")
 //        updateTableView(searchActive, searchRequest)
-        resultSearchController.searchBar.text = "> "
-        didPresentSearchController(resultSearchController)
+        
+//        resultSearchController.searchBar.text = "> "
+//        didPresentSearchController(resultSearchController)
+        searchController.searchBar.text = "> "
+        didPresentSearchController(searchController)
     }
     
     @IBAction func equalAmountSearch(_ sender: Any) {
-        resultSearchController.searchBar.text = "= "
+//        resultSearchController.searchBar.text = "= "
+        searchController.searchBar.text = "= "
     }
     
     @IBAction func lessAmountSearch(_ sender: Any) {
-        resultSearchController.searchBar.text = "< "
+//        resultSearchController.searchBar.text = "< "
+        searchController.searchBar.text = "< "
     }
     
     
