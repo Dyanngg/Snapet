@@ -51,11 +51,23 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        definesPresentationContext = true
-        searchController.dimsBackgroundDuringPresentation = false
+        // I REALLY WANT TO CHANGE THIS TO MINIMAL BUT IT DOESN'T WORK
+        searchController.searchBar.searchBarStyle = UISearchBarStyle.default
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = true
         
         // Setup the Scope Bar
+        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
+        let opaqueBarColor = UIColor(red:100/255, green:107/255, blue:118/255, alpha:1.0)
+        let backgroundColor = UIColor(red:72/255, green:81/255, blue:94/255, alpha:1.0)
         searchController.searchBar.scopeButtonTitles = ["All", ">", "=", "<", "↑", "↓"]
+        searchController.searchBar.barTintColor = opaqueBarColor
+        let searchTextField = searchController.searchBar.value(forKey: "_searchField") as? UITextField
+        searchTextField?.backgroundColor = backgroundColor
+        searchTextField?.textColor = UIColor.white
+        searchController.searchBar.tintColor = UIColor.white
+        definesPresentationContext = true
+        searchController.searchBar.sizeToFit()
         tableView.tableHeaderView = searchController.searchBar
 
         
@@ -64,8 +76,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        
-        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
         self.navigationController?.navigationBar.barTintColor = barColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
@@ -208,6 +218,10 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     /*********** Search Bar **************/
+    
+    func didPresentSearchController(_ resultSearchController: UISearchController) {
+        
+    }
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
