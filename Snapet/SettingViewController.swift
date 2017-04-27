@@ -15,6 +15,7 @@ import DKImagePickerController
 
 class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var profileView: UIImageView!
     var imageInProcess = UIImage()
     let imagePicker = UIImagePickerController()
@@ -29,66 +30,73 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            profileView.image = pickedImage
-//            guard let appDelegate =
-//                UIApplication.shared.delegate as? AppDelegate else {
-//                    return
-//            }
-//            // 1
-//            let managedContext =
-//                appDelegate.persistentContainer.viewContext
-//            // 2
-//            let entity =
-//                NSEntityDescription.entity(forEntityName: "User",
-//                                           in: managedContext)!
-//            
-//            let expense = NSManagedObject(entity: entity,
-//                                          insertInto: managedContext)
-//            // 3
-//            print("convert image to data")
-//            let imgData = UIImageJPEGRepresentation(pickedImage, 1)
-//            expense.setValue(imgData, forKeyPath: "image")
-//            // 4
-//            do {
-//                try managedContext.save()
-//                print("save data")
-//            } catch let error as NSError {
-//                print("Could not save. \(error), \(error.userInfo)")
-//            }
-//            
-//            
-//            let fetchRequest =
-//                NSFetchRequest<NSManagedObject>(entityName: "User")
-//            do {
-//                images = try managedContext.fetch(fetchRequest)
-//                print("fetch data")
-//            } catch let error as NSError {
-//                print("Could not fetch. \(error), \(error.userInfo)")
-//            }
-//            if let photoinData = images[0].value(forKey: "image") as? UIImage{
-//                profileView.image = photoinData
-//                print("convert date to image")
-//            }
-            
-            
-//            imageInProcess = pickedImage
-//            isOCR = true
-            // Base64 encode the image and create the request
-//            let binaryImageData = base64EncodeImage(pickedImage)
-//            createRequest(with: binaryImageData)
+            // save image to core data
+            guard let appDelegate =
+                UIApplication.shared.delegate as? AppDelegate else {
+                    return
+            }
+            let managedContext =
+                appDelegate.persistentContainer.viewContext
+            let entity =
+                NSEntityDescription.entity(forEntityName: "User",
+                                           in: managedContext)!
+            let expense = NSManagedObject(entity: entity,
+                                          insertInto: managedContext)
+            let imgData = UIImageJPEGRepresentation(pickedImage, 1)
+            expense.setValue(imgData, forKeyPath: "image")
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("Could not save. \(error), \(error.userInfo)")
+            }
+            fetchAndDisplay()
+        } else {
+            print("something wrong")
         }
         dismiss(animated: true, completion: nil)
-//        analyzeInProgress = true
-//        showProgressBar()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
+    func fetchAndDisplay() {
+        // fetch image from core data and display it
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "User")
+        do {
+            images = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        if !images.isEmpty {
+            if let photoinData = images[images.count - 1].value(forKey: "image") as? Data{
+                profileView.image = UIImage(data: photoinData)
+            }
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker.delegate = self
+        //        DeleteAllData()
+        fetchAndDisplay()
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
+        self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
     }
 
     override func didReceiveMemoryWarning() {

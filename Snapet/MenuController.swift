@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 extension UIImageView {
     public func maskCircle(anyImage: UIImage) {
@@ -25,15 +26,43 @@ extension UIImageView {
 class MenuController: UITableViewController {
     
     @IBOutlet weak var profileImage: UIImageView!
+    var images: [NSManagedObject] = []
+    
+    func fetchAndDisplay() {
+        // fetch image from core data and display it
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        let fetchRequest =
+            NSFetchRequest<NSManagedObject>(entityName: "User")
+        do {
+            images = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        if !images.isEmpty {
+            if let photoinData = images[images.count - 1].value(forKey: "image") as? Data{
+                profileImage.image = UIImage(data: photoinData)
+            }
+        }
+    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        fetchAndDisplay()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let avatarImage:UIImage = UIImage(named: "testProfile")!
-        profileImage.maskCircle(anyImage: avatarImage)
+//        let avatarImage:UIImage = UIImage(named: "testProfile")!
+//        profileImage.maskCircle(anyImage: avatarImage)
+        fetchAndDisplay()
         
         self.navigationController?.isNavigationBarHidden =  true
         
