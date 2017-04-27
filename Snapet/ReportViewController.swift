@@ -143,6 +143,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let merchant = expenses[indexPath.row].value(forKey: "merchant")
             let amt = expenses[indexPath.row].value(forKey: "amount")
             let cat = expenses[indexPath.row].value(forKey: "category")
+            let dat = expenses[indexPath.row].value(forKey: "date")
             // delete local data
             expenses.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -150,7 +151,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let managedContext = appDelegate.persistentContainer.viewContext
             let req = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
-            req.predicate = NSPredicate(format: "merchant == %@ AND amount = %@ AND category = %@", merchant as! CVarArg, amt as! CVarArg, cat as! CVarArg)
+            req.predicate = NSPredicate(format: "merchant == %@ AND amount = %@ AND category = %@ AND date = %@", merchant as! CVarArg, amt as! CVarArg, cat as! CVarArg, dat as! Date as CVarArg)
             let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: req)
             do {
                 try managedContext.execute(DelAllReqVar)
