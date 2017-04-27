@@ -273,9 +273,29 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             let amt = expenses[indexPath.row].value(forKey: "amount")
             let cat = expenses[indexPath.row].value(forKey: "category")
             // delete local data
+            var count = 0
+            var index = 0
+            print("test1 \(expenses)")
+            for (i, v) in category.enumerated() {
+                if v == (cat as! String) {
+                    index = i
+                    
+                }
+            }
+            for (i, v) in expenses.enumerated() {
+                if (v.value(forKey: "category") as! String) == (cat as! String) {
+                    count = count + 1
+                    print(count)
+                }
+            }
+            if (count > 1) {
+                amount[index] = amount[index] - (amt as! Double)
+            }
+            if (count == 1) {
+                category.remove(at: index)
+                amount.remove(at: index)
+            }
             expenses.remove(at: indexPath.row)
-            category.remove(at: indexPath.row)
-            amount.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             // delete core data
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -290,7 +310,27 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                 print(error)
             }
             // reload pie chart and table view
-            viewWillAppear(true)
+            var entries = [ ChartDataEntry]()
+            for (i, v) in amount.enumerated() {
+                let entry = PieChartDataEntry()
+                entry.y = v
+                entry.label = category[i]
+                entries.append( entry)
+            }
+            let set = PieChartDataSet( values: entries, label: "")
+            set.colors = UIColor.random(ofCount: entries.count)
+            
+            let data = PieChartData( dataSet: set)
+            chart.data = data
+            chart.noDataText = "No data available"
+            chart.isUserInteractionEnabled = false
+            let totalAmount = "$\(total)"
+            let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
+            centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
+            chart.centerAttributedText = centerTxt
+            total = 0.0
+            self.pieChartView.reloadInputViews()
+            self.tableView.reloadData()
         }
     }
     
@@ -378,22 +418,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         distinctCategoryReq.propertiesToFetch = ["category"]
         distinctCategoryReq.returnsDistinctResults = true
         distinctCategoryReq.resultType = NSFetchRequestResultType.dictionaryResultType
-        
-        // 2.3 category query request
-        let categoryRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        categoryRequest.predicate = NSPredicate(format: "category CONTAINS[c] %@", "Com")
-        
-        // 2.4 date query request
-//        let dateRequest =
-//            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-//        let endDate = Date().addingTimeInterval(-43200)
-//        dateRequest.predicate = NSPredicate(format: "endDate == %@", endDate as NSDate)
-//        let temp = "2017-04-20"
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        let date = dateFormatter.date(from: temp)
-//        dateRequest.predicate = NSPredicate(format: "date > %@", date as! CVarArg)
         // 2.5 amount query request
         let amountRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
@@ -476,71 +500,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
         chart.centerAttributedText = centerTxt
         total = 0.0
-        // 3.3 fetcht category data
-        
-        //        do{
-        //            var sum = 0.0;
-        //            expenses = try managedContext.fetch(categoryRequest)
-        //            if !expenses.isEmpty{
-        //            for result in expenses {
-        //                let amt = (result.value(forKeyPath: "amount") as? Double)!
-        //                sum += amt
-        //                print("cat result is \(sum)")
-        //            }
-        //            }
-        //
-        //        } catch let error{
-        //            print(error)
-        //        }
-        
-        //        do
-        //        {
-        //            results = try managedContext.fetch(fetchRequest)
-        //            if !results.isEmpty{
-        //                for result in results {
-        //                    let cat = (result.value(forKeyPath: "category") as? String)!
-        //                    print("one of the category is \(cat)")
-        //                }
-        //            }
-        //        }
-        //        catch let error as NSError {
-        //            print("Could not fetch. \(error), \(error.userInfo)")
-        //        }
-        
-        // 3.4 date query
-//        do{
-//            var sum = 0.0;
-//            expenses = try managedContext.fetch(dateRequest)
-//            if !expenses.isEmpty{
-//                for result in expenses {
-//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
-//                    sum += amt
-//                    print("date result is \(sum)")
-//                }
-//            }
-//
-//        } catch let error{
-//            print(error)
-//        }
-        
-        // 3.5 amount query
-//        do{
-//            var sum = 0.0;
-//            expenses = try managedContext.fetch(amountRequest)
-//            if !expenses.isEmpty{
-//                for result in expenses {
-//                    let amt = (result.value(forKeyPath: "amount") as? Double)!
-//                    sum += amt
-//                    print("amt result is \(sum)")
-//                }
-//            }
-//            
-//        } catch let error{
-//            print(error)
-//        }
-        
         // 4 update table view and pie chart view
-        
         self.tableView.reloadData()
         self.pieChartView.reloadInputViews()
         if !analyzeInProgress{
@@ -800,6 +760,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             detectedAmount = 0.0
             detectedAccount = 0
             detectedCategory = ""
+            secondViewController.expenses = expenses
             } else {
                 let secondViewController = segue.destination as! DetailViewController
                 let expense = expenses[row]

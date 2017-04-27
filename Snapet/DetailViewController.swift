@@ -26,8 +26,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var isEdit = false
     var row = 0
     var expenses: [NSManagedObject] = []
+    var results: [NSManagedObject] = []
     var currentImage = UIImage()
     //var isOCR = false
+    var fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -79,12 +81,43 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             }
             if (merchant != "") {
                 expense.setValue(merchant, forKeyPath: "merchant")
+                fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchant)
             }
             if (account != 0) {
                 expense.setValue(account, forKeyPath: "account")
             }
             if (category != "") {
                 expense.setValue(category, forKeyPath: "category")
+                // update the category field for the entry with the same merchant name in core data
+                do {
+                    results = try managedContext.fetch(fetchRequest)
+                    if !results.isEmpty {
+                        for result in results {
+                            result.setValue(category, forKeyPath: "category")
+                            do {
+                                try managedContext.save()
+                            } catch let error as NSError {
+                                print("Could not save. \(error), \(error.userInfo)")
+                            }
+                        }
+                    }
+                } catch let error as NSError {
+                    print("Could not fetch. \(error), \(error.userInfo)")
+                }
+            
+//                // update the category field for the entry with the same merchant name in local copy
+//                if !expenses.isEmpty {
+//                    for result in expenses {
+//                        if (result.value(forKeyPath: "merchant") as? String == merchant) {
+//                            result.setValue(category, forKeyPath: "category")
+//                            do {
+//                                try managedContext.save()
+//                            } catch let error as NSError {
+//                                print("Could not save. \(error), \(error.userInfo)")
+//                            }
+//                        }
+//                    }
+//                }
             }
             // 4
             do {
@@ -128,6 +161,39 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
+            
+//            // update the category field for the entry with the same merchant name in local copy
+//            if !expenses.isEmpty {
+//                for result in expenses {
+//                    if (result.value(forKeyPath: "merchant") as? String == merchant) {
+//                        result.setValue(category, forKeyPath: "category")
+//                        do {
+//                            try managedContext.save()
+//                        } catch let error as NSError {
+//                            print("Could not save. \(error), \(error.userInfo)")
+//                        }
+//                    }
+//                }
+//            }
+            
+            // update the category field for the entry with the same merchant name in core data
+            do {
+                fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchant)
+                results = try managedContext.fetch(fetchRequest)
+                if !results.isEmpty {
+                    for result in results {
+                        result.setValue(category, forKeyPath: "category")
+                        do {
+                            try managedContext.save()
+                        } catch let error as NSError {
+                            print("Could not save. \(error), \(error.userInfo)")
+                        }
+                    }
+                }
+            } catch let error as NSError {
+                print("Could not fetch. \(error), \(error.userInfo)")
+            }
+
         }
         accountField.text = nil
         dateField.text = nil
