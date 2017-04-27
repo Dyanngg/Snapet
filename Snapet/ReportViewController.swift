@@ -137,6 +137,31 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         addNewData = false
         self.performSegue(withIdentifier: "ReportToDetail", sender: nil)
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let merchant = expenses[indexPath.row].value(forKey: "merchant")
+            let amt = expenses[indexPath.row].value(forKey: "amount")
+            let cat = expenses[indexPath.row].value(forKey: "category")
+            // delete local data
+            expenses.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            // delete core data
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let req = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+            req.predicate = NSPredicate(format: "merchant == %@ AND amount = %@ AND category = %@", merchant as! CVarArg, amt as! CVarArg, cat as! CVarArg)
+            let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: req)
+            do {
+                try managedContext.execute(DelAllReqVar)
+            }
+            catch {
+                print(error)
+            }
+            // reload table view
+            viewWillAppear(true)
+        }
+    }
 
     /****     Fetching from Core Data   ****/
     override func viewWillAppear(_ animated: Bool) {
