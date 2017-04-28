@@ -30,6 +30,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var analyzing: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    
     var amount: Double = 0.0
     var merchant = ""
     var account = 0
@@ -94,6 +97,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         let amountToSave = amount
         self.save(amount: Double(amountToSave))
     }
+    
+    @IBAction func toNext(_ sender: Any) {
+        self.globalIndex += 1
+        self.reInitializeData(index: globalIndex)
+    }
+    
     
     /*
      Saving to Core Data
@@ -239,7 +248,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     func tappedToolBarBtn(_ sender: UIBarButtonItem) {
-        
         let dateformatter = DateFormatter()
         dateformatter.dateStyle = DateFormatter.Style.medium
         dateformatter.timeStyle = DateFormatter.Style.none
@@ -331,28 +339,25 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             self.dates = [Date](repeatElement(Date(), count: imagesProcessing.count))
             self.merchants = [String](repeatElement("", count: imagesProcessing.count))
             self.categories = [String](repeatElement("", count: imagesProcessing.count))
+            categoryRecommend.isHidden = true
+            categoryButton1.isHidden = true
+            categoryButton2.isHidden = true
+            categoryButton3.isHidden = true
+            activityIndicator.startAnimating()
             for (i, item) in imagesProcessing.enumerated(){
                 let binaryImageData = self.base64EncodeImage(item)
                 //self.analyzeInProgress = true
                 self.createRequest(with: binaryImageData, index: i)
             }
         }
-        
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        //confirmImage.image = currentImage
-        if (imagesProcessing != []) {
-            categoryRecommend.isHidden = true
-            categoryButton1.isHidden = true
-            categoryButton2.isHidden = true
-            categoryButton3.isHidden = true
-            activityIndicator.startAnimating()
-        }
         else{
             hideTopBar.isHidden = true
             hideBottomBar.isHidden = true
             analyzing.isHidden = true
             activityIndicator.isHidden = true
+            self.nextButton.isHidden = true
         }
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
         categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
         categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
@@ -417,6 +422,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             self.merchantField.text = self.merchants[index]
             self.categoryField.text = self.categories[index]
             self.confirmImage.image = self.imagesProcessing[index]
+            if self.globalIndex + 1 < self.imagesProcessing.count{
+                self.saveButton.isHidden = true
+                self.nextButton.isHidden = false
+            }
+            else{
+                self.saveButton.isHidden = false
+                self.nextButton.isHidden = true
+            }
         }
     }
     

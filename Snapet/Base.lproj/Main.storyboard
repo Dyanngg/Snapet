@@ -613,6 +613,17 @@
                                     <segue destination="538-XW-tbb" kind="unwind" unwindAction="myUnwindAction:" id="EWQ-tg-T0x"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OM9-02-iRZ" userLabel="Next Button">
+                                <rect key="frame" x="277" y="656" width="92" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Next&gt;">
+                                    <color key="titleColor" red="0.94954258420000004" green="0.81255880380000001" blue="0.29638489039999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="toNext:" destination="5Nh-t9-ffs" eventType="touchUpInside" id="8ME-CH-QUl"/>
+                                </connections>
+                            </button>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HTA-T2-0Hw">
                                 <rect key="frame" x="39" y="350" width="337" height="275"/>
                                 <constraints>
@@ -669,14 +680,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Analyzing receipts..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctI-t6-9k3">
-                                <rect key="frame" x="119" y="176" width="168" height="21"/>
+                                <rect key="frame" x="126" y="176" width="168" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="e5b-vp-51i">
-                                <rect key="frame" x="187" y="233" width="20" height="20"/>
+                                <rect key="frame" x="197" y="233" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                         </subviews>
@@ -703,6 +714,8 @@
                         <outlet property="hideBottomBar" destination="vPa-9c-TfP" id="Wcc-Xc-FWc"/>
                         <outlet property="hideTopBar" destination="h9x-Zw-yZ4" id="GZo-dR-iiV"/>
                         <outlet property="merchantField" destination="mmt-WH-VQl" id="ASI-2R-9ef"/>
+                        <outlet property="nextButton" destination="OM9-02-iRZ" id="Mcp-IX-r6U"/>
+                        <outlet property="saveButton" destination="eym-yJ-fZu" id="qUk-A7-5gz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czc-y6-fBd" userLabel="First Responder" sceneMemberID="firstResponder"/>

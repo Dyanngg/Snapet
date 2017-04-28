@@ -398,7 +398,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     /****     Fetching from Core Data   ****/
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.uploadedImages = []
+        pickerController.defaultSelectedAssets?.removeAll()
         if !analyzeInProgress{
             hideProgressBar()
         }
@@ -578,7 +579,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
-    /****     Imagepicker Stuff    ****/
+    /****     Imagepicker Stuff     ****/
     func showImagePicker() {
         pickerController.defaultSelectedAssets?.removeAll()
         pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
