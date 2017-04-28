@@ -572,16 +572,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                     if webResults.contains(merchantDetected){
                         self.merchants[index] = merchantDetected
                         isMerchantDetected = true
-                        let categoryDetected = checkExistingCategory(merchants[index])
+                        let categoryInferred = checkExistingCategory(merchants[index])
                         //print("detectedCategory is = \(categoryDetected)")
-                        self.categories[index] = categoryDetected
+                        self.categories[index] = categoryInferred
                         if !(categories[index].isEmpty) {
                             isCategoryDetected = true
                         }
                         if !isCategoryDetected {
                             self.createKGRequest(input: merchants[index], index: index)
                         }
-                       else {
+                        else {
                             if index + 1 == self.imagesProcessing.count{
                                 self.reloadView()
                             }
@@ -596,9 +596,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             if !isMerchantDetected{
                 if let webResults = self.analyzeWeb(json: json){
                     merchants[index] = webResults[0]
-                    //self.detectedMerchant = webResults[0]
-                    self.createKGRequest(input: webResults[0], index: index)
                     isMerchantDetected = true
+                    let categoryInferred = checkExistingCategory(merchants[index])
+                    self.categories[index] = categoryInferred
+                    if categories[index].isEmpty {
+                        self.createKGRequest(input: webResults[0], index: index)
+                    }
+                    else{
+                        if index + 1 == self.imagesProcessing.count{
+                            self.reloadView()
+                        }
+                    }
                 }
             }
             
