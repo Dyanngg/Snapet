@@ -620,6 +620,46 @@
                                     <constraint firstAttribute="height" constant="275" id="J8H-nB-lwE"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hh7-M4-3yK">
+                                <rect key="frame" x="40" y="419" width="93" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setCategory1:" destination="5Nh-t9-ffs" eventType="touchUpInside" id="BgL-w0-Z0O"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jnL-mo-VD9">
+                                <rect key="frame" x="152" y="419" width="105" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setCategory2:" destination="5Nh-t9-ffs" eventType="touchUpInside" id="etx-mG-2YN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GlE-2S-zjW">
+                                <rect key="frame" x="277" y="419" width="98" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setCategory3:" destination="5Nh-t9-ffs" eventType="touchUpInside" id="NyG-rd-eZC"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category Recommendations:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdV-gU-xTE">
+                                <rect key="frame" x="97" y="367" width="222" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -632,7 +672,11 @@
                     <connections>
                         <outlet property="accountField" destination="FvA-3x-Dq6" id="qtW-6C-IGn"/>
                         <outlet property="amountField" destination="Eqk-qp-8Rm" id="hPb-hc-1hv"/>
+                        <outlet property="categoryButton1" destination="hh7-M4-3yK" id="v8H-cb-U9D"/>
+                        <outlet property="categoryButton2" destination="jnL-mo-VD9" id="gRZ-v6-aUX"/>
+                        <outlet property="categoryButton3" destination="GlE-2S-zjW" id="Lr2-Uf-tPh"/>
                         <outlet property="categoryField" destination="bAL-4J-peZ" id="fXX-Eu-yO7"/>
+                        <outlet property="categoryRecommend" destination="mdV-gU-xTE" id="l7Y-qK-Kyc"/>
                         <outlet property="confirmImage" destination="HTA-T2-0Hw" id="rtA-qG-UPh"/>
                         <outlet property="dateField" destination="Wmh-Yk-Y63" id="tQh-fg-6UE"/>
                         <outlet property="merchantField" destination="mmt-WH-VQl" id="ASI-2R-9ef"/>

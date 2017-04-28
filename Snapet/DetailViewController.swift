@@ -20,6 +20,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var confirmImage: UIImageView!
+    @IBOutlet weak var categoryButton1: UIButton!
+    @IBOutlet weak var categoryButton2: UIButton!
+    @IBOutlet weak var categoryButton3: UIButton!
+    @IBOutlet weak var categoryRecommend: UILabel!
+
     
     var amount: Double = 0.0
     var merchant = ""
@@ -32,6 +37,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var results: [NSManagedObject] = []
     var currentImage = UIImage()
     var fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
+    var message = ""
+    var categoryButtons = ["Food", "Entertainment", "Groceries"]
     
     let session = URLSession.shared
     let googleAPIKey = "AIzaSyBmcPFpapjEug_lKki4qnuiN-XYvE3xVYQ"
@@ -62,6 +69,22 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         dateField.text = dateFormatter.string(from: sender.date)
     }
     
+    @IBAction func setCategory1(_ sender: Any) {
+        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
+        categoryField.text = categoryButtons[0]
+        category = categoryButtons[0]
+    }
+    
+    @IBAction func setCategory2(_ sender: Any) {
+        categoryField.text = categoryButtons[1]
+        category = categoryButtons[1]
+    }
+    
+    @IBAction func setCategory3(_ sender: Any) {
+        categoryField.text = categoryButtons[2]
+        category = categoryButtons[2]
+    }
+    
     @IBAction func saveData(_ sender: Any) {
         let amountToSave = amount
         self.save(amount: Double(amountToSave))
@@ -85,16 +108,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             let expense = expenses[row]
             // 3
             expense.setValue(amount, forKeyPath: "amount")
-            if (date != nil) {
-                expense.setValue(date, forKeyPath: "date")
-                
-            }
+            
             if (merchant != "") {
                 expense.setValue(merchant, forKeyPath: "merchant")
                 fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchant)
             }
             if (account != 0) {
                 expense.setValue(account, forKeyPath: "account")
+            }
+            if (date != nil) {
+                expense.setValue(date, forKeyPath: "date")
+            } else {
+                message.append("\n Please enter a date.")
             }
             if (category != "") {
                 expense.setValue(category, forKeyPath: "category")
@@ -193,7 +218,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                     print("Could not fetch. \(error), \(error.userInfo)")
                 }
             }
-
         }
         accountField.text = nil
         dateField.text = nil
@@ -295,6 +319,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
         confirmImage.image = currentImage
+        if (currentImage.imageAsset != nil) {
+            categoryRecommend.isHidden = true
+            categoryButton1.isHidden = true
+            categoryButton2.isHidden = true
+            categoryButton3.isHidden = true
+        }
+        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
+        categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
+        categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
