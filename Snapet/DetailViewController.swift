@@ -304,16 +304,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
             }
-//            dateFormatter.dateFormat = "yyyy-MM-dd"
-//            var d: Date
-//            if (temp.characters.count >= 10) {
-//                let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
-//                d = dateFormatter.date(from:temp1)!
-//                let calendar = Calendar.current
-//                let components = calendar.dateComponents([.year, .month, .day], from: d)
-//                let finalDate = calendar.date(from:components)
-//                date = finalDate
-//            }
         }
         if let temp = categoryField.text {
             if (temp.characters.count > 0) {
@@ -548,8 +538,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         var isMerchantDetected = false
         var isCategoryDetected = false
         
-        // Update UI on the main thread
-        // Use SwiftyJSON to parse results
+        // Update UI on the main thread, and use SwiftyJSON to parse results
         let json = JSON(data: dataToParse)
         let errorObj: JSON = json["error"]
         
@@ -562,34 +551,24 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             
             self.amounts[index] = self.analyzeAmount(json: json)
             
-            //let chrono = Chrono.shared
             if let dateDetected = self.analyzeDate(json: json){
                 self.dates[index] = dateDetected
             }
             
             if let merchantDetected = self.analyzeLogo(json: json){
-                if let webResults = self.analyzeWeb(json: json){
-                    if webResults.contains(merchantDetected){
-                        self.merchants[index] = merchantDetected
-                        isMerchantDetected = true
-                        let categoryInferred = checkExistingCategory(merchants[index])
-                        //print("detectedCategory is = \(categoryDetected)")
-                        self.categories[index] = categoryInferred
-                        if !(categories[index].isEmpty) {
-                            isCategoryDetected = true
-                        }
-                        if !isCategoryDetected {
-                            self.createKGRequest(input: merchants[index], index: index)
-                        }
-                        else {
-                            if index + 1 == self.imagesProcessing.count{
-                                self.reloadView()
-                            }
-//                            DispatchQueue.main.async {
-//                                self.analyzeInProgress = false
-//                                self.performSegue(withIdentifier: "toDetail", sender: nil)
-//                            }
-                       }
+                self.merchants[index] = merchantDetected
+                isMerchantDetected = true
+                let categoryInferred = checkExistingCategory(merchants[index])
+                self.categories[index] = categoryInferred
+                if !(categories[index].isEmpty) {
+                    isCategoryDetected = true
+                }
+                if !isCategoryDetected {
+                    self.createKGRequest(input: merchants[index], index: index)
+                }
+                else {
+                    if index + 1 == self.imagesProcessing.count{
+                        self.reloadView()
                     }
                 }
             }
@@ -611,13 +590,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             }
             
         }
-        if !isMerchantDetected && index == imagesProcessing.count - 1{
-//            DispatchQueue.main.async {
-//                self.performSegue(withIdentifier: "toDetail", sender: nil)
-//            }
+        if !isMerchantDetected && index + 1 == imagesProcessing.count{
             reloadView()
         }
-        
     }
     
     
@@ -703,9 +678,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                 print(topMatch)
             }
         }
-//        DispatchQueue.main.async {
-//            self.performSegue(withIdentifier: "toDetail", sender: nil)
-//        }
         if index == imagesProcessing.count - 1{
             self.reloadView()
         }
@@ -721,10 +693,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         if let responseArray = json["responses"].array{
             for responseDict in responseArray {
                 let ocrTxt: String! = responseDict["textAnnotations"][0]["description"].string
-                //print("ocrtext is")
-                //print(ocrTxt)
                 date = retrieveDate(input: ocrTxt)
-                
             }
         }
         print("final date is")
@@ -840,9 +809,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                     returnAmount = amount
                 }
                 else {
-                    //print("index is: \(index)")
                     let element = ocrTextByLines[index + 1]
-                    //print(element)
                     let newAmount = self.retrieveAmount(input: element)
                     print("detected amount: \(newAmount)")
                     returnAmount = newAmount
@@ -851,6 +818,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         }
         return returnAmount
     }
+    
     
     func retrieveAmount(input: String) -> Double {
         // split the line in words
