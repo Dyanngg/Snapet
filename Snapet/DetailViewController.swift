@@ -36,6 +36,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     //var isOCR = false
     var fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
     var message = ""
+    var categoryButtons = ["Food", "Entertainment", "Groceries"]
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -60,18 +61,19 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func setCategory1(_ sender: Any) {
-        categoryField.text = "Food"
-        category = "Food"
+        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
+        categoryField.text = categoryButtons[0]
+        category = categoryButtons[0]
     }
     
     @IBAction func setCategory2(_ sender: Any) {
-        categoryField.text = "Entertainment"
-        category = "Entertainment"
+        categoryField.text = categoryButtons[1]
+        category = categoryButtons[1]
     }
     
     @IBAction func setCategory3(_ sender: Any) {
-        categoryField.text = "Groceries"
-        category = "Groceries"
+        categoryField.text = categoryButtons[2]
+        category = categoryButtons[2]
     }
     
     @IBAction func saveData(_ sender: Any) {
@@ -322,6 +324,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             categoryButton2.isHidden = true
             categoryButton3.isHidden = true
         }
+        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
+        categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
+        categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
