@@ -13,6 +13,7 @@ import Photos
 import AVKit
 import DKImagePickerController
 
+
 class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
@@ -77,7 +78,8 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         if !images.isEmpty {
             if let photoinData = images[images.count - 1].value(forKey: "image") as? Data{
-                profileView.image = UIImage(data: photoinData)
+                //profileView.image = UIImage(data: photoinData)
+                profileView.maskCircle(anyImage: UIImage(data: photoinData)!)
             }
         }
     }

@@ -64,6 +64,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var analyzeInProgress = false
     var addNewData = true
     
+    let cellImage = UIImageView(image: UIImage(named: "cellDesign.png")!)
     let session = URLSession.shared
     let imagePicker = UIImagePickerController()
     let pickerController = DKImagePickerController()
@@ -276,7 +277,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                     
                 }
             }
-            for (i, v) in expenses.enumerated() {
+            for (_, v) in expenses.enumerated() {
                 if (v.value(forKey: "category") as! String) == (cat as! String) {
                     count = count + 1
                     print(count)
@@ -325,7 +326,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
             chart.centerAttributedText = centerTxt
             self.pieChartView.reloadInputViews()
-            self.tableView.reloadData()
+            OperationQueue.main.addOperation(){
+                self.tableView.reloadData()
+            }
         }
     }
     
