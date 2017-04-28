@@ -290,10 +290,12 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
             if (count > 1) {
                 amount[index] = amount[index] - (amt as! Double)
+                total = total - (amt as! Double)
             }
             if (count == 1) {
                 category.remove(at: index)
                 amount.remove(at: index)
+                total = total - (amt as! Double)
             }
             expenses.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -328,7 +330,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
             centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
             chart.centerAttributedText = centerTxt
-            total = 0.0
             self.pieChartView.reloadInputViews()
             self.tableView.reloadData()
         }
@@ -448,6 +449,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // 3.2 fetch distinct categories data
         category = [String]()
         amount = [Double]()
+        total = 0.0
         do {
             let results = try managedContext.fetch(distinctCategoryReq)
             if !results.isEmpty {
@@ -499,7 +501,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
         centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
         chart.centerAttributedText = centerTxt
-        total = 0.0
+//        total = 0.0
         // 4 update table view and pie chart view
         self.tableView.reloadData()
         self.pieChartView.reloadInputViews()

@@ -45,7 +45,9 @@ class MenuController: UITableViewController {
         }
         if !images.isEmpty {
             if let photoinData = images[images.count - 1].value(forKey: "image") as? Data{
-                profileImage.image = UIImage(data: photoinData)
+                let img = UIImage(data: photoinData)!
+                profileImage.maskCircle(anyImage: img)
+//                profileImage.image = UIImage(data: photoinData)
             }
         }
     }
