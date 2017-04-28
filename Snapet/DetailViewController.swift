@@ -365,21 +365,25 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     
     
     func reloadView(){
+        DispatchQueue.main.async {
         print("all done")
-        print(amounts)
-        print(merchants)
-        print(dates)
-        print(categories)
-        reInitializeData(index: 0)
+        print(self.amounts)
+        print(self.merchants)
+        print(self.dates)
+        print(self.categories)
+        self.reInitializeData(index: 0)
+        }
     }
     
     
     func reInitializeData(index: Int){
-        self.amountField.text = amounts[index].description
-        self.dateField.text = dates[index].description
-        self.merchantField.text = merchants[index]
-        self.categoryField.text = categories[index]
-        confirmImage.image = imagesProcessing[index]
+        DispatchQueue.main.async {
+            self.amountField.text = self.amounts[index].description
+            self.dateField.text = self.dates[index].description
+            self.merchantField.text = self.merchants[index]
+            self.categoryField.text = self.categories[index]
+            self.confirmImage.image = self.imagesProcessing[index]
+        }
     }
     
     
