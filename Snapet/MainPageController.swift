@@ -64,6 +64,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var detectedCategory: String? = nil
     var detectedAccount: Int? = nil
     
+    var uploadedImages: [UIImage] = []
+    
+    
+    
     var useCamera = false
     var analyzeInProgress = false
     var addNewData = true
@@ -86,7 +90,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // Add the floating action button
         layoutFAB()
         
-//        DeleteAllData()
+        //DeleteAllData()
         imagePicker.delegate = self
         pickerController.assetType = .allPhotos
         pickerController.showsCancelButton = true
@@ -508,6 +512,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    
     // display the constraints obtained from setting page
     @IBAction func myUnwindAction(_ unwindSegue: UIStoryboardSegue) {
         if let svc = unwindSegue.source as? DetailViewController {
@@ -581,21 +586,22 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             for (i, item) in assets.enumerated(){
                 let asset = item
                 asset.fetchFullScreenImage(true, completeBlock:{ image, info in
-                    self.imageInProcess = image!
+                    self.uploadedImages.append(image!)
                 })
-                self.isOCR = true
+                // self.isOCR = true
                 // Base64 encode the image and create the request
-                let binaryImageData = self.base64EncodeImage(self.imageInProcess)
-                self.analyzeInProgress = true
-                self.showProgressBar()
-                if i == assets.count - 1{
-                    self.batchAnalyzed = true
-                }
-                else {
-                    self.batchAnalyzed = false
-                }
-                self.createRequest(with: binaryImageData)
+//                let binaryImageData = self.base64EncodeImage(self.imageInProcess)
+//                self.analyzeInProgress = true
+//                self.showProgressBar()
+//                if i == assets.count - 1{
+//                    self.batchAnalyzed = true
+//                }
+//                else {
+//                    self.batchAnalyzed = false
+//                }
+//                self.createRequest(with: binaryImageData)
             }
+            self.performSegue(withIdentifier: "toDetail", sender: nil)
         }
         
         self.present(pickerController, animated: true) {}
@@ -717,7 +723,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toDetail"{
+        if segue.identifier == "toXX"{
             if addNewData {
             // get a reference to the second view controller
             let secondViewController = segue.destination as! DetailViewController
@@ -761,7 +767,15 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             detectedAccount = 0
             detectedCategory = ""
             secondViewController.expenses = expenses
-            } else {
+            }
+        }
+        else if segue.identifier == "toDetail"{
+            if addNewData {
+                // get a reference to the second view controller
+                let secondViewController = segue.destination as! DetailViewController
+                secondViewController.imagesProcessing = self.uploadedImages
+            }
+            else {
                 let secondViewController = segue.destination as! DetailViewController
                 let expense = expenses[row]
                 if let amount = (expense.value(forKeyPath: "amount") as? Double) {
