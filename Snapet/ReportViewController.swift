@@ -52,9 +52,9 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         // I REALLY WANT TO CHANGE THIS TO MINIMAL BUT IT DOESN'T WORK
-        searchController.searchBar.searchBarStyle = UISearchBarStyle.default
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = true
+         searchController.searchBar.searchBarStyle = UISearchBarStyle.default
+         searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
         
         // Setup the Scope Bar
         let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
