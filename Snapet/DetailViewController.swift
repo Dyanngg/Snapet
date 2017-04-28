@@ -581,12 +581,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                         if !isCategoryDetected {
                             self.createKGRequest(input: merchants[index], index: index)
                         }
-//                       else {
+                       else {
+                            if index + 1 == self.imagesProcessing.count{
+                                self.reloadView()
+                            }
 //                            DispatchQueue.main.async {
 //                                self.analyzeInProgress = false
 //                                self.performSegue(withIdentifier: "toDetail", sender: nil)
 //                            }
-//                       }
+                       }
                     }
                 }
             }
