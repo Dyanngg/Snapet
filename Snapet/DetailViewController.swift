@@ -61,6 +61,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var categories: [String] = []
     var globalIndex = 0
     
+    var isOCR = false
+    
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -180,57 +182,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             let managedContext = appDelegate.persistentContainer.viewContext
             let entity = NSEntityDescription.entity(forEntityName: "Expense", in: managedContext)!
             
-            
-            for (i, _) in imagesProcessing.enumerated(){
+            if isOCR {
+                for (i, _) in imagesProcessing.enumerated(){
+                    let expense = NSManagedObject(entity: entity, insertInto: managedContext)
+                    self.conditionedSave(context: managedContext, expense: expense, amount: amounts[i], date: dates[i], merchant: merchants[i], category: categories[i])
+                }
+            }
+            // Manual expense entry
+            else {
                 let expense = NSManagedObject(entity: entity, insertInto: managedContext)
-                expense.setValue(amounts[i], forKeyPath: "amount")
-                //if (dates[i] != nil) {
-                expense.setValue(dates[i], forKeyPath: "date")
-                //}
-                //if (merchants[i] != "") {
-                expense.setValue(merchants[i], forKeyPath: "merchant")
-                //}
-                //if (categories[i] != "") {
-                expense.setValue(categories[i], forKeyPath: "category")
-                //}
-                do {
-                    try managedContext.save()
-                        expenses.append(expense)
-                }catch let error as NSError {
-                    print("Could not save. \(error), \(error.userInfo)")
-                }
-            
-//            // update the category field for the entry with the same merchant name in local copy
-//            if !expenses.isEmpty {
-//                for result in expenses {
-//                    if (result.value(forKeyPath: "merchant") as? String == merchant) {
-//                        result.setValue(category, forKeyPath: "category")
-//                        do {
-//                            try managedContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-            
-            // update the category field for the entry with the same merchant name in core data
-                do {
-                    fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchants[i])
-                    results = try managedContext.fetch(fetchRequest)
-                    if !results.isEmpty {
-                        for result in results {
-                            result.setValue(categories[i], forKeyPath: "category")
-                            do {
-                                try managedContext.save()
-                            } catch let error as NSError {
-                                print("Could not save. \(error), \(error.userInfo)")
-                            }
-                        }
-                    }
-                } catch let error as NSError {
-                    print("Could not fetch. \(error), \(error.userInfo)")
-                }
+                self.conditionedSave(context: managedContext, expense: expense, amount: amount, date: date!, merchant: merchant, category: category)
             }
         }
         accountField.text = nil
@@ -240,6 +201,38 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         categoryField.text = nil
         amountField.text = nil
     }
+    
+    func conditionedSave(context: NSManagedObjectContext, expense: NSManagedObject, amount: Double, date: Date, merchant: String, category: String){
+        expense.setValue(amount, forKeyPath: "amount")
+        expense.setValue(date, forKeyPath: "date")
+        expense.setValue(merchant, forKeyPath: "merchant")
+        expense.setValue(category, forKeyPath: "category")
+        do {
+            try context.save()
+            expenses.append(expense)
+        }catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+        // update the category field for the entry with the same merchant name in core data
+        do {
+            fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchant)
+            results = try context.fetch(fetchRequest)
+            if !results.isEmpty {
+                for result in results {
+                    result.setValue(category, forKeyPath: "category")
+                    do {
+                        try context.save()
+                    } catch let error as NSError {
+                        print("Could not save. \(error), \(error.userInfo)")
+                    }
+                }
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
+    }
+    
+    
     
     func donePressed(_ sender: UIBarButtonItem) {
         

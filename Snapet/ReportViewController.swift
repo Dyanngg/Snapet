@@ -60,6 +60,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
         let opaqueBarColor = UIColor(red:100/255, green:107/255, blue:118/255, alpha:1.0)
         let backgroundColor = UIColor(red:72/255, green:81/255, blue:94/255, alpha:1.0)
+        self.view.backgroundColor = backgroundColor
         searchController.searchBar.scopeButtonTitles = ["All", ">", "=", "<", "↑", "↓"]
         searchController.searchBar.barTintColor = opaqueBarColor
         let searchTextField = searchController.searchBar.value(forKey: "_searchField") as? UITextField

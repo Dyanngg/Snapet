@@ -58,16 +58,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var fetchedMerchant: String? = nil
     var fetchedCategory: String? = nil
     
-    var detectedAmount: Double? = nil
-    var detectedDate: Date? = nil
-    var detectedMerchant: String? = nil
-    var detectedCategory: String? = nil
-    var detectedAccount: Int? = nil
-    
     var uploadedImages: [UIImage] = []
-    
-    
-    
+
     var useCamera = false
     var analyzeInProgress = false
     var addNewData = true
@@ -94,8 +86,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         imagePicker.delegate = self
         pickerController.assetType = .allPhotos
         pickerController.showsCancelButton = true
-        
-        hideProgressBar()
 
         //!!!  self.tableView.reloadData()
         
@@ -352,9 +342,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         item.title = "Upload image"
         item.icon = UIImage(named: "upload.png")
         item.handler = { item in
-//            self.imagePicker.allowsEditing = false
-//            self.imagePicker.sourceType = .photoLibrary
-//            self.present(self.imagePicker, animated: true, completion: nil)
+            self.analyzeInProgress = true
             self.showImagePicker()
             self.fab.close()
         }
@@ -400,9 +388,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         self.uploadedImages = []
         pickerController.defaultSelectedAssets?.removeAll()
-        if !analyzeInProgress{
-            hideProgressBar()
-        }
         
         // 1 set context
         
@@ -524,6 +509,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
             print("expenses is assigned")
         }
+        self.analyzeInProgress = false
     }
     
     func DeleteAllData(){
@@ -538,25 +524,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    
-    
-    /****   Progress bar  ****/
-    func showProgressBar(){
-        analyzeTextLabel.isHidden = false
-        progressView.isHidden = false
-        progressLabel.isHidden = false
-        progressBar.isHidden = false
-    }
-    
-    func hideProgressBar() {
-        analyzeTextLabel.isHidden = true
-        progressView.isHidden = true
-        progressLabel.isHidden = true
-        progressBar.isHidden = true
-    }
-    
-    
-    
+ 
     
     /****    Sending requests to Google Vision API  ****/
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -564,12 +532,11 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             imageInProcess = pickedImage
             isOCR = true
             // Base64 encode the image and create the request
-            let binaryImageData = base64EncodeImage(pickedImage)
-            createRequest(with: binaryImageData)
+            self.uploadedImages.append(pickedImage)
+            self.analyzeInProgress = true
+            self.performSegue(withIdentifier: "toDetail", sender: nil)
         }
         dismiss(animated: true, completion: nil)
-        analyzeInProgress = true
-        showProgressBar()
     }
     
     
@@ -581,33 +548,21 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     /****     Imagepicker Stuff     ****/
     func showImagePicker() {
-        pickerController.defaultSelectedAssets?.removeAll()
         pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
             print("didSelectAssets")
+            self.isOCR = true
             self.assets = assets
-            
-            for (i, item) in assets.enumerated(){
+            for (_, item) in assets.enumerated(){
                 let asset = item
                 asset.fetchFullScreenImage(true, completeBlock:{ image, info in
                     self.uploadedImages.append(image!)
                 })
-                // self.isOCR = true
-                // Base64 encode the image and create the request
-//                let binaryImageData = self.base64EncodeImage(self.imageInProcess)
-//                self.analyzeInProgress = true
-//                self.showProgressBar()
-//                if i == assets.count - 1{
-//                    self.batchAnalyzed = true
-//                }
-//                else {
-//                    self.batchAnalyzed = false
-//                }
-//                self.createRequest(with: binaryImageData)
             }
             self.performSegue(withIdentifier: "toDetail", sender: nil)
         }
-        
-        self.present(pickerController, animated: true) {}
+        self.present(pickerController, animated: true) {
+            self.pickerController.defaultSelectedAssets?.removeAll()
+        }
     }
 
 
@@ -673,110 +628,20 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         request.httpBody = data
         self.progressView.setProgress(0.2, animated: true)
         // Run the request on a background thread
-        DispatchQueue.global().async { self.runRequestOnBackgroundThread(request) }
+        //DispatchQueue.global().async { self.runRequestOnBackgroundThread(request) }
     }
     
-    
-    func runRequestOnBackgroundThread(_ request: URLRequest) {
-        // run the request
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "")
-                return
-            }
-            self.progressView.setProgress(0.5, animated: true)
-            self.analyzeResults(data)
-        }
-        task.resume()
-    }
-    
-    func createKGRequest(input:String) {
-        var finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey + "&limit=5"
-        finalURLString = NSString(string: finalURLString).addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-        let urlComponents = URLComponents(string: finalURLString)
-        if let finalURL = urlComponents?.url{
-            print("url is")
-            print(finalURL)
-            var request = URLRequest(url: finalURL)
-            request.httpMethod = "GET"
-            DispatchQueue.global().sync { self.runKGRequest(request) }
-        }
-        
-    }
-    
-    func runKGRequest(_ request: URLRequest) {
-        let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "")
-                return
-            }
-            let KGjson = JSON(data: data)
-            let errorObj: JSON = KGjson["error"]
-            if (errorObj.dictionaryValue != [:]) {
-                print( "Error code \(errorObj["code"]): \(errorObj["message"])")
-            } else {
-                print(KGjson)
-                self.analyzeCategory(json: KGjson)
-            }
-        }
-        task.resume()
-    }
     
     
     
     // This function is called before the segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toXX"{
-            if addNewData {
-            // get a reference to the second view controller
-            let secondViewController = segue.destination as! DetailViewController
-            if let amountDetected = detectedAmount {
-                secondViewController.amount = amountDetected
-            }
-            if let dateDetected = detectedDate {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-                let inputDate = dateFormatter.string(from: dateDetected)
-                let inputDate2 = dateFormatter.date(from: inputDate)
-                print("dateDetected date is \(dateDetected)")
-                print("inputDate2 date is \(inputDate2)")
-                dateFormatter.dateFormat = "MMM dd, yyyy"
-                let outputDate = dateFormatter.string(from: inputDate2!)
-                let outputDate2 = dateFormatter.date(from: outputDate)
-                print("output date is \(outputDate)")
-                print("output date2 is \(outputDate2)")
-                secondViewController.date = outputDate2
-            }
-            if let accountDetected = detectedAccount {
-                secondViewController.account = accountDetected
-            }
-            if let categoryDetected = detectedCategory {
-                secondViewController.category = categoryDetected
-            }
-            if let merchantDetected = detectedMerchant {
-                secondViewController.merchant = merchantDetected
-            }
-            if isOCR{
-                secondViewController.currentImage = self.imageInProcess
-                //secondViewController.isOCR = true
-            }
-            print("prepare for segue")
-            print("detected amount = \(String(describing: detectedAmount))")
-            print("detected date = \(String(describing: detectedDate))")
-            print("detected cat = \(String(describing: detectedCategory))")
-            detectedMerchant = ""
-            detectedDate = nil
-            detectedAmount = 0.0
-            detectedAccount = 0
-            detectedCategory = ""
-            secondViewController.expenses = expenses
-            }
-        }
-        else if segue.identifier == "toDetail"{
+        if segue.identifier == "toDetail"{
             if addNewData {
                 // get a reference to the second view controller
                 let secondViewController = segue.destination as! DetailViewController
                 secondViewController.imagesProcessing = self.uploadedImages
+                secondViewController.isOCR = self.isOCR
             }
             else {
                 let secondViewController = segue.destination as! DetailViewController
@@ -801,77 +666,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    
-    
-    func analyzeResults(_ dataToParse: Data) {
-        
-        var isMerchantDetected = false
-        var isCategoryDetected = false
-        
-        // Update UI on the main thread
-        // Use SwiftyJSON to parse results
-        let json = JSON(data: dataToParse)
-        let errorObj: JSON = json["error"]
-        
-        // Check for errors
-        if (errorObj.dictionaryValue != [:]) {
-            print( "Error code \(errorObj["code"]): \(errorObj["message"])")
-        } else {
-            // Parse the response
-            print(json)
-            
-            self.detectedAmount = self.analyzeAmount(json: json)
-            
-            //let chrono = Chrono.shared
-            if let dateDetected = self.analyzeDate(json: json){
-                self.detectedDate = dateDetected
-            }
-            //print(date)
-            print("set detected amount = \(String(describing: self.detectedAmount))")
-            print("set detected date = \(String(describing: self.detectedDate))")
-            
-            if let merchantDetected = self.analyzeLogo(json: json){
-                if let webResults = self.analyzeWeb(json: json){
-                    if webResults.contains(merchantDetected){
-                        self.detectedMerchant = merchantDetected
-                        isMerchantDetected = true
-                        let categoryDetected = checkExistingCategory(detectedMerchant!)
-                        print("detectedCategory is = \(categoryDetected)")
-                        self.detectedCategory = categoryDetected
-                        if !(detectedCategory!.isEmpty) {
-                            isCategoryDetected = true
-                        }
-                        if !isCategoryDetected {
-                            self.createKGRequest(input: merchantDetected)
-                        } else {
-                            DispatchQueue.main.async {
-                                self.analyzeInProgress = false
-                                self.performSegue(withIdentifier: "toDetail", sender: nil)
-                            }
-                        }
-                    }
-                }
-            }
-            
-            if !isMerchantDetected{
-                if let webResults = self.analyzeWeb(json: json){
-                    self.detectedMerchant = webResults[0]
-                    self.createKGRequest(input: webResults[0])
-                    isMerchantDetected = true
-                }
-            }
-            self.progressView.setProgress(0.9, animated: true)
-            
-        }
-        
-        if !isMerchantDetected {
-            DispatchQueue.main.async {
-                self.analyzeInProgress = false
-                self.performSegue(withIdentifier: "toDetail", sender: nil)
-            }
-        }
-        
-    }
     
     func checkExistingCategory(_ detectedMerchant: String) -> String {
         var category = ""
@@ -931,33 +725,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         return result
-    }
-    
-    
-    /**
-     *Analyze category
-     */
-    func analyzeCategory(json: JSON) {
-        var results = [String?]()
-        if let responseArray = json["itemListElement"].array{
-            for responseDict in responseArray {
-                if let category: String = responseDict["result"]["description"].string{
-                    results.append(category)
-                    //detectedCategoty = category
-                }
-            }
-        }
-        if !results.isEmpty{
-            if let topMatch = results[0]{
-                detectedCategory = topMatch
-                print("final category is")
-                print(topMatch)
-            }
-        }
-        DispatchQueue.main.async {
-            self.analyzeInProgress = false
-            self.performSegue(withIdentifier: "toDetail", sender: nil)
-        }
     }
     
     
