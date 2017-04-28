@@ -17,6 +17,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var dateField: UITextField!
     @IBOutlet weak var categoryField: UITextField!
     @IBOutlet weak var confirmImage: UIImageView!
+    @IBOutlet weak var categoryButton1: UIButton!
+    @IBOutlet weak var categoryButton2: UIButton!
+    @IBOutlet weak var categoryButton3: UIButton!
+    @IBOutlet weak var categoryRecommend: UILabel!
+
     
     var amount: Double = 0.0
     var merchant = ""
@@ -30,6 +35,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var currentImage = UIImage()
     //var isOCR = false
     var fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
+    var message = ""
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -51,6 +57,21 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         dateFormatter.timeStyle = DateFormatter.Style.none
         
         dateField.text = dateFormatter.string(from: sender.date)
+    }
+    
+    @IBAction func setCategory1(_ sender: Any) {
+        categoryField.text = "Food"
+        category = "Food"
+    }
+    
+    @IBAction func setCategory2(_ sender: Any) {
+        categoryField.text = "Entertainment"
+        category = "Entertainment"
+    }
+    
+    @IBAction func setCategory3(_ sender: Any) {
+        categoryField.text = "Groceries"
+        category = "Groceries"
     }
     
     @IBAction func saveData(_ sender: Any) {
@@ -75,16 +96,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             let expense = expenses[row]
             // 3
             expense.setValue(amount, forKeyPath: "amount")
-            if (date != nil) {
-                expense.setValue(date, forKeyPath: "date")
-                
-            }
+            
             if (merchant != "") {
                 expense.setValue(merchant, forKeyPath: "merchant")
                 fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchant)
             }
             if (account != 0) {
                 expense.setValue(account, forKeyPath: "account")
+            }
+            if (date != nil) {
+                expense.setValue(date, forKeyPath: "date")
+            } else {
+                message.append("\n Please enter a date.")
             }
             if (category != "") {
                 expense.setValue(category, forKeyPath: "category")
@@ -140,60 +163,67 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                                           insertInto: managedContext)
             // 3
             expense.setValue(amount, forKeyPath: "amount")
-            if (date != nil) {
-                expense.setValue(date, forKeyPath: "date")
-                
-            }
             if (merchant != "") {
                 expense.setValue(merchant, forKeyPath: "merchant")
             }
             if (account != 0) {
                 expense.setValue(account, forKeyPath: "account")
             }
+            if (date != nil) {
+                expense.setValue(date, forKeyPath: "date")
+            } else {
+                message.append("\n Please enter a date.")
+            }
             if (category != "") {
                 expense.setValue(category, forKeyPath: "category")
             }
-            
-            // 4
-            do {
-                try managedContext.save()
+            // check error message
+            if message != "" {
+                let rangeAlert = UIAlertController(title: "Error", message: message, preferredStyle: UIAlertControllerStyle.alert)
+                rangeAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                self.present(rangeAlert, animated: true, completion: nil)
+            } else {
+                // 4
+                do {
+                    try managedContext.save()
                     expenses.append(expense)
-            } catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
-            
-//            // update the category field for the entry with the same merchant name in local copy
-//            if !expenses.isEmpty {
-//                for result in expenses {
-//                    if (result.value(forKeyPath: "merchant") as? String == merchant) {
-//                        result.setValue(category, forKeyPath: "category")
-//                        do {
-//                            try managedContext.save()
-//                        } catch let error as NSError {
-//                            print("Could not save. \(error), \(error.userInfo)")
-//                        }
-//                    }
-//                }
-//            }
-            
-            // update the category field for the entry with the same merchant name in core data
-            do {
-                fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchant)
-                results = try managedContext.fetch(fetchRequest)
-                if !results.isEmpty {
-                    for result in results {
-                        result.setValue(category, forKeyPath: "category")
-                        do {
-                            try managedContext.save()
-                        } catch let error as NSError {
-                            print("Could not save. \(error), \(error.userInfo)")
+                } catch let error as NSError {
+                    print("Could not save. \(error), \(error.userInfo)")
+                }
+                
+                //            // update the category field for the entry with the same merchant name in local copy
+                //            if !expenses.isEmpty {
+                //                for result in expenses {
+                //                    if (result.value(forKeyPath: "merchant") as? String == merchant) {
+                //                        result.setValue(category, forKeyPath: "category")
+                //                        do {
+                //                            try managedContext.save()
+                //                        } catch let error as NSError {
+                //                            print("Could not save. \(error), \(error.userInfo)")
+                //                        }
+                //                    }
+                //                }
+                //            }
+                
+                // update the category field for the entry with the same merchant name in core data
+                do {
+                    fetchRequest.predicate = NSPredicate(format: "merchant == %@" , merchant)
+                    results = try managedContext.fetch(fetchRequest)
+                    if !results.isEmpty {
+                        for result in results {
+                            result.setValue(category, forKeyPath: "category")
+                            do {
+                                try managedContext.save()
+                            } catch let error as NSError {
+                                print("Could not save. \(error), \(error.userInfo)")
+                            }
                         }
                     }
+                } catch let error as NSError {
+                    print("Could not fetch. \(error), \(error.userInfo)")
                 }
-            } catch let error as NSError {
-                print("Could not fetch. \(error), \(error.userInfo)")
-            }
 
+            }
         }
         accountField.text = nil
         dateField.text = nil
@@ -286,6 +316,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
         confirmImage.image = currentImage
+        if (currentImage.imageAsset != nil) {
+            categoryRecommend.isHidden = true
+            categoryButton1.isHidden = true
+            categoryButton2.isHidden = true
+            categoryButton3.isHidden = true
+        }
 
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
