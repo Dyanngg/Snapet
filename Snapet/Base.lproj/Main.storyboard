@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tIr-1K-7O9">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tIr-1K-7O9">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -28,7 +28,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="102"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="era-3c-BzK" id="bdc-gO-bBU">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="101.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VuI-94-W8J">
@@ -660,6 +660,25 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hideBar" translatesAutoresizingMaskIntoConstraints="NO" id="h9x-Zw-yZ4">
+                                <rect key="frame" x="32" y="97" width="345" height="233"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hideBar" translatesAutoresizingMaskIntoConstraints="NO" id="vPa-9c-TfP">
+                                <rect key="frame" x="39" y="652" width="337" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Analyzing receipts..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctI-t6-9k3">
+                                <rect key="frame" x="119" y="176" width="168" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="e5b-vp-51i">
+                                <rect key="frame" x="187" y="233" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
@@ -671,7 +690,9 @@
                     </view>
                     <connections>
                         <outlet property="accountField" destination="FvA-3x-Dq6" id="qtW-6C-IGn"/>
+                        <outlet property="activityIndicator" destination="e5b-vp-51i" id="7h9-xY-xIZ"/>
                         <outlet property="amountField" destination="Eqk-qp-8Rm" id="hPb-hc-1hv"/>
+                        <outlet property="analyzing" destination="ctI-t6-9k3" id="1BG-PU-rXe"/>
                         <outlet property="categoryButton1" destination="hh7-M4-3yK" id="v8H-cb-U9D"/>
                         <outlet property="categoryButton2" destination="jnL-mo-VD9" id="gRZ-v6-aUX"/>
                         <outlet property="categoryButton3" destination="GlE-2S-zjW" id="Lr2-Uf-tPh"/>
@@ -679,6 +700,8 @@
                         <outlet property="categoryRecommend" destination="mdV-gU-xTE" id="l7Y-qK-Kyc"/>
                         <outlet property="confirmImage" destination="HTA-T2-0Hw" id="rtA-qG-UPh"/>
                         <outlet property="dateField" destination="Wmh-Yk-Y63" id="tQh-fg-6UE"/>
+                        <outlet property="hideBottomBar" destination="vPa-9c-TfP" id="Wcc-Xc-FWc"/>
+                        <outlet property="hideTopBar" destination="h9x-Zw-yZ4" id="GZo-dR-iiV"/>
                         <outlet property="merchantField" destination="mmt-WH-VQl" id="ASI-2R-9ef"/>
                     </connections>
                 </viewController>
@@ -921,6 +944,7 @@
     </scenes>
     <resources>
         <image name="camera" width="55" height="55"/>
+        <image name="hideBar" width="500" height="500"/>
         <image name="menu" width="22" height="22"/>
         <image name="progressBar" width="400" height="260"/>
         <image name="tempBackground" width="768" height="598"/>

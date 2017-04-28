@@ -24,7 +24,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var categoryButton2: UIButton!
     @IBOutlet weak var categoryButton3: UIButton!
     @IBOutlet weak var categoryRecommend: UILabel!
-
+    
+    @IBOutlet weak var hideTopBar: UIImageView!
+    @IBOutlet weak var hideBottomBar: UIImageView!
+    @IBOutlet weak var analyzing: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var amount: Double = 0.0
     var merchant = ""
@@ -52,6 +56,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var merchants: [String] = []
     var dates: [Date] = []
     var categories: [String] = []
+    var globalIndex = 0
     
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
@@ -255,11 +260,17 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         if let temp = amountField.text{
             if (temp.characters.count > 0) {
                 amount = Double(temp)!
+                if imagesProcessing != [] {
+                    amounts[globalIndex] = amount
+                }
             }
         }
         if let temp = merchantField.text{
             if (temp.characters.count > 0) {
                 merchant = temp
+                if imagesProcessing != [] {
+                    merchants[globalIndex] = merchant
+                }
             }
         }
         if let temp = accountField.text{
@@ -273,10 +284,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             if (temp.characters.count >= 11) {
                 if let temp2 = dateFormatter.date(from: temp) {
                     date = temp2
+                    if imagesProcessing != [] {
+                        dates[globalIndex] = date!
+                    }
                 } else {
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
                     date = dateFormatter.date(from: temp1)
+                    if imagesProcessing != [] {
+                        dates[globalIndex] = date!
+                    }
                 }
             }
 //            dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -293,6 +310,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         if let temp = categoryField.text {
             if (temp.characters.count > 0) {
                 category = temp
+                if imagesProcessing != [] {
+                    categories[globalIndex] = category
+                }
             }
         }
     }
@@ -304,6 +324,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         self.dates = []
         self.merchants = []
         self.categories = []
+        self.globalIndex = 0
         
         if imagesProcessing != [] {
             self.amounts = [Double](repeatElement(0, count: imagesProcessing.count))
@@ -318,12 +339,19 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         }
         
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        confirmImage.image = currentImage
-        if (currentImage.imageAsset != nil) {
+        //confirmImage.image = currentImage
+        if (imagesProcessing != []) {
             categoryRecommend.isHidden = true
             categoryButton1.isHidden = true
             categoryButton2.isHidden = true
             categoryButton3.isHidden = true
+            activityIndicator.startAnimating()
+        }
+        else{
+            hideTopBar.isHidden = true
+            hideBottomBar.isHidden = true
+            analyzing.isHidden = true
+            activityIndicator.isHidden = true
         }
         categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
         categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
@@ -366,18 +394,24 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     
     func reloadView(){
         DispatchQueue.main.async {
-        print("all done")
-        print(self.amounts)
-        print(self.merchants)
-        print(self.dates)
-        print(self.categories)
-        self.reInitializeData(index: 0)
+            print("all done")
+            print(self.amounts)
+            print(self.merchants)
+            print(self.dates)
+            print(self.categories)
+            self.activityIndicator.stopAnimating()
+            self.hideTopBar.isHidden = true
+            self.hideBottomBar.isHidden = true
+            self.analyzing.isHidden = true
+            self.activityIndicator.isHidden = true
+            self.reInitializeData(index: 0)
         }
     }
     
     
     func reInitializeData(index: Int){
         DispatchQueue.main.async {
+            self.title = (self.globalIndex + 1).description + "/" + self.imagesProcessing.count.description
             self.amountField.text = self.amounts[index].description
             self.dateField.text = self.dates[index].description
             self.merchantField.text = self.merchants[index]
