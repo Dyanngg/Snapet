@@ -12,6 +12,33 @@ import SwiftyJSON
 import Foundation
 import MobileCoreServices
 
+extension Dictionary {
+    func sortedKeys(isOrderedBefore:(Key,Key) -> Bool) -> [Key] {
+        return Array(self.keys).sorted(by: isOrderedBefore)
+    }
+    
+    // Slower because of a lot of lookups, but probably takes less memory (this is equivalent to Pascals answer in an generic extension)
+    func sortedKeysByValue(isOrderedBefore:(Value, Value) -> Bool) -> [Key] {
+        return sortedKeys {
+            isOrderedBefore(self[$0]!, self[$1]!)
+        }
+    }
+    
+    // Faster because of no lookups, may take more memory because of duplicating contents
+    func keysSortedByValue(isOrderedBefore:(Value, Value) -> Bool) -> [Key] {
+        return Array(self)
+            .sorted() {
+                let (_, lv) = $0
+                let (_, rv) = $1
+                return isOrderedBefore(lv, rv)
+            }
+            .map {
+                let (k, _) = $0
+                return k
+        }
+    }
+}
+
 class DetailViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var amountField: UITextField!
@@ -45,7 +72,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var currentImage = UIImage()
     var fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
     var message = ""
-    var categoryButtons = ["Food", "Entertainment", "Groceries"]
+    var categoryButtons = ["Food", "Transportation", "Groceries"]
     
     let session = URLSession.shared
     let googleAPIKey = "AIzaSyBmcPFpapjEug_lKki4qnuiN-XYvE3xVYQ"
@@ -341,6 +368,21 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             self.nextButton.isHidden = true
         }
         self.navigationController?.navigationBar.tintColor = UIColor.white
+        
+        let recommendCat = categoryRecommendation()
+        if recommendCat.count == 3 {
+            categoryButtons = recommendCat
+        } else if recommendCat.count == 2 {
+            categoryButtons[0] = recommendCat[0]
+            categoryButtons[1] = recommendCat[1]
+            categoryButtons[2] = "Transportation"
+        } else if recommendCat.count == 1 {
+            if recommendCat[0] != "" {
+                categoryButtons[0] = recommendCat[0]
+                categoryButtons[1] = "Transportation"
+                categoryButtons[2] = "Groceries"
+            }
+        }
         categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
         categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
         categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
@@ -377,6 +419,98 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func categoryRecommendation() -> [String]{
+        var result = [""]
+        var top3Counts = [Int]()
+        var top3Categories = [String]()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+        
+        let categoryExpr = NSExpression(forKeyPath: "category")
+        let countExpr = NSExpressionDescription()
+        
+        countExpr.name = "count"
+        countExpr.expression = NSExpression(forFunction: "count:", arguments: [ categoryExpr ])
+        countExpr.expressionResultType = .integer64AttributeType
+        
+        fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+        fetchRequest.sortDescriptors = [ NSSortDescriptor(key: "date", ascending: false) ]
+        fetchRequest.propertiesToGroupBy = ["category"]
+        fetchRequest.propertiesToFetch = [countExpr]
+
+        do {
+            let results = try managedContext.fetch(fetchRequest)
+            for result in results as! [[String: Int]]{
+                if let temp = result["count"] {
+                    top3Counts.append(temp)
+                }
+            }
+        } catch let err as NSError {
+            print(err)
+        }
+        
+        do {
+            fetchRequest.propertiesToFetch = ["category"]
+            let results = try managedContext.fetch(fetchRequest)
+            for result in results as! [[String: String]]{
+                if let temp = result["category"] {
+                    top3Categories.append(temp)
+                }
+            }
+        } catch let err as NSError {
+            print(err)
+        }
+        
+        var dic:[String: Int] = ["":0]
+        var index = 0
+        for (_, v) in top3Categories.enumerated() {
+            dic[v] = top3Counts[index]
+            index += 1
+        }
+        let sorted = dic.keysSortedByValue(isOrderedBefore: >)
+        if sorted.count >= 4 {
+            result.removeAll()
+            result.append(sorted[0])
+            result.append(sorted[1])
+            result.append(sorted[2])
+            print("sorted\(result)")
+        } else if sorted.count == 3 {
+            result.removeAll()
+            result.append(sorted[0])
+            result.append(sorted[1])
+        } else if sorted.count == 2 {
+            result.removeAll()
+            result.append(sorted[0])
+        }
+        return result
+        
+        
+//        do {
+//            let cats = try managedContext.fetch(fetchRequest)
+//            if !cats.isEmpty {
+//                let resultsDict = cats as! [[String: String]]
+//                // set category array values
+//                for r in resultsDict {
+//                    print("r is \(r)")
+//                    if let temp = r["category"] {
+//                        top3Categories.append(temp)
+//                        print("\(temp)")
+//                    }
+//                    if let temp1 = r["count"] {
+//                        top3Categories.append(temp1)
+//                        print("\(temp1)")
+//                    }
+//                }
+//            }
+//        } catch let err as NSError {
+//            print(err.debugDescription)
+//        }
+//        return result
     }
     
     
