@@ -89,7 +89,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var globalIndex = 0
     
     var isOCR = false
-    
+    var processed = 0
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -212,13 +212,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             if isOCR {
                 for (i, _) in imagesProcessing.enumerated(){
                     let expense = NSManagedObject(entity: entity, insertInto: managedContext)
-                    self.conditionedSave(context: managedContext, expense: expense, amount: amounts[i], date: dates[i], merchant: merchants[i], category: categories[i])
+                    self.conditionedSave(context: managedContext, expense: expense, amount: amounts[i],
+                                         date: dates[i], merchant: merchants[i], category: categories[i])
                 }
             }
             // Manual expense entry
             else {
                 let expense = NSManagedObject(entity: entity, insertInto: managedContext)
-                self.conditionedSave(context: managedContext, expense: expense, amount: amount, date: date!, merchant: merchant, category: category)
+                self.conditionedSave(context: managedContext, expense: expense, amount: amount,
+                                     date: date!, merchant: merchant, category: category)
             }
         }
         accountField.text = nil
@@ -229,7 +231,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         amountField.text = nil
     }
     
-    func conditionedSave(context: NSManagedObjectContext, expense: NSManagedObject, amount: Double, date: Date, merchant: String, category: String){
+    func conditionedSave(context: NSManagedObjectContext, expense: NSManagedObject, amount: Double,
+                         date: Date, merchant: String, category: String){
+        
         expense.setValue(amount, forKeyPath: "amount")
         expense.setValue(date, forKeyPath: "date")
         expense.setValue(merchant, forKeyPath: "merchant")
@@ -338,11 +342,13 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // re-initialize fields
         self.amounts = []
         self.dates = []
         self.merchants = []
         self.categories = []
         self.globalIndex = 0
+        self.processed = 0
         
         if imagesProcessing != [] {
             self.amounts = [Double](repeatElement(0, count: imagesProcessing.count))
@@ -356,17 +362,16 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             activityIndicator.startAnimating()
             for (i, item) in imagesProcessing.enumerated(){
                 let binaryImageData = self.base64EncodeImage(item)
-                //self.analyzeInProgress = true
                 self.createRequest(with: binaryImageData, index: i)
             }
-        }
-        else{
+        } else {
             hideTopBar.isHidden = true
             hideBottomBar.isHidden = true
             analyzing.isHidden = true
             activityIndicator.isHidden = true
             self.nextButton.isHidden = true
         }
+        
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
         let recommendCat = categoryRecommendation()
@@ -387,23 +392,31 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
         categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
 
-        let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6, width: self.view.frame.size.width, height: 40.0))
+         /** -----    drop down toolbar for date picker    ----- **/
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6,
+                                              width: self.view.frame.size.width, height: 40.0))
         toolBar.layer.position = CGPoint(x: self.view.frame.size.width/2, y: self.view.frame.size.height-20.0)
         toolBar.barStyle = UIBarStyle.blackTranslucent
         toolBar.tintColor = UIColor.white
         toolBar.backgroundColor = UIColor.black
-        let todayBtn = UIBarButtonItem(title: "Today", style: UIBarButtonItemStyle.plain, target: self, action: #selector(DetailViewController.tappedToolBarBtn))
-        let okBarBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(DetailViewController.donePressed))
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3, height: self.view.frame.size.height))
+        
+        let todayBtn = UIBarButtonItem(title: "Today", style: UIBarButtonItemStyle.plain, target: self,
+                                       action: #selector(DetailViewController.tappedToolBarBtn))
+        let okBarBtn = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self,
+                                       action: #selector(DetailViewController.donePressed))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
+                                        target: self, action: nil)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width / 3,
+                                          height: self.view.frame.size.height))
         label.font = UIFont(name: "Helvetica", size: 12)
         label.backgroundColor = UIColor.clear
         label.textColor = UIColor.white
-        label.text = "Select a due date"
+        label.text = "Select the associated date"
         label.textAlignment = NSTextAlignment.center
         let textBtn = UIBarButtonItem(customView: label)
         toolBar.setItems([todayBtn,flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
         dateField.inputAccessoryView = toolBar
+        /** -----    drop down toolbar for date picker    ----- **/
         
         amountField.text = String(amount)
         dateField.text = date?.description
@@ -514,6 +527,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    /** present analyzed results for user uploads **/
     func reloadView(){
         DispatchQueue.main.async {
             print("all done")
@@ -527,6 +541,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             self.analyzing.isHidden = true
             self.activityIndicator.isHidden = true
             self.reInitializeData(index: 0)
+        }
+    }
+    
+    /** preventing view to be reloaded before all images processed **/
+    func checkedReloadView(){
+        self.processed += 1
+        if self.processed == self.imagesProcessing.count{
+            self.reloadView()
         }
     }
     
@@ -550,22 +572,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
+
     
-    func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
-        UIGraphicsBeginImageContext(imageSize)
-        image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        let resizedImage = UIImagePNGRepresentation(newImage!)
-        UIGraphicsEndImageContext()
-        return resizedImage!
-    }
+    /** -----  Google Vision and Knoweledge Graph methods  ----- **/
     
-    
+    // Encode the image
     func base64EncodeImage(_ image: UIImage) -> String {
         var imagedata = UIImagePNGRepresentation(image)
         
-        // Resize the image if it exceeds the 2MB Google vision API limit
-        if (imagedata!.count > 2097152) {
+        if (imagedata!.count > 2097152) {       // 2MB size limit
             let oldSize: CGSize = image.size
             let newSize: CGSize = CGSize(width: 800, height: oldSize.height / oldSize.width * 800)
             imagedata = resizeImage(newSize, image: image)
@@ -574,6 +589,15 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
     }
     
+    // Resize the image if it exceeds the 2MB Google vision API limit
+    func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
+        UIGraphicsBeginImageContext(imageSize)
+        image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        let resizedImage = UIImagePNGRepresentation(newImage!)
+        UIGraphicsEndImageContext()
+        return resizedImage!
+    }
     
     func createRequest(with imageBase64: String, index: Int) {
         // Create our request URL
@@ -627,9 +651,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         task.resume()
     }
     
+    // Create Knowledge graph requests for the input string
     func createKGRequest(input:String, index: Int) {
         var finalURLString = googleKGURL + "?query=" + input + "&key=" + googleAPIKey + "&limit=5"
-        finalURLString = NSString(string: finalURLString).addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        finalURLString = NSString(string: finalURLString).addingPercentEncoding(
+            withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
         let urlComponents = URLComponents(string: finalURLString)
         if let finalURL = urlComponents?.url{
             print("url is")
@@ -660,6 +686,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    
+    
+    /** -----  JSON interpretation algorithm  ----- **/
+    
     func analyzeResults(_ dataToParse: Data, index: Int) {
         
         var isMerchantDetected = false
@@ -669,37 +699,30 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         let json = JSON(data: dataToParse)
         let errorObj: JSON = json["error"]
         
-        // Check for errors
         if (errorObj.dictionaryValue != [:]) {
             print( "Error code \(errorObj["code"]): \(errorObj["message"])")
-        } else {
-            // Parse the response
-            print(json)
+        } else {      // Parse the response
+                      // print(json)
             
-            self.amounts[index] = self.analyzeAmount(json: json)
-            
-            if let dateDetected = self.analyzeDate(json: json){
+            self.amounts[index] = self.analyzeAmount(json: json)   // get the amount in receipt
+            if let dateDetected = self.analyzeDate(json: json){    // get the date from receipt
                 self.dates[index] = dateDetected
             }
-            
-            if let merchantDetected = self.analyzeLogo(json: json){
+        
+            if let merchantDetected = self.analyzeLogo(json: json){  // if merchant detected based on logo
                 self.merchants[index] = merchantDetected
                 isMerchantDetected = true
+                
                 let categoryInferred = checkExistingCategory(merchants[index])
-                self.categories[index] = categoryInferred
-                if !(categories[index].isEmpty) {
+                if !categoryInferred.isEmpty{                      // we already have a category for the merchant
+                    self.categories[index] = categoryInferred
                     isCategoryDetected = true
-                }
-                if !isCategoryDetected {
+                    self.checkedReloadView()
+                } else {                                            // we need to use knowledge graph
                     self.createKGRequest(input: merchants[index], index: index)
                 }
-                else {
-                    if index + 1 == self.imagesProcessing.count{
-                        self.reloadView()
-                    }
-                }
             }
-            if !isMerchantDetected{
+            if !isMerchantDetected {                                // merchant not detected based on logo
                 if let webResults = self.analyzeWeb(json: json){
                     merchants[index] = webResults[0]
                     isMerchantDetected = true
@@ -707,23 +730,19 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                     self.categories[index] = categoryInferred
                     if categories[index].isEmpty {
                         self.createKGRequest(input: webResults[0], index: index)
-                    }
-                    else{
-                        if index + 1 == self.imagesProcessing.count{
-                            self.reloadView()
-                        }
+                    } else{
+                        checkedReloadView()
                     }
                 }
             }
-            
         }
-        if !isMerchantDetected && index + 1 == imagesProcessing.count{
-            reloadView()
+        if !isMerchantDetected{    // no merchant detected, hence no category
+            checkedReloadView()
         }
     }
     
     
-    
+    // For a merchant name, check if there is already a category associated with it
     func checkExistingCategory(_ detectedMerchant: String) -> String {
         var category = ""
         let categoryReqest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
@@ -854,7 +873,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     func analyzeAmount(json: JSON) -> Double {
         
         let finalAmount = analyzeAmountByLocation(json: json)
-        
         print("final amount is")
         print (finalAmount)
         return finalAmount
@@ -866,22 +884,24 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         var results = [Double]()
         
         if let responseArray = json["responses"].array{
-            for responseDict in responseArray {
-                if let textArray = responseDict["textAnnotations"].array{
-                    for (index, _) in textArray.enumerated() {
-                        let descriptionText = textArray[index]["description"].string
-                        if descriptionText?.lowercased().range(of:"total") != nil
-                            && (descriptionText?.characters.count)! < 50
-                            && descriptionText?.lowercased().range(of:"subtotal") == nil{
+        for responseDict in responseArray {
+        if let textArray = responseDict["textAnnotations"].array{
+            for (index, _) in textArray.enumerated() {
+                let descriptionText = textArray[index]["description"].string
+                if descriptionText?.lowercased().range(of:"total") != nil
+                    && (descriptionText?.characters.count)! < 50
+                    && descriptionText?.lowercased().range(of:"subtotal") == nil{
                             
-                            let yfloor = textArray[index]["boundingPoly"]["vertices"][0]["y"].int
-                            let yceiling = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
-                            let yrightEdge = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
-                            let result = retrieveAmountByLocation(yfloor: yfloor!, yceiling: yceiling!, yrightEdge: yrightEdge!, json: json)
-                            results.append(result)
-                        }
-                    }
-                }}}
+                    let yfloor = textArray[index]["boundingPoly"]["vertices"][0]["y"].int
+                    let yceiling = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
+                    let yrightEdge = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
+                    let result = retrieveAmountByLocation(yfloor: yfloor!, yceiling: yceiling!,
+                                                          yrightEdge: yrightEdge!, json: json)
+                    results.append(result)
+                }
+            }
+        }}}
+        
         if let max = results.max(){
             returnAmount = max
         }
@@ -894,17 +914,18 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         var candidateText = ""
         
         if let responseArray = json["responses"].array{
-            for responseDict in responseArray {
-                if let textArray = responseDict["textAnnotations"].array{
-                    for (index, _) in textArray.enumerated() {
-                        let yfloorCandidate = textArray[index]["boundingPoly"]["vertices"][0]["y"].int
-                        let yceilingCandidate = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
-                        let yrightEdgeCandidate = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
-                        if abs(yfloor - yfloorCandidate!) < 20 && abs(yceiling - yceilingCandidate!) < 20 && yrightEdge < yrightEdgeCandidate!{
-                            candidateText = candidateText + textArray[index]["description"].string! + " "
-                        }
-                    }
-                }}}
+        for responseDict in responseArray {
+        if let textArray = responseDict["textAnnotations"].array{
+            for (index, _) in textArray.enumerated() {
+                let yfloorCandidate = textArray[index]["boundingPoly"]["vertices"][0]["y"].int
+                let yceilingCandidate = textArray[index]["boundingPoly"]["vertices"][2]["y"].int
+                let yrightEdgeCandidate = textArray[index]["boundingPoly"]["vertices"][2]["x"].int
+                if abs(yfloor - yfloorCandidate!) < 20 && abs(yceiling - yceilingCandidate!) < 20
+                    && yrightEdge < yrightEdgeCandidate!{
+                    candidateText = candidateText + textArray[index]["description"].string! + " "
+                }
+            }
+        }}}
         
         returnAmount = retrieveAmount(input: candidateText)
         if returnAmount == -1{
@@ -954,17 +975,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             if let doubleValue = Double(components[i]){
                 return doubleValue
             }
-                // Remove the currency sign that hinders the amount to be parsed
-            else {
+            else {         // Remove the currency sign that hinders the amount to be parsed
                 components[i].remove(at: components[i].startIndex)
                 if let doubleValue = Double(components[i]){
                     return doubleValue
                 }
             }
         }
-        //No legit amount detected
-        return -1
-        
+        return -1          //No legit amount detected
     }
 
 }
