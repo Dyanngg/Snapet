@@ -66,6 +66,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let searchTextField = searchController.searchBar.value(forKey: "_searchField") as? UITextField
         searchTextField?.backgroundColor = backgroundColor
         searchTextField?.textColor = UIColor.white
+        searchTextField?.keyboardAppearance = .dark
         searchController.searchBar.tintColor = UIColor.white
         searchController.searchBar.sizeToFit()
         tableView.tableHeaderView = searchController.searchBar
