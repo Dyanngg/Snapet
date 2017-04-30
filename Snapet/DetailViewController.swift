@@ -359,6 +359,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             categoryButton1.isHidden = true
             categoryButton2.isHidden = true
             categoryButton3.isHidden = true
+            activityIndicator.isHidden = false
+            analyzing.isHidden = false
             activityIndicator.startAnimating()
             for (i, item) in imagesProcessing.enumerated(){
                 let binaryImageData = self.base64EncodeImage(item)
