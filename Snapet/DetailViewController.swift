@@ -63,7 +63,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     var amount: Double = 0.0
     var merchant = ""
     var account = 0
-    var date: Date? = nil
+    var date: Date = Date()
     var category = ""
     var isEdit = false
     var row = 0
@@ -159,11 +159,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             if (account != 0) {
                 expense.setValue(account, forKeyPath: "account")
             }
-            if (date != nil) {
-                expense.setValue(date, forKeyPath: "date")
-            } else {
-                message.append("\n Please enter a date.")
-            }
+            expense.setValue(date, forKeyPath: "date")
             if (category != "") {
                 expense.setValue(category, forKeyPath: "category")
                 // update the category field for the entry with the same merchant name in core data
@@ -220,7 +216,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
             else {
                 let expense = NSManagedObject(entity: entity, insertInto: managedContext)
                 self.conditionedSave(context: managedContext, expense: expense, amount: amount,
-                                     date: date!, merchant: merchant, category: category)
+                                     date: date, merchant: merchant, category: category)
             }
         }
         accountField.text = nil
@@ -317,14 +313,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
                 if let temp2 = dateFormatter.date(from: temp) {
                     date = temp2
                     if imagesProcessing != [] {
-                        dates[globalIndex] = date!
+                        dates[globalIndex] = date
                     }
                 } else {
                     dateFormatter.dateFormat = "yyyy-MM-dd"
                     let temp1 = temp.substring(to: temp.index((temp.startIndex), offsetBy: 10))
-                    date = dateFormatter.date(from: temp1)
+                    date = dateFormatter.date(from: temp1)!
                     if imagesProcessing != [] {
-                        dates[globalIndex] = date!
+                        dates[globalIndex] = date
                     }
                 }
             }
@@ -421,7 +417,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         /** -----    drop down toolbar for date picker    ----- **/
         
         amountField.text = String(amount)
-        dateField.text = date?.description
+        var dateDescription = self.date.description
+        if !isOCR{
+            if (dateDescription.characters.count >= 10){
+            dateDescription = dateDescription.substring(to: (dateDescription.index(dateDescription
+                .startIndex, offsetBy: 10)))
+            }
+        }
+        dateField.text = dateDescription
         merchantField.text = merchant
         accountField.text = String(account)
         categoryField.text = category
@@ -559,7 +562,12 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         DispatchQueue.main.async {
             self.title = (self.globalIndex + 1).description + "/" + self.imagesProcessing.count.description
             self.amountField.text = self.amounts[index].description
-            self.dateField.text = self.dates[index].description
+            var dateDescription = self.dates[index].description
+            if (dateDescription.characters.count >= 10){
+                dateDescription = dateDescription.substring(to: dateDescription.index((dateDescription
+                    .startIndex), offsetBy: 10))
+            }
+            self.dateField.text = dateDescription
             self.merchantField.text = self.merchants[index]
             self.categoryField.text = self.categories[index]
             self.confirmImage.image = self.imagesProcessing[index]
