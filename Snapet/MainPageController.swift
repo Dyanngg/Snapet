@@ -44,6 +44,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var batchAnalyzed = false
     var category = [String]()
     var amount = [Double]()
+    //struct budget {
+        static var budgetNum = ""
+    //}
     
     var expenses: [NSManagedObject] = []
     var results: [NSManagedObject] = []
@@ -171,10 +174,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart.holeColor = nil
         chart.legend.textColor = Palette.InfoText
 //        chart.legend.textColor = Palette.Text
-        // description
-        let d = Description()
-        d.text = ""
-        chart.chartDescription = d
         
         /*** TODO: set this to pie chart center text ***/
         let totalAmount = "$\(total)"
@@ -182,6 +181,24 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
         centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
         chart.centerAttributedText = centerTxt
+        
+        // description
+        let d = Description()
+        var budgetText = ""
+        let budgetAmount = "Budget: $"
+        if MainPageController.budgetNum == "" {
+            budgetText = "Budget not set"
+        }
+        if let budget = Double(MainPageController.budgetNum) {
+            budgetText = budgetAmount.appending(MainPageController.budgetNum)
+            if budget < total {
+                budgetText = budgetText.appending("\nExceeds budget!")
+            }
+        }
+        d.text = budgetText
+        d.font = UIFont(name: "HelveticaNeue-Bold", size: 15.0)!
+        d.textColor = Palette.InfoText
+        chart.chartDescription = d
         
         //chart.centerText = "Pie Chart"
         // size

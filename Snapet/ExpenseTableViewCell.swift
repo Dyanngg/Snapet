@@ -14,11 +14,7 @@ class ExpenseTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
-    
-//    merchantLabel.text = ""
-//    categoryLabel.text = ""
-//    dateLabel.text = ""
-//    amountLabel.text = ""
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

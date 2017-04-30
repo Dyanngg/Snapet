@@ -22,6 +22,7 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
     let imagePicker = UIImagePickerController()
     let pickerController = DKImagePickerController()
     var images: [NSManagedObject] = []
+    var amount = 0.0
     
     @IBAction func uploadProfile(_ sender: Any) {
         self.imagePicker.allowsEditing = false
@@ -99,6 +100,8 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.navigationController?.navigationBar.barTintColor = barColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
+        amount = 100.0
+        MainPageController.budgetNum = amount.description
     }
 
     override func didReceiveMemoryWarning() {
