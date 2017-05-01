@@ -444,12 +444,64 @@
                         <outlet property="merchantField" destination="mmt-WH-VQl" id="ASI-2R-9ef"/>
                         <outlet property="nextButton" destination="OM9-02-iRZ" id="Mcp-IX-r6U"/>
                         <outlet property="saveButton" destination="eym-yJ-fZu" id="qUk-A7-5gz"/>
+                        <segue destination="ZeB-r1-Ciw" kind="show" identifier="showPhotoDetail" id="d6t-KN-AYD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Czc-y6-fBd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="538-XW-tbb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3444.9275362318845" y="1381.7934782608697"/>
+        </scene>
+        <!--Photo Enlarge Controller-->
+        <scene sceneID="44Y-Dc-zG9">
+            <objects>
+                <viewController storyboardIdentifier="enlargePhoto" id="ZeB-r1-Ciw" customClass="PhotoEnlargeController" customModule="Snapet" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="At4-RO-qlw"/>
+                        <viewControllerLayoutGuide type="bottom" id="PNM-iG-5ef"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gsa-ag-YbV">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bdP-zM-TUq">
+                                <rect key="frame" x="0.0" y="64" width="414" height="619"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32k-pa-8zd" userLabel="Caption container">
+                                <rect key="frame" x="0.0" y="683" width="414" height="53"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Receipt" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-Yg-tvQ">
+                                        <rect key="frame" x="80" y="16" width="254" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.2869230807" green="0.2814942896" blue="0.3216949999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="32k-pa-8zd" secondAttribute="height" multiplier="414:53" id="50T-0Y-UoI"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="bdP-zM-TUq" firstAttribute="top" secondItem="At4-RO-qlw" secondAttribute="bottom" id="5Yj-Sk-Los"/>
+                            <constraint firstItem="bdP-zM-TUq" firstAttribute="centerX" secondItem="gsa-ag-YbV" secondAttribute="centerX" id="5zV-g9-BSu"/>
+                            <constraint firstItem="32k-pa-8zd" firstAttribute="top" secondItem="bdP-zM-TUq" secondAttribute="bottom" id="EuM-be-IiW"/>
+                            <constraint firstItem="PNM-iG-5ef" firstAttribute="top" secondItem="32k-pa-8zd" secondAttribute="bottom" id="Fge-G2-QaY"/>
+                            <constraint firstItem="32k-pa-8zd" firstAttribute="width" secondItem="gsa-ag-YbV" secondAttribute="width" id="Mmd-Sf-AYg"/>
+                            <constraint firstItem="bdP-zM-TUq" firstAttribute="width" secondItem="gsa-ag-YbV" secondAttribute="width" id="SAV-yT-ukA"/>
+                            <constraint firstItem="32k-pa-8zd" firstAttribute="centerX" secondItem="gsa-ag-YbV" secondAttribute="centerX" id="osb-nd-9O5"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="bdP-zM-TUq" id="kf7-4o-cgC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2XY-0F-Qex" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4337.68115942029" y="1381.7934782608697"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="o2o-fs-kvU">
@@ -726,6 +778,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MAO-J6-Xdt"/>
-        <segue reference="kmd-Is-pYW"/>
+        <segue reference="gfU-sL-v53"/>
     </inferredMetricsTieBreakers>
 </document>

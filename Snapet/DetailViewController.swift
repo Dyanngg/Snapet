@@ -39,7 +39,7 @@ extension Dictionary {
     }
 }
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControllerPreviewingDelegate {
     
     @IBOutlet weak var amountField: MyTextField!
     @IBOutlet weak var merchantField: MyTextField!
@@ -131,6 +131,22 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBAction func toNext(_ sender: Any) {
         self.globalIndex += 1
         self.reInitializeData(index: globalIndex)
+    }
+    
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        if imagesProcessing == [] {return nil}
+        else{
+            guard let enlarger = storyboard?.instantiateViewController(withIdentifier: "enlargePhoto") as? PhotoEnlargeController else { return nil }
+            enlarger.photo = imagesProcessing[globalIndex]
+            enlarger.preferredContentSize = CGSize(width: 0.0, height: 600)
+            previewingContext.sourceRect = confirmImage.frame
+            return enlarger
+        }
     }
     
     
@@ -372,6 +388,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         merchantField.tintColor = Palette.merchantTint
         dateField.tintColor = Palette.dateTint
         categoryField.tintColor = Palette.categoryTint
+        
+        if( traitCollection.forceTouchCapability == .available){
+            registerForPreviewing(with: self, sourceView: view)
+        }
+        
         
         if imagesProcessing != [] {
             self.amounts = [Double](repeatElement(0, count: imagesProcessing.count))
