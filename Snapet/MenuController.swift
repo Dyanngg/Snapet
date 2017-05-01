@@ -28,6 +28,11 @@ class MenuController: UITableViewController {
     @IBOutlet weak var profileImage: UIImageView!
     var images: [NSManagedObject] = []
     
+    @IBOutlet weak var homeCell: UITableViewCell!
+    @IBOutlet weak var historyCell: UITableViewCell!
+    @IBOutlet weak var settingsCell: UITableViewCell!
+    
+    
     func fetchAndDisplay() {
         // fetch image from core data and display it
         guard let appDelegate =
@@ -71,14 +76,25 @@ class MenuController: UITableViewController {
         UIApplication.shared.statusBarStyle = .lightContent
         self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         
-        let statusbarColor = UIColor(red:99/255, green:106/255, blue:118/255, alpha:1.0)
         let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
-        statusBar.backgroundColor = statusbarColor
+        statusBar.backgroundColor = Palette.statusbarColor
 
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
+        selectedCell.contentView.backgroundColor = Palette.selectedMenuColor
+    }
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
+        selectedCell.contentView.backgroundColor = Palette.menuColor
+    }
+    
+    
 
 }

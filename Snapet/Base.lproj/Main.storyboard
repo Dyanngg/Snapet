@@ -513,7 +513,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.042501795719999999" green="0.022016269179999999" blue="0.1499561633" alpha="0.186322774" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="cZz-p8-9Fe">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="70" id="cZz-p8-9Fe">
                                         <rect key="frame" x="0.0" y="231" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cZz-p8-9Fe" id="31y-mY-CAW">
@@ -540,7 +540,7 @@
                                             <segue destination="Im7-uD-8Ad" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="MAO-J6-Xdt"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="Dac-S3-LIi">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="70" id="Dac-S3-LIi">
                                         <rect key="frame" x="0.0" y="301" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dac-S3-LIi" id="PjD-FZ-4Yt">
@@ -566,7 +566,7 @@
                                             <segue destination="qWS-qH-rxd" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="5da-rS-9E2"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="70" id="7PL-Ta-6Y3">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="70" id="7PL-Ta-6Y3">
                                         <rect key="frame" x="0.0" y="371" width="414" height="70"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7PL-Ta-6Y3" id="HAl-hT-Yjk">
@@ -601,7 +601,10 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="historyCell" destination="Dac-S3-LIi" id="Jow-Dw-YBc"/>
+                        <outlet property="homeCell" destination="cZz-p8-9Fe" id="v0Z-BL-dxV"/>
                         <outlet property="profileImage" destination="6m5-81-bUi" id="NWk-ud-5WN"/>
+                        <outlet property="settingsCell" destination="7PL-Ta-6Y3" id="wj0-ck-T7x"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yui-w2-tEv" userLabel="First Responder" sceneMemberID="firstResponder"/>

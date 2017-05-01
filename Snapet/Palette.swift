@@ -24,6 +24,9 @@ class Palette {
     static let dateTint = UIColor(red:102/255, green:220/255, blue:139/255, alpha:1.0)
     static let categoryTint = UIColor(red:190/255, green:239/255, blue:244/255, alpha:1.0)
     static let opaqueBarColor = UIColor(red:100/255, green:107/255, blue:118/255, alpha:1.0)
+    static let statusbarColor = UIColor(red:99/255, green:106/255, blue:118/255, alpha:1.0)
+    static let selectedMenuColor = UIColor(red:65/255, green:60/255, blue:89/255, alpha:1.0)
+    static let menuColor = UIColor(red:45/255, green:42/255, blue:62/255, alpha:1.0)
     static let backgroundColor = UIColor(red:72/255, green:81/255, blue:94/255, alpha:1.0)
 }
 
