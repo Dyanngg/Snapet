@@ -14,10 +14,11 @@ import AVKit
 import DKImagePickerController
 
 
-class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SettingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var profileView: UIImageView!
+    @IBOutlet weak var budgetField: UITextField!
     var imageInProcess = UIImage()
     let imagePicker = UIImagePickerController()
     let pickerController = DKImagePickerController()
@@ -28,6 +29,23 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.imagePicker.allowsEditing = false
         self.imagePicker.sourceType = .photoLibrary
         self.present(self.imagePicker, animated: true, completion: nil)
+    }
+
+    @IBAction func saveBudget(_ sender: Any) {
+        if let budget = budgetField.text {
+            if let budgetAmount = Double(budget) {
+                amount = budgetAmount
+                MainPageController.budgetNum = amount.description
+            }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        budgetField.resignFirstResponder()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -100,8 +118,8 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.navigationController?.navigationBar.barTintColor = barColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
-        amount = 100.0
-        MainPageController.budgetNum = amount.description
+        budgetField.delegate = self
+        budgetField.text = MainPageController.budgetNum
     }
 
     override func didReceiveMemoryWarning() {
