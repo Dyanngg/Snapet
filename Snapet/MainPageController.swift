@@ -18,13 +18,6 @@ import AVKit
 import DKImagePickerController
 
 
-// helper extension for string manipulation
-extension String {
-    func removingWhitespaces() -> String {
-        return components(separatedBy: .whitespaces).joined()
-    }
-}
-
 class MainPageController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, KCFloatingActionButtonDelegate{
     
     @IBOutlet weak var menuButton: UIBarButtonItem!

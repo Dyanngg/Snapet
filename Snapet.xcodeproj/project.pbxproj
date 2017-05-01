@@ -15,6 +15,7 @@
 		35B8BD571EB6F2DF008F0B34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35B8BD561EB6F2DF008F0B34 /* Assets.xcassets */; };
 		35B8BD5A1EB6F7BE008F0B34 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B8BD591EB6F7BE008F0B34 /* MyTextField.swift */; };
 		35B8BD5F1EB7E621008F0B34 /* PhotoEnlargeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B8BD5E1EB7E621008F0B34 /* PhotoEnlargeController.swift */; };
+		35B8BD611EB7F8CF008F0B34 /* ExtensionLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B8BD601EB7F8CF008F0B34 /* ExtensionLibrary.swift */; };
 		35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */; };
 		35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD58E1E5A473A008BBD9C /* Main.storyboard */; };
 		35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5911E5A473A008BBD9C /* Snapet.xcdatamodeld */; };
@@ -97,6 +98,7 @@
 		35B8BD561EB6F2DF008F0B34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35B8BD591EB6F7BE008F0B34 /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		35B8BD5E1EB7E621008F0B34 /* PhotoEnlargeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoEnlargeController.swift; sourceTree = "<group>"; };
+		35B8BD601EB7F8CF008F0B34 /* ExtensionLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionLibrary.swift; sourceTree = "<group>"; };
 		35ECD5871E5A473A008BBD9C /* Snapet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35ECD58F1E5A473A008BBD9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 				35B8BD5E1EB7E621008F0B34 /* PhotoEnlargeController.swift */,
 				358C2CB81EA424A6006C136F /* MainPageController.swift */,
 				A70B72661E8856B900FC6573 /* DetailViewController.swift */,
+				35B8BD601EB7F8CF008F0B34 /* ExtensionLibrary.swift */,
 				A7958DA41EAD28D80054F915 /* ReportViewController.swift */,
 				A7958DA71EAD317F0054F915 /* ReportTableViewCell.swift */,
 				A715BFF81E8AD00B00EC42B8 /* ExpenseTableViewCell.swift */,
@@ -496,6 +499,7 @@
 				A7FE71B41EA70CD1004087D6 /* UIColorExtensions.swift in Sources */,
 				35B8BD5F1EB7E621008F0B34 /* PhotoEnlargeController.swift in Sources */,
 				3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */,
+				35B8BD611EB7F8CF008F0B34 /* ExtensionLibrary.swift in Sources */,
 				358C2CB91EA424A6006C136F /* MainPageController.swift in Sources */,
 				A7958DA81EAD317F0054F915 /* ReportTableViewCell.swift in Sources */,
 				A73212771EB0486000547B48 /* SettingViewController.swift in Sources */,
