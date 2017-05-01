@@ -51,20 +51,19 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        // I REALLY WANT TO CHANGE THIS TO MINIMAL BUT IT DOESN'T WORK
+        
+        // I REALLY WANT TO CHANGE STYLE TO MINIMAL BUT IT DOESN'T WORK
         searchController.searchBar.searchBarStyle = UISearchBarStyle.default
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
+        
         // Setup the Scope Bar
-        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
-        let opaqueBarColor = UIColor(red:100/255, green:107/255, blue:118/255, alpha:1.0)
-        let backgroundColor = UIColor(red:72/255, green:81/255, blue:94/255, alpha:1.0)
-        self.view.backgroundColor = backgroundColor
+        self.view.backgroundColor = Palette.backgroundColor
         searchController.searchBar.scopeButtonTitles = ["All", ">", "=", "<", "↑", "↓"]
-        searchController.searchBar.barTintColor = opaqueBarColor
+        searchController.searchBar.barTintColor = Palette.opaqueBarColor
         let searchTextField = searchController.searchBar.value(forKey: "_searchField") as? UITextField
-        searchTextField?.backgroundColor = backgroundColor
+        searchTextField?.backgroundColor = Palette.backgroundColor
         searchTextField?.textColor = UIColor.white
         searchTextField?.keyboardAppearance = .dark
         searchController.searchBar.tintColor = UIColor.white
@@ -76,8 +75,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-//        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
-        self.navigationController?.navigationBar.barTintColor = barColor
+        
+        self.navigationController?.navigationBar.barTintColor = Palette.mainPageBarColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
         

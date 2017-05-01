@@ -145,8 +145,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart = PieChartView( frame: self.pieChartView.frame)
         
         // 2. generate chart data entries
-//        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July"]
-//        let yVals: [Double] = [ 873, 568, 937, 726, 696, 687, 180]
         var entries = [ ChartDataEntry]()
         
         for (i, v) in amount.enumerated() {
@@ -199,7 +197,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         d.text = budgetText
         d.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)!
-        d.textColor = UIColor(red:114/255, green:127/255, blue:141/255, alpha:1.0)
+        d.textColor = Palette.budgetTextColor
         chart.chartDescription = d
         
         // 4. add chart to UI
@@ -210,8 +208,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.dataSource = self;
         tableView.rowHeight = 84;
         
-        let barColor = UIColor(red:87/255, green:97/255, blue:112/255, alpha:1.0)
-        self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.barTintColor = Palette.mainPageBarColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
         
@@ -353,8 +350,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         fab.plusColor = UIColor.white
         
         let item = KCFloatingActionButtonItem()
-        let uploadButtonColor = UIColor(red:99/255, green:144/255, blue:115/255, alpha:1.0)
-        item.buttonColor = uploadButtonColor
+        item.buttonColor = Palette.uploadButtonColor
         item.circleShadowColor = UIColor.black
         item.titleShadowColor = UIColor.black
         item.title = "Upload image"
@@ -366,8 +362,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let item2 = KCFloatingActionButtonItem()
-        let cameraButtonColor = UIColor(red:122/255, green:141/255, blue:184/255, alpha:1.0)
-        item2.buttonColor = cameraButtonColor
+        item2.buttonColor = Palette.cameraButtonColor
         item2.circleShadowColor = UIColor.black
         item2.titleShadowColor = UIColor.black
         item2.title = "Camera"
@@ -380,8 +375,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let item3 = KCFloatingActionButtonItem()
-        let manualButtonColor = UIColor(red:181/255, green:100/255, blue:96/255, alpha:1.0)
-        item3.buttonColor = manualButtonColor
+        item3.buttonColor = Palette.manualButtonColor
         item3.circleShadowColor = UIColor.black
         item3.titleShadowColor = UIColor.black
         item3.title = "Manual"

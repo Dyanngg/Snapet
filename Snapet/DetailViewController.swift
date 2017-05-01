@@ -368,14 +368,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         self.globalIndex = 0
         self.processed = 0
         
-        let amountTint = UIColor(red:220/255, green:116/255, blue:48/255, alpha:1.0)
-        let merchantTint = UIColor(red:244/255, green:206/255, blue:76/255, alpha:1.0)
-        let dateTint = UIColor(red:102/255, green:220/255, blue:139/255, alpha:1.0)
-        let categoryTint = UIColor(red:190/255, green:239/255, blue:244/255, alpha:1.0)
-        amountField.tintColor = amountTint
-        merchantField.tintColor = merchantTint
-        dateField.tintColor = dateTint
-        categoryField.tintColor = categoryTint
+        amountField.tintColor = Palette.amountTint
+        merchantField.tintColor = Palette.merchantTint
+        dateField.tintColor = Palette.dateTint
+        categoryField.tintColor = Palette.categoryTint
         
         if imagesProcessing != [] {
             self.amounts = [Double](repeatElement(0, count: imagesProcessing.count))
