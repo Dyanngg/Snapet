@@ -188,9 +188,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let d = Description()
         var budgetText = ""
         let budgetAmount = "Budget: $"
-        if MainPageController.budgetNum == "" {
-            budgetText = "Budget not set"
-        }
+//        if MainPageController.budgetNum == "" {
+//            budgetText = "Budget not set"
+//        }
         if let budget = Double(MainPageController.budgetNum) {
             budgetText = budgetAmount.appending(MainPageController.budgetNum)
             if budget < total {
