@@ -46,7 +46,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8X6-Q5-Lzt">
                                                     <rect key="frame" x="24" y="29" width="225" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.91082415800000005" green="0.49139231680000001" blue="0.20177736560000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="textColor" red="0.85233160620000004" green="0.4598354127" blue="0.1888193507" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Merchant: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BWm-O5-UKE">
@@ -168,7 +168,7 @@
                                                     <rect key="frame" x="26" y="27" width="193" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.91082415800000005" green="0.49139231680000001" blue="0.20177736560000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="textColor" red="0.85233160620000004" green="0.4598354127" blue="0.1888193507" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsj-GP-VIv" userLabel="Date Label">
@@ -252,8 +252,8 @@
                                 <color key="textColor" red="0.85233160620000004" green="0.4598354127" blue="0.1888193507" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Eqk-qp-8Rm" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
-                                <rect key="frame" x="44" y="125" width="283" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Eqk-qp-8Rm" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
+                                <rect key="frame" x="38" y="125" width="337" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.93461092320000005" green="0.93009589449999996" blue="0.93912595180000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -266,8 +266,8 @@
                                 <color key="textColor" red="0.94954258420000004" green="0.81255880380000001" blue="0.29638489039999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mmt-WH-VQl" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
-                                <rect key="frame" x="44" y="193" width="283" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mmt-WH-VQl" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
+                                <rect key="frame" x="38" y="193" width="337" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" red="0.93461092320000005" green="0.93009589449999996" blue="0.93912595180000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -281,7 +281,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Wmh-Yk-Y63" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
-                                <rect key="frame" x="40" y="263" width="327" height="30"/>
+                                <rect key="frame" x="40" y="263" width="335" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -291,18 +291,18 @@
                                 </connections>
                             </textField>
                             <imageView userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="calendar" translatesAutoresizingMaskIntoConstraints="NO" id="XjL-cc-mTU">
-                                <rect key="frame" x="336" y="255" width="31" height="31"/>
+                                <rect key="frame" x="345" y="254" width="31" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1s-Hr-avW">
-                                <rect key="frame" x="39" y="315" width="117" height="26"/>
+                                <rect key="frame" x="39" y="319" width="117" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <color key="textColor" red="0.75466371710000002" green="0.94002764829999996" blue="0.95588118649999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bAL-4J-peZ" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
-                                <rect key="frame" x="131" y="313" width="196" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bAL-4J-peZ" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
+                                <rect key="frame" x="131" y="317" width="208" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
@@ -399,7 +399,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hideBar" translatesAutoresizingMaskIntoConstraints="NO" id="h9x-Zw-yZ4">
-                                <rect key="frame" x="16" y="97" width="374" height="266"/>
+                                <rect key="frame" x="19" y="93" width="374" height="266"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hideBar" translatesAutoresizingMaskIntoConstraints="NO" id="vPa-9c-TfP">
@@ -431,6 +431,7 @@
                         <outlet property="activityIndicator" destination="e5b-vp-51i" id="7h9-xY-xIZ"/>
                         <outlet property="amountField" destination="Eqk-qp-8Rm" id="hPb-hc-1hv"/>
                         <outlet property="analyzing" destination="ctI-t6-9k3" id="1BG-PU-rXe"/>
+                        <outlet property="calendarButton" destination="XjL-cc-mTU" id="gaL-5s-vfA"/>
                         <outlet property="categoryButton1" destination="hh7-M4-3yK" id="v8H-cb-U9D"/>
                         <outlet property="categoryButton2" destination="jnL-mo-VD9" id="gRZ-v6-aUX"/>
                         <outlet property="categoryButton3" destination="GlE-2S-zjW" id="Lr2-Uf-tPh"/>
@@ -625,7 +626,7 @@
             </objects>
             <point key="canvasLocation" x="878" y="1737"/>
         </scene>
-        <!--Setting-->
+        <!--Settings-->
         <scene sceneID="nYv-gd-lPg">
             <objects>
                 <viewController id="QRo-B9-BpQ" customClass="SettingViewController" customModule="Snapet" customModuleProvider="target" sceneMemberID="viewController">
@@ -669,7 +670,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Setting" id="SbY-Rz-E2g">
+                    <navigationItem key="navigationItem" title="Settings" id="SbY-Rz-E2g">
                         <barButtonItem key="leftBarButtonItem" image="menu" id="9ul-xi-G01" userLabel="Menu Button">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>

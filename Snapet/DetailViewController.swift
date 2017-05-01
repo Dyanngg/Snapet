@@ -59,6 +59,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var calendarButton: UIImageView!
     
     var amount: Double = 0.0
     var merchant = ""
@@ -279,7 +280,28 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == amountField{
+            amountField.background = #imageLiteral(resourceName: "amountInEdit")
+        }
+        else if textField == merchantField{
+            merchantField.background = #imageLiteral(resourceName: "merchantInEdit")
+        }
+        else if textField == dateField{
+            dateField.background = #imageLiteral(resourceName: "dateInEdit")
+            calendarButton.image = #imageLiteral(resourceName: "calendarInEdit")
+        }
+        else if textField == categoryField{
+            categoryField.background = #imageLiteral(resourceName: "categoryInEdit")
+        }
+    }
+    
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
+        //if textField == amountField{
+        textField.background = #imageLiteral(resourceName: "textFieldNotEditing")
+        calendarButton.image = #imageLiteral(resourceName: "calendar")
+        //}
         amountField.resignFirstResponder()
         merchantField.resignFirstResponder()
         accountField.resignFirstResponder()
@@ -346,10 +368,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         self.globalIndex = 0
         self.processed = 0
         
-//        amountField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
-//        dateField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
-//        merchantField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
-//        categoryField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
+        let amountTint = UIColor(red:220/255, green:116/255, blue:48/255, alpha:1.0)
+        let merchantTint = UIColor(red:244/255, green:206/255, blue:76/255, alpha:1.0)
+        let dateTint = UIColor(red:102/255, green:220/255, blue:139/255, alpha:1.0)
+        let categoryTint = UIColor(red:190/255, green:239/255, blue:244/255, alpha:1.0)
+        amountField.tintColor = amountTint
+        merchantField.tintColor = merchantTint
+        dateField.tintColor = dateTint
+        categoryField.tintColor = categoryTint
         
         if imagesProcessing != [] {
             self.amounts = [Double](repeatElement(0, count: imagesProcessing.count))
