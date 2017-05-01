@@ -41,11 +41,11 @@ extension Dictionary {
 
 class DetailViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var amountField: UITextField!
-    @IBOutlet weak var merchantField: UITextField!
+    @IBOutlet weak var amountField: MyTextField!
+    @IBOutlet weak var merchantField: MyTextField!
     @IBOutlet weak var accountField: UITextField!
-    @IBOutlet weak var dateField: UITextField!
-    @IBOutlet weak var categoryField: UITextField!
+    @IBOutlet weak var dateField: MyTextField!
+    @IBOutlet weak var categoryField: MyTextField!
     @IBOutlet weak var confirmImage: UIImageView!
     @IBOutlet weak var categoryButton1: UIButton!
     @IBOutlet weak var categoryButton2: UIButton!
@@ -345,6 +345,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
         self.categories = []
         self.globalIndex = 0
         self.processed = 0
+        
+//        amountField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
+//        dateField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
+//        merchantField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
+//        categoryField.layer.sublayerTransform = CATransform3DMakeTranslation(-5, 0, 0)
         
         if imagesProcessing != [] {
             self.amounts = [Double](repeatElement(0, count: imagesProcessing.count))

@@ -12,10 +12,11 @@
 		3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0761E897BC20069DB2B /* Chrono.swift */; };
 		3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 3590A0781E897BC20069DB2B /* chrono.min.js */; };
 		3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */; };
+		35B8BD571EB6F2DF008F0B34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35B8BD561EB6F2DF008F0B34 /* Assets.xcassets */; };
+		35B8BD5A1EB6F7BE008F0B34 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35B8BD591EB6F7BE008F0B34 /* MyTextField.swift */; };
 		35ECD58B1E5A473A008BBD9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */; };
 		35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD58E1E5A473A008BBD9C /* Main.storyboard */; };
 		35ECD5931E5A473A008BBD9C /* Snapet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5911E5A473A008BBD9C /* Snapet.xcdatamodeld */; };
-		35ECD5951E5A473A008BBD9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD5941E5A473A008BBD9C /* Assets.xcassets */; };
 		35ECD5981E5A473A008BBD9C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ECD5961E5A473A008BBD9C /* LaunchScreen.storyboard */; };
 		35ECD5A31E5A473A008BBD9C /* SnapetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5A21E5A473A008BBD9C /* SnapetTests.swift */; };
 		35ECD5AE1E5A473A008BBD9C /* SnapetUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ECD5AD1E5A473A008BBD9C /* SnapetUITests.swift */; };
@@ -92,11 +93,12 @@
 		3590A0761E897BC20069DB2B /* Chrono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chrono.swift; sourceTree = "<group>"; };
 		3590A0781E897BC20069DB2B /* chrono.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chrono.min.js; sourceTree = "<group>"; };
 		3590A0791E897BC20069DB2B /* ChronoParsedResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChronoParsedResult.swift; sourceTree = "<group>"; };
+		35B8BD561EB6F2DF008F0B34 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		35B8BD591EB6F7BE008F0B34 /* MyTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		35ECD5871E5A473A008BBD9C /* Snapet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snapet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35ECD58A1E5A473A008BBD9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35ECD58F1E5A473A008BBD9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		35ECD5921E5A473A008BBD9C /* Snapet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Snapet.xcdatamodel; sourceTree = "<group>"; };
-		35ECD5941E5A473A008BBD9C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35ECD5971E5A473A008BBD9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		35ECD5991E5A473A008BBD9C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		35ECD59E1E5A473A008BBD9C /* SnapetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnapetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -225,9 +227,10 @@
 				A73212761EB0486000547B48 /* SettingViewController.swift */,
 				A7FE71B31EA70CD1004087D6 /* UIColorExtensions.swift */,
 				A7FE71B51EA70D04004087D6 /* Palette.swift */,
+				35B8BD591EB6F7BE008F0B34 /* MyTextField.swift */,
 				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
-				35ECD5941E5A473A008BBD9C /* Assets.xcassets */,
 				35ECD5961E5A473A008BBD9C /* LaunchScreen.storyboard */,
+				35B8BD561EB6F2DF008F0B34 /* Assets.xcassets */,
 				35ECD5991E5A473A008BBD9C /* Info.plist */,
 				35ECD5911E5A473A008BBD9C /* Snapet.xcdatamodeld */,
 			);
@@ -410,8 +413,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				35ECD5981E5A473A008BBD9C /* LaunchScreen.storyboard in Resources */,
-				35ECD5951E5A473A008BBD9C /* Assets.xcassets in Resources */,
 				35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */,
+				35B8BD571EB6F2DF008F0B34 /* Assets.xcassets in Resources */,
 				3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +488,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35B8BD5A1EB6F7BE008F0B34 /* MyTextField.swift in Sources */,
 				35FAD1D61EAE841700B3B99E /* SWRevealViewController.m in Sources */,
 				A7FE71B41EA70CD1004087D6 /* UIColorExtensions.swift in Sources */,
 				3590A07C1E897BC20069DB2B /* ChronoParsedResult.swift in Sources */,
