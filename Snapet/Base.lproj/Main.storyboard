@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tIr-1K-7O9">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="tIr-1K-7O9">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -32,7 +32,7 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="84" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1Bo-3L-rc1">
-                                <rect key="frame" x="0.0" y="390.33333333333326" width="414" height="345.66666666666674"/>
+                                <rect key="frame" x="0.0" y="392" width="414" height="344"/>
                                 <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="sectionIndexBackgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <prototypes>
@@ -99,10 +99,10 @@
                                 </prototypes>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QJk-hO-es9">
-                                <rect key="frame" x="0.0" y="64" width="414" height="326.33333333333331"/>
+                                <rect key="frame" x="10" y="64" width="393" height="327.66666666666669"/>
                                 <color key="backgroundColor" red="0.28455910089999997" green="0.31647574899999997" blue="0.36876454949999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="QJk-hO-es9" secondAttribute="height" multiplier="207:163" id="8gp-wf-DjH"/>
+                                    <constraint firstAttribute="width" secondItem="QJk-hO-es9" secondAttribute="height" multiplier="391:326" id="Kod-b4-2dz"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -110,8 +110,8 @@
                         <constraints>
                             <constraint firstItem="1Bo-3L-rc1" firstAttribute="centerX" secondItem="ABF-ND-sBg" secondAttribute="centerX" id="8l2-x6-Foe"/>
                             <constraint firstItem="1Bo-3L-rc1" firstAttribute="top" secondItem="QJk-hO-es9" secondAttribute="bottom" constant="-5.6843418860808015e-14" id="I7A-Xd-Hab" userLabel="Table View.top = Pie Chart View.bottom"/>
+                            <constraint firstItem="QJk-hO-es9" firstAttribute="leading" secondItem="ABF-ND-sBg" secondAttribute="leadingMargin" constant="-10" id="NGc-nV-OgT"/>
                             <constraint firstItem="loe-S4-pJV" firstAttribute="top" secondItem="1Bo-3L-rc1" secondAttribute="bottom" id="PLc-Wg-1sd" userLabel="Bottom Layout Guide.top = Table View.bottom"/>
-                            <constraint firstItem="QJk-hO-es9" firstAttribute="width" secondItem="ABF-ND-sBg" secondAttribute="width" id="cR1-Yr-gpT"/>
                             <constraint firstItem="QJk-hO-es9" firstAttribute="centerX" secondItem="ABF-ND-sBg" secondAttribute="centerX" id="db7-rn-ve2"/>
                             <constraint firstItem="QJk-hO-es9" firstAttribute="top" secondItem="P10-A3-RFI" secondAttribute="bottom" id="mSK-cl-f1d"/>
                             <constraint firstItem="1Bo-3L-rc1" firstAttribute="width" secondItem="ABF-ND-sBg" secondAttribute="width" id="zLr-9J-Ebp"/>
@@ -130,7 +130,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpj-a4-8k5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1815.2" y="918.89055472263874"/>
+            <point key="canvasLocation" x="1814.4927536231885" y="918.75000000000011"/>
         </scene>
         <!--Expenses-->
         <scene sceneID="CS4-sa-uCc">

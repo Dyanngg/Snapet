@@ -198,8 +198,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         d.text = budgetText
-        d.font = UIFont(name: "HelveticaNeue-Bold", size: 15.0)!
-        d.textColor = Palette.InfoText
+        d.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)!
+        d.textColor = UIColor(red:114/255, green:127/255, blue:141/255, alpha:1.0)
         chart.chartDescription = d
         
         // 4. add chart to UI
@@ -523,8 +523,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         d.text = budgetText
-        d.font = UIFont(name: "HelveticaNeue-Bold", size: 15.0)!
-        d.textColor = Palette.InfoText
+        d.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)!
+        d.textColor = UIColor(red:114/255, green:127/255, blue:141/255, alpha:1.0)
         chart.chartDescription = d
 //        total = 0.0
         // 4 update table view and pie chart view
