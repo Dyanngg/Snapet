@@ -17,8 +17,7 @@ extension UIImageView {
         self.clipsToBounds = true
         
         // make square(* must to make circle),
-        // resize(reduce the kilobyte) and
-        // fix rotation.
+        // resize(reduce the kilobyte) and fix rotation.
         self.image = anyImage
     }
 }
@@ -52,7 +51,6 @@ class MenuController: UITableViewController {
             if let photoinData = images[images.count - 1].value(forKey: "image") as? Data{
                 let img = UIImage(data: photoinData)!
                 profileImage.maskCircle(anyImage: img)
-//                profileImage.image = UIImage(data: photoinData)
             }
         }
     }

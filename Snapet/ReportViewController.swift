@@ -70,6 +70,11 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         searchController.searchBar.sizeToFit()
         tableView.tableHeaderView = searchController.searchBar
         
+        let screenSize: CGRect = UIScreen.main.bounds
+        let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height))
+        backgroundView.backgroundColor = Palette.backgroundColor
+        tableView.backgroundView = backgroundView
+        
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
