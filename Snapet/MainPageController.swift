@@ -223,7 +223,11 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return expenses.count
+        if expenses.count < 5 {
+            return expenses.count
+        } else {
+            return 5
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -400,6 +404,8 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // 2.1 all data request
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
         
         // 2.2 distinct categories request
         let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")

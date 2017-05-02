@@ -188,6 +188,8 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // 2.1 all data request
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
+        let sort = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sort]
         
         // 2.2 distinct categories request
         let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
