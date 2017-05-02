@@ -45,8 +45,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var total = 0.0
     var row = 0
     
-    /** core data crash */
-    
     var fetchedAmount = Double(-1.0)
     var fetchedDate: Date? = nil
     var fetchedAccount: Int? = nil
@@ -82,8 +80,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         imagePicker.delegate = self
         pickerController.assetType = .allPhotos
         pickerController.showsCancelButton = true
-
-        //!!!  self.tableView.reloadData()
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -137,14 +133,11 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         
         // 1. create chart view
         chart = PieChartView( frame: self.pieChartView.frame)
-        
         self.reloadPieChart()
 
-        
         // 3a. set style
         chart.holeColor = nil
         chart.legend.textColor = Palette.InfoText
-        
         
         // size
         chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
@@ -316,9 +309,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                 print(error)
             }
             // reload pie chart and table view
-            
             self.reloadPieChart()
-            
             self.pieChartView.reloadInputViews()
             OperationQueue.main.addOperation(){
                 self.tableView.reloadData()
@@ -499,7 +490,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         d.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)!
         d.textColor = UIColor(red:114/255, green:127/255, blue:141/255, alpha:1.0)
         chart.chartDescription = d
-//        total = 0.0
+
         // 4 update table view and pie chart view
         self.tableView.reloadData()
         self.pieChartView.reloadInputViews()

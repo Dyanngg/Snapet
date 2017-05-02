@@ -409,17 +409,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
                 categoryButtons[2] = "Groceries"
             }
         }
-        let topCategoryColor = self.getCategoryColor(category: categoryButtons[0])
-        let secondCategoryColor = self.getCategoryColor(category: categoryButtons[1])
-        let thirdCategoryColor = self.getCategoryColor(category: categoryButtons[2])
         
-        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
-        categoryButton1.setTitleColor(topCategoryColor, for: .normal)
-        categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
-        categoryButton2.setTitleColor(secondCategoryColor, for: .normal)
-        categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
-        categoryButton3.setTitleColor(thirdCategoryColor, for: .normal)
+    /*** Uncomment the following lines for category recommendations to match the pie chart color ***/
+//        let topCategoryColor = self.getCategoryColor(category: categoryButtons[0])
+//        let secondCategoryColor = self.getCategoryColor(category: categoryButtons[1])
+//        let thirdCategoryColor = self.getCategoryColor(category: categoryButtons[2])
+//        
+//        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
+//        categoryButton1.setTitleColor(topCategoryColor, for: .normal)
+//        categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
+//        categoryButton2.setTitleColor(secondCategoryColor, for: .normal)
+//        categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
+//        categoryButton3.setTitleColor(thirdCategoryColor, for: .normal)
 
+        
          /** -----    drop down toolbar for date picker    ----- **/
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6,
                                               width: self.view.frame.size.width, height: 40.0))
