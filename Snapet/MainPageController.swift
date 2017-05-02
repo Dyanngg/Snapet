@@ -76,7 +76,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // Add the floating action button
         layoutFAB()
         
-        //DeleteAllData()
+//        DeleteAllData()
         imagePicker.delegate = self
         pickerController.assetType = .allPhotos
         pickerController.showsCancelButton = true
@@ -264,11 +264,13 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         row = indexPath.row
+        print("select row is \(indexPath.row)")
         addNewData = false
         self.performSegue(withIdentifier: "toDetail", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        print("delete row is \(indexPath.row)")
         if editingStyle == .delete {
             let merchant = expenses[indexPath.row].value(forKey: "merchant")
             let amt = expenses[indexPath.row].value(forKey: "amount")
@@ -404,8 +406,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // 2.1 all data request
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        let sort = NSSortDescriptor(key: "date", ascending: false)
-        fetchRequest.sortDescriptors = [sort]
+        let sort1 = NSSortDescriptor(key: "date", ascending: false)
+        let sort2 = NSSortDescriptor(key: "merchant", ascending: false)
+        let sort3 = NSSortDescriptor(key: "amount", ascending: true)
+        fetchRequest.sortDescriptors = [sort1, sort2, sort3]
         
         // 2.2 distinct categories request
         let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
