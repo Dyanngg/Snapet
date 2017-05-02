@@ -35,9 +35,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var imageInProcess = UIImage()
     var isOCR = false
     var batchAnalyzed = false
-    var category = [String]()
     var amount = [Double]()
     static var budgetNum = ""
+    static var colorMap = [UIColor]()
+    static var category = [String]()
     
     var expenses: [NSManagedObject] = []
     var results: [NSManagedObject] = []
@@ -98,7 +99,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         distinctCategoryReq.returnsDistinctResults = true
         distinctCategoryReq.resultType = NSFetchRequestResultType.dictionaryResultType
         // array for storing category displayed in the pie chart
-        category = [String]()
+        MainPageController.category = [String]()
         // array for storing total amount of each category
         amount = [Double]()
         do {
@@ -108,13 +109,13 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             // set category array values
             for r in resultsDict {
                 if let temp = r["category"] {
-                    category.append(temp) }
+                    MainPageController.category.append(temp) }
                 }
             }
         } catch let err as NSError {
             print(err.debugDescription)
         }
-        for i in category {
+        for i in MainPageController.category {
             let categoryReq =
                 NSFetchRequest<NSManagedObject>(entityName: "Expense")
             categoryReq.predicate = NSPredicate(format: "category == %@", i)
@@ -137,41 +138,14 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // 1. create chart view
         chart = PieChartView( frame: self.pieChartView.frame)
         
-        // 2. generate chart data entries
-        var entries = [ ChartDataEntry]()
-        
-        for (i, v) in amount.enumerated() {
-            let entry = PieChartDataEntry()
-            entry.y = v
-            entry.label = category[i]
-            entries.append( entry)
-        }
-        
-        // 3. chart setup
-        let set = PieChartDataSet( values: entries, label: "Pie Chart")
-        set.colors = UIColor.random(ofCount: entries.count)
-        
-        let data = PieChartData( dataSet: set)
-        chart.data = data
-        // no data text
-        chart.noDataText = "No data available"
-        // user interaction
-        chart.isUserInteractionEnabled = false
+        self.reloadPieChart()
+
         
         // 3a. set style
-//        chart.backgroundColor = Palette.Background
         chart.holeColor = nil
         chart.legend.textColor = Palette.InfoText
-//        chart.legend.textColor = Palette.Text
         
-        /*** TODO: set this to pie chart center text ***/
-        let totalAmount = "$\(total)"
         
-        let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
-        centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
-        chart.centerAttributedText = centerTxt
-        
-        //chart.centerText = "Pie Chart"
         // size
         chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
         
@@ -179,9 +153,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let d = Description()
         var budgetText = ""
         let budgetAmount = "Budget: $"
-//        if MainPageController.budgetNum == "" {
-//            budgetText = "Budget not set"
-//        }
+
         if let budget = Double(MainPageController.budgetNum) {
             budgetText = budgetAmount.appending(MainPageController.budgetNum)
             if budget < total {
@@ -224,6 +196,34 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
+    
+    func reloadPieChart(){
+        // Generate chart data entries
+        var entries = [ChartDataEntry]()
+        for (i, v) in amount.enumerated() {
+            let entry = PieChartDataEntry()
+            entry.y = v
+            entry.label = MainPageController.category[i]
+            entries.append( entry)
+        }
+        
+        // Chart setup
+        let set = PieChartDataSet( values: entries, label: "")
+        set.colors = UIColor.random(ofCount: entries.count)
+        MainPageController.colorMap = set.colors
+        let data = PieChartData( dataSet: set)
+        chart.data = data
+        chart.noDataText = "No data available"
+        chart.isUserInteractionEnabled = false
+        let totalAmount = "$\(total)"
+        let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
+        centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
+        chart.centerAttributedText = centerTxt
+    }
+    
+    
+    
+    
     /*****   Table View Stuff  ******/
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -244,6 +244,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         let merchantLabel = expense.value(forKeyPath: "merchant") as? String
         if (categoryLabel != nil) {
             cell.categoryLabel?.text = categoryLabel
+            
+        /*** Uncomment the following line if want category label to match current  color palette ***/
+            //let labelColor = self.getCategoryColor(category: categoryLabel!)
+            //cell.categoryLabel?.textColor = labelColor
         }
         if (merchantLabel != nil) {
             cell.merchantLabel.text = merchantLabel
@@ -276,7 +280,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             var count = 0
             var index = 0
             print("test1 \(expenses)")
-            for (i, v) in category.enumerated() {
+            for (i, v) in MainPageController.category.enumerated() {
                 if v == (cat as! String) {
                     index = i
                     
@@ -293,7 +297,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                 total = total - (amt as! Double)
             }
             if (count == 1) {
-                category.remove(at: index)
+                MainPageController.category.remove(at: index)
                 amount.remove(at: index)
                 total = total - (amt as! Double)
             }
@@ -312,30 +316,27 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                 print(error)
             }
             // reload pie chart and table view
-            var entries = [ ChartDataEntry]()
-            for (i, v) in amount.enumerated() {
-                let entry = PieChartDataEntry()
-                entry.y = v
-                entry.label = category[i]
-                entries.append( entry)
-            }
-            let set = PieChartDataSet( values: entries, label: "")
-            set.colors = UIColor.random(ofCount: entries.count)
             
-            let data = PieChartData( dataSet: set)
-            chart.data = data
-            chart.noDataText = "No data available"
-            chart.isUserInteractionEnabled = false
-            let totalAmount = "$\(total)"
-            let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
-            centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
-            chart.centerAttributedText = centerTxt
+            self.reloadPieChart()
+            
             self.pieChartView.reloadInputViews()
             OperationQueue.main.addOperation(){
                 self.tableView.reloadData()
             }
         }
     }
+    
+    
+    func getCategoryColor(category: String) -> UIColor{
+        for (i, v) in MainPageController.category.enumerated(){
+            if v == category && MainPageController.colorMap != []{
+                return MainPageController.colorMap[i]
+            }
+        }
+        return Palette.amountTint
+    }
+    
+    
     
     /****   Floating action button stuff  ****/
     func layoutFAB() {
@@ -442,7 +443,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         // 3.2 fetch distinct categories data
-        category = [String]()
+        MainPageController.category = [String]()
         amount = [Double]()
         total = 0.0
         do {
@@ -452,13 +453,13 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
                 // set category array values
                 for r in resultsDict {
                     if let temp = r["category"] {
-                        category.append(temp) }
+                        MainPageController.category.append(temp) }
                 }
             }
         } catch let err as NSError {
             print(err.debugDescription)
         }
-        for i in category {
+        for i in MainPageController.category {
             let categoryReq =
                 NSFetchRequest<NSManagedObject>(entityName: "Expense")
             categoryReq.predicate = NSPredicate(format: "category == %@", i)
@@ -478,24 +479,9 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             total += sum
             amount.append(sum)
         }
-        var entries = [ ChartDataEntry]()
-        for (i, v) in amount.enumerated() {
-            let entry = PieChartDataEntry()
-            entry.y = v
-            entry.label = category[i]
-            entries.append( entry)
-        }
-        let set = PieChartDataSet( values: entries, label: "")
-        set.colors = UIColor.random(ofCount: entries.count)
         
-        let data = PieChartData( dataSet: set)
-        chart.data = data
-        chart.noDataText = "No data available"
-        chart.isUserInteractionEnabled = false
-        let totalAmount = "$\(total)"
-        let centerTxt: NSMutableAttributedString = NSMutableAttributedString(string: totalAmount)
-        centerTxt.addAttributes([NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 30.0)!,NSForegroundColorAttributeName:UIColor.white], range: NSMakeRange(0, centerTxt.length))
-        chart.centerAttributedText = centerTxt
+        self.reloadPieChart()
+        
         // description
         let d = Description()
         var budgetText = ""

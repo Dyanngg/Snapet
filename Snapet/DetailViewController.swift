@@ -348,7 +348,10 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
     }
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         // re-initialize fields
         self.amounts = []
@@ -366,7 +369,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         if( traitCollection.forceTouchCapability == .available){
             registerForPreviewing(with: self, sourceView: view)
         }
-        
         
         if imagesProcessing != [] {
             self.amounts = [Double](repeatElement(0, count: imagesProcessing.count))
@@ -392,7 +394,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
             self.nextButton.isHidden = true
         }
         
-        self.navigationController?.navigationBar.tintColor = UIColor.white
         
         let recommendCat = categoryRecommendation()
         if recommendCat.count == 3 {
@@ -400,17 +401,24 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         } else if recommendCat.count == 2 {
             categoryButtons[0] = recommendCat[0]
             categoryButtons[1] = recommendCat[1]
-            categoryButtons[2] = "Transportation"
+            categoryButtons[2] = "Travel"
         } else if recommendCat.count == 1 {
             if recommendCat[0] != "" {
                 categoryButtons[0] = recommendCat[0]
-                categoryButtons[1] = "Transportation"
+                categoryButtons[1] = "Travel"
                 categoryButtons[2] = "Groceries"
             }
         }
+        let topCategoryColor = self.getCategoryColor(category: categoryButtons[0])
+        let secondCategoryColor = self.getCategoryColor(category: categoryButtons[1])
+        let thirdCategoryColor = self.getCategoryColor(category: categoryButtons[2])
+        
         categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
+        categoryButton1.setTitleColor(topCategoryColor, for: .normal)
         categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
+        categoryButton2.setTitleColor(secondCategoryColor, for: .normal)
         categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
+        categoryButton3.setTitleColor(thirdCategoryColor, for: .normal)
 
          /** -----    drop down toolbar for date picker    ----- **/
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: self.view.frame.size.height/6,
@@ -472,6 +480,14 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         }
     }
     
+    func getCategoryColor(category: String) -> UIColor{
+        for (i, v) in MainPageController.category.enumerated(){
+            if v == category && MainPageController.colorMap != []{
+                return MainPageController.colorMap[i]
+            }
+        }
+        return UIColor.white
+    }
     
     func categoryRecommendation() -> [String]{
         var result = [""]
