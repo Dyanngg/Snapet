@@ -223,11 +223,11 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if expenses.count < 5 {
+//        if expenses.count < 5 {
             return expenses.count
-        } else {
-            return 5
-        }
+//        } else {
+//            return 5
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
