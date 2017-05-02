@@ -25,6 +25,9 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
     @IBOutlet weak var categoryButton2: UIButton!
     @IBOutlet weak var categoryButton3: UIButton!
     @IBOutlet weak var categoryRecommend: UILabel!
+    @IBOutlet weak var colorIndicator1: UIImageView!
+    @IBOutlet weak var colorIndicator2: UIImageView!
+    @IBOutlet weak var colorIndicator3: UIImageView!
     
     @IBOutlet weak var hideTopBar: UIImageView!
     @IBOutlet weak var hideBottomBar: UIImageView!
@@ -411,16 +414,20 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         }
         
     /*** Uncomment the following lines for category recommendations to match the pie chart color ***/
-//        let topCategoryColor = self.getCategoryColor(category: categoryButtons[0])
-//        let secondCategoryColor = self.getCategoryColor(category: categoryButtons[1])
-//        let thirdCategoryColor = self.getCategoryColor(category: categoryButtons[2])
-//        
-//        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
+        let topCategoryColor = self.getCategoryColor(category: categoryButtons[0])
+        let secondCategoryColor = self.getCategoryColor(category: categoryButtons[1])
+        let thirdCategoryColor = self.getCategoryColor(category: categoryButtons[2])
+//
+        categoryButton1.setTitle(categoryButtons[0], for: UIControlState.normal)
 //        categoryButton1.setTitleColor(topCategoryColor, for: .normal)
-//        categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
+        categoryButton2.setTitle(categoryButtons[1], for: UIControlState.normal)
 //        categoryButton2.setTitleColor(secondCategoryColor, for: .normal)
-//        categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
+        categoryButton3.setTitle(categoryButtons[2], for: UIControlState.normal)
 //        categoryButton3.setTitleColor(thirdCategoryColor, for: .normal)
+        
+        colorIndicator1.image = UIImage(color: topCategoryColor)
+        colorIndicator2.image = UIImage(color: secondCategoryColor)
+        colorIndicator3.image = UIImage(color: thirdCategoryColor)
 
         
          /** -----    drop down toolbar for date picker    ----- **/
@@ -448,6 +455,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         toolBar.setItems([todayBtn,flexSpace,textBtn,flexSpace,okBarBtn], animated: true)
         dateField.inputAccessoryView = toolBar
         /** -----    drop down toolbar for date picker    ----- **/
+        
         
         amountField.text = String(amount)
         var dateDescription = self.date.description
@@ -478,8 +486,11 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         
         if !isOCR{
             self.categoryButton1.fadeIn1()
+            self.colorIndicator1.fadeIn1()
             self.categoryButton2.fadeIn2()
+            self.colorIndicator2.fadeIn2()
             self.categoryButton3.fadeIn3()
+            self.colorIndicator3.fadeIn3()
         }
     }
     
