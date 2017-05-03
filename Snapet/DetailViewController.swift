@@ -37,6 +37,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var calendarButton: UIImageView!
+    @IBOutlet weak var dropdownImage: UIButton!
+    
     
     var amount: Double = 0.0
     var merchant = ""
@@ -68,6 +70,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
     
     var isOCR = false
     var processed = 0
+    var inDropdownMode = false
     
     @IBAction func dateFieldEditing(_ sender: UITextField) {
         let datePickerView:UIDatePicker = UIDatePicker()
@@ -111,6 +114,43 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
     }
     
     
+    @IBAction func dropdownPressed(_ sender: Any) {
+        if isOCR {
+            if !inDropdownMode{
+                self.confirmImage.isHidden = true
+                self.isCategoryButtonHidden(flag: false)
+                DispatchQueue.main.async() {
+                    self.viewDidAppear(true)
+                }
+                self.inDropdownMode = true
+                // button replacement is not yet working
+                //self.dropdownImage.setImage(#imageLiteral(resourceName: "foldup"), for: .normal)
+                //self.dropdownImage.setImage(#imageLiteral(resourceName: "foldup"), for: .selected)
+                //self.dropdownImage.setImage(#imageLiteral(resourceName: "foldup"), for: .highlighted)
+                //self.dropdownImage.setImage(#imageLiteral(resourceName: "foldup"), for: .focused)
+                
+            } else {
+                self.confirmImage.isHidden = false
+                self.isCategoryButtonHidden(flag: true)
+                self.inDropdownMode = false
+                self.dropdownImage.setImage(#imageLiteral(resourceName: "dropdown"), for: .normal)
+            }
+        }
+    }
+    
+    
+    func isCategoryButtonHidden(flag: Bool) {
+        self.categoryRecommend.isHidden = flag
+        self.categoryButton1.isHidden = flag
+        self.categoryButton2.isHidden = flag
+        self.categoryButton3.isHidden = flag
+        self.colorIndicator1.isHidden = flag
+        self.colorIndicator2.isHidden = flag
+        self.colorIndicator3.isHidden = flag
+    }
+    
+    
+    // Enabling 3D touch on review image
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         show(viewControllerToCommit, sender: self)
     }
@@ -254,11 +294,8 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
     }
     
     
-    
     func donePressed(_ sender: UIBarButtonItem) {
-        
         dateField.resignFirstResponder()
-        
     }
     
     func tappedToolBarBtn(_ sender: UIBarButtonItem) {
@@ -363,6 +400,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         self.categories = []
         self.globalIndex = 0
         self.processed = 0
+        self.inDropdownMode = false
         
         amountField.tintColor = Palette.amountTint
         merchantField.tintColor = Palette.merchantTint
@@ -484,7 +522,7 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         
         super.viewDidAppear(animated)
         
-        if !isOCR{
+        if !isOCR || inDropdownMode{
             self.categoryButton1.fadeIn1()
             self.colorIndicator1.fadeIn1()
             self.categoryButton2.fadeIn2()

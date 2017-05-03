@@ -301,6 +301,15 @@
                                 <color key="textColor" red="0.75466371710000002" green="0.94002764829999996" blue="0.95588118649999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewp-Ag-j34">
+                                <rect key="frame" x="347" y="318" width="29" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.77768261795208815" green="0.76913839140146933" blue="0.77820147156084651" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" backgroundImage="dropdown"/>
+                                <connections>
+                                    <action selector="dropdownPressed:" destination="5Nh-t9-ffs" eventType="touchUpInside" id="EfA-2V-RUB"/>
+                                </connections>
+                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" background="textFieldNotEditing" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bAL-4J-peZ" customClass="MyTextField" customModule="Snapet" customModuleProvider="target">
                                 <rect key="frame" x="131" y="317" width="208" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -414,7 +423,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hideBar" translatesAutoresizingMaskIntoConstraints="NO" id="h9x-Zw-yZ4">
-                                <rect key="frame" x="19" y="93" width="374" height="266"/>
+                                <rect key="frame" x="20" y="93" width="374" height="266"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hideBar" translatesAutoresizingMaskIntoConstraints="NO" id="vPa-9c-TfP">
@@ -457,6 +466,7 @@
                         <outlet property="colorIndicator3" destination="ium-Te-m1W" id="n6t-p5-XN7"/>
                         <outlet property="confirmImage" destination="HTA-T2-0Hw" id="rtA-qG-UPh"/>
                         <outlet property="dateField" destination="Wmh-Yk-Y63" id="tQh-fg-6UE"/>
+                        <outlet property="dropdownImage" destination="ewp-Ag-j34" id="2d5-bT-7hV"/>
                         <outlet property="hideBottomBar" destination="vPa-9c-TfP" id="Wcc-Xc-FWc"/>
                         <outlet property="hideTopBar" destination="h9x-Zw-yZ4" id="GZo-dR-iiV"/>
                         <outlet property="merchantField" destination="mmt-WH-VQl" id="ASI-2R-9ef"/>
@@ -785,6 +795,7 @@
     </scenes>
     <resources>
         <image name="calendar" width="86" height="86"/>
+        <image name="dropdown" width="108" height="108"/>
         <image name="hideBar" width="500" height="500"/>
         <image name="history" width="476" height="476"/>
         <image name="mainpage" width="518" height="500"/>
