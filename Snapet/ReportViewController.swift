@@ -10,12 +10,6 @@ import UIKit
 import SwiftyJSON
 import CoreData
 
-extension String {
-    func toDouble() -> Double? {
-        return NumberFormatter().number(from: self)?.doubleValue
-    }
-}
-
 class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate,UISearchResultsUpdating, UISearchControllerDelegate {
 
     @IBOutlet weak var tableView: UITableView!
@@ -254,10 +248,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     /*********** Search Bar **************/
     
-//    func didPresentSearchController(_ resultSearchController: UISearchController) {
-//        
-//    }
-    
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
@@ -270,17 +260,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-//        if (scope == "Category") {
-//            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
-//                let category = (expense.value(forKeyPath: "category") as? String)
-//                return category!.lowercased().contains(searchText.lowercased())
-//            })
-//        } else if (scope == "Merchant") {
-//            filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
-//                let merchant = (expense.value(forKeyPath: "merchant") as? String)
-//                return merchant!.lowercased().contains(searchText.lowercased())
-//            })
-//        } else
         if (scope == ">") {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var result = false

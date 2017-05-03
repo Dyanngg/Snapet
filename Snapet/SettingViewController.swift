@@ -97,7 +97,6 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
         if !images.isEmpty {
             if let photoinData = images[images.count - 1].value(forKey: "image") as? Data{
-                //profileView.image = UIImage(data: photoinData)
                 profileView.maskCircle(anyImage: UIImage(data: photoinData)!)
             }
         }

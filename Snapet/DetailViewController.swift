@@ -212,20 +212,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
                 } catch let error as NSError {
                     print("Could not fetch. \(error), \(error.userInfo)")
                 }
-            
-//                // update the category field for the entry with the same merchant name in local copy
-//                if !expenses.isEmpty {
-//                    for result in expenses {
-//                        if (result.value(forKeyPath: "merchant") as? String == merchant) {
-//                            result.setValue(category, forKeyPath: "category")
-//                            do {
-//                                try managedContext.save()
-//                            } catch let error as NSError {
-//                                print("Could not save. \(error), \(error.userInfo)")
-//                            }
-//                        }
-//                    }
-//                }
             }
             // 4
             do {
@@ -608,29 +594,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
             result.append(sorted[0])
         }
         return result
-        
-        
-//        do {
-//            let cats = try managedContext.fetch(fetchRequest)
-//            if !cats.isEmpty {
-//                let resultsDict = cats as! [[String: String]]
-//                // set category array values
-//                for r in resultsDict {
-//                    print("r is \(r)")
-//                    if let temp = r["category"] {
-//                        top3Categories.append(temp)
-//                        print("\(temp)")
-//                    }
-//                    if let temp1 = r["count"] {
-//                        top3Categories.append(temp1)
-//                        print("\(temp1)")
-//                    }
-//                }
-//            }
-//        } catch let err as NSError {
-//            print(err.debugDescription)
-//        }
-//        return result
     }
     
     

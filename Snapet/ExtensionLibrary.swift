@@ -94,3 +94,9 @@ public extension UIImage {
         self.init(cgImage: cgImage)
     }
 }
+
+public extension String {
+    func toDouble() -> Double? {
+        return NumberFormatter().number(from: self)?.doubleValue
+    }
+}
