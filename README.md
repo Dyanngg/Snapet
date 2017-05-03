@@ -37,8 +37,8 @@ Open the **Snapet.xcworkspace** file, select iPhone 7 Plus as default simulator,
   
 ## Authors
 
-* **Yang Ding** - *Dyanngg* - JSON interpretation algorithm, Progress Bar, Sliding Menue, and Floating Button implementation, UI Polishment, Testing
-* **Duan Li** - *dxl360* - Core data implementation, Category Recommendations, Search Bar, Filtering and Pie Charts implementation, Swipe to delete, Basic UIs, Testing
+* **Yang Ding** - *Dyanngg* - JSON interpretation algorithm, Sliding Menu and Floating Button implementation; UI polishments, Testing.
+* **Duan Li** - *dxl360* - Core data implementation, Category Recommendations, Search Bar, Filtering and Pie Charts implementation; Basic UIs, Testing.
 
 
 ## Acknowledgments
