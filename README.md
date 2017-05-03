@@ -1,11 +1,11 @@
 # Snapet
 
-An iOS application aimed to provide a number-entering free, self adaptive, streamlined and smart expense tracking expeience. Ideally, after a short period of usage (around a week or so for users who maintain consistent expense habits), once users upload new entries, Snapet should be intelligent enough to recognize expenses that has occurred before, auto-categorize these expenses and put them into place. 
+An iOS application aimed to provide a number-entering free, self adaptive, streamlined and smart expense tracking experience. Ideally, after a short period of usage (around a week or so for users who maintain consistent expense habits), once users upload new entries, Snapet should be intelligent enough to recognize expenses that has occurred before, auto-categorize these expenses and put them into place. 
 <br />
 
 ## Installation
 
-Simply download the zip file of the repositoty or clone the repository to your Github desktop application. 
+Simply download the zip file of the repository or clone the repository to your Github desktop application. 
 In precaution of dependency errors, cd to the path of the downloaded project and do
 ```
 pod install
