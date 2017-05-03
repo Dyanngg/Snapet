@@ -39,8 +39,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Setup the Search Controller
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        
-        // I REALLY WANT TO CHANGE STYLE TO MINIMAL BUT IT DOESN'T WORK
         searchController.searchBar.searchBarStyle = UISearchBarStyle.default
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
@@ -63,6 +61,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         backgroundView.backgroundColor = Palette.backgroundColor
         tableView.backgroundView = backgroundView
         
+        // Setup sliding menu
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -213,19 +212,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.reloadData()
     }
 
-    
-    func DeleteAllData(){
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let DelAllReqVar = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "Expense"))
-        do {
-            try managedContext.execute(DelAllReqVar)
-        }
-        catch {
-            print(error)
-        }
-    }
-    
     /*********** Search Bar **************/
     
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {

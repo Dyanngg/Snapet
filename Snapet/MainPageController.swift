@@ -69,22 +69,64 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         // Add the floating action button
         layoutFAB()
-        // uncomment this line will delete all the core data when running the app
+        
+        // Uncomment this line will delete all the core data when running the app
 //        DeleteAllData()
+        
+        // create chart view
+        prepareforPieChart()
+        chart = PieChartView( frame: self.pieChartView.frame)
+        self.reloadPieChart()
+        chartStyleSetting()
+        
+        // add chart to UI
+        self.pieChartView.addSubview(chart)
+
+        // set table and image picker
+        tableView.delegate = self;
+        tableView.dataSource = self;
+        tableView.rowHeight = 84;
         imagePicker.delegate = self
         pickerController.assetType = .allPhotos
         pickerController.showsCancelButton = true
-        //dpickerController.defaultSelectedAssets?.removeAll()
         
+        // set sliding menu
+        self.navigationController?.navigationBar.barTintColor = Palette.mainPageBarColor
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
+        
+        /** Not working yet */
+        let height: CGFloat = 50
+        let bounds = self.navigationController!.navigationBar.bounds
+        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        //pickerController.defaultSelectedAssets?.removeAll()
+    }
+    
+    
+    
+
+    /*****   Pie Chart Stuff  ******/
+    func prepareforPieChart() {
+        // 0. Fetch data to prepare for pie chart display
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
-        
-        // 0. Fetch data to prepare for pie chart display
-        
-        let managedContext =
-            appDelegate.persistentContainer.viewContext
         let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
         distinctCategoryReq.propertiesToFetch = ["category"]
         distinctCategoryReq.returnsDistinctResults = true
@@ -93,14 +135,17 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         MainPageController.category = [String]()
         // array for storing total amount of each category
         amount = [Double]()
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        
         do {
             let results = try managedContext.fetch(distinctCategoryReq)
             if !results.isEmpty {
-            let resultsDict = results as! [[String: String]]
-            // set category array values
-            for r in resultsDict {
-                if let temp = r["category"] {
-                    MainPageController.category.append(temp) }
+                let resultsDict = results as! [[String: String]]
+                // set category array values
+                for r in resultsDict {
+                    if let temp = r["category"] {
+                        MainPageController.category.append(temp) }
                 }
             }
         } catch let err as NSError {
@@ -125,69 +170,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
             amount.append(sum)
         }
-        
-        // 1. create chart view
-        chart = PieChartView( frame: self.pieChartView.frame)
-        self.reloadPieChart()
-
-        // 3a. set style
-        chart.holeColor = nil
-        chart.legend.textColor = Palette.InfoText
-        
-        // size
-        chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
-        
-        // description
-        let d = Description()
-        var budgetText = ""
-        let budgetAmount = "Budget: $"
-
-        if let budget = Double(MainPageController.budgetNum) {
-            budgetText = budgetAmount.appending(MainPageController.budgetNum)
-            if budget < total {
-                budgetText = budgetText.appending("\nExceeds budget!")
-            }
-        }
-        d.text = budgetText
-        d.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)!
-        d.textColor = Palette.budgetTextColor
-        chart.chartDescription = d
-        
-        // 4. add chart to UI
-        self.pieChartView.addSubview(chart)
-
-
-        tableView.delegate = self;
-        tableView.dataSource = self;
-        tableView.rowHeight = 84;
-        
-        self.navigationController?.navigationBar.barTintColor = Palette.mainPageBarColor
-        self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
-        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
-        
-        /** Not working yet */
-        let height: CGFloat = 50
-        let bounds = self.navigationController!.navigationBar.bounds
-        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
-        
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
-        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-        //pickerController.defaultSelectedAssets?.removeAll()
-    }
-    
     
     func reloadPieChart(){
         // Generate chart data entries
@@ -213,6 +196,32 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         chart.centerAttributedText = centerTxt
     }
     
+    func chartStyleSetting() {
+        // set style
+        chart.holeColor = nil
+        chart.legend.textColor = Palette.InfoText
+        
+        // size
+        chart.center = CGPoint(x: pieChartView.frame.size.width  / 2, y: pieChartView.frame.size.height / 2);
+        
+        // description
+        let d = Description()
+        var budgetText = ""
+        let budgetAmount = "Budget: $"
+        if MainPageController.budgetNum == "" {
+            budgetText = "Budget not set"
+        }
+        if let budget = Double(MainPageController.budgetNum) {
+            budgetText = budgetAmount.appending(MainPageController.budgetNum)
+            if budget < total {
+                budgetText = budgetText.appending("\nExceeds budget!")
+            }
+        }
+        d.text = budgetText
+        d.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)!
+        d.textColor = Palette.budgetTextColor
+        chart.chartDescription = d
+    }
     
     
     
@@ -382,49 +391,61 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         self.uploadedImages = []
         //pickerController.defaultSelectedAssets?.removeAll()
-        
+        // fetch all data
+        fetchAllData()
+        // fetch distinct categories data
+        fetchDistinctCatData()
+        // prepare for pie chart
+        self.reloadPieChart()
+        chartStyleSetting()
+        // update table view and pie chart view
+        self.tableView.reloadData()
+        self.pieChartView.reloadInputViews()
+        if !analyzeInProgress{
+            self.chart.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
+        }
+    }
+    
+    func fetchAllData() {
         // 1 set context
-        
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
         let managedContext =
             appDelegate.persistentContainer.viewContext
-        
         // 2 send query requests
-        
-        // 2.1 all data request
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "Expense")
         let sort1 = NSSortDescriptor(key: "date", ascending: false)
         let sort2 = NSSortDescriptor(key: "merchant", ascending: false)
         let sort3 = NSSortDescriptor(key: "amount", ascending: true)
         fetchRequest.sortDescriptors = [sort1, sort2, sort3]
-        
-        // 2.2 distinct categories request
-        let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
-        distinctCategoryReq.propertiesToFetch = ["category"]
-        distinctCategoryReq.returnsDistinctResults = true
-        distinctCategoryReq.resultType = NSFetchRequestResultType.dictionaryResultType
-        // 2.5 amount query request
-        let amountRequest =
-            NSFetchRequest<NSManagedObject>(entityName: "Expense")
-        amountRequest.predicate = NSPredicate(format: "amount > %@", "5")
-        
         // 3 fetch core data based on request
-        
-        // 3.1 fetch all data
         do {
             expenses = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
-        
-        // 3.2 fetch distinct categories data
+    }
+    
+    func fetchDistinctCatData() {
+        // 1 set context
+        guard let appDelegate =
+            UIApplication.shared.delegate as? AppDelegate else {
+                return
+        }
+        let managedContext =
+            appDelegate.persistentContainer.viewContext
+        // 2 send query requests
+        let distinctCategoryReq = NSFetchRequest<NSFetchRequestResult>(entityName: "Expense")
+        distinctCategoryReq.propertiesToFetch = ["category"]
+        distinctCategoryReq.returnsDistinctResults = true
+        distinctCategoryReq.resultType = NSFetchRequestResultType.dictionaryResultType
         MainPageController.category = [String]()
         amount = [Double]()
         total = 0.0
+        // 3 fetch core data based on request
         do {
             let results = try managedContext.fetch(distinctCategoryReq)
             if !results.isEmpty {
@@ -457,33 +478,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             }
             total += sum
             amount.append(sum)
-        }
-        
-        self.reloadPieChart()
-        
-        // description
-        let d = Description()
-        var budgetText = ""
-        let budgetAmount = "Budget: $"
-        if MainPageController.budgetNum == "" {
-            budgetText = "Budget not set"
-        }
-        if let budget = Double(MainPageController.budgetNum) {
-            budgetText = budgetAmount.appending(MainPageController.budgetNum)
-            if budget < total {
-                budgetText = budgetText.appending("\nExceeds budget!")
-            }
-        }
-        d.text = budgetText
-        d.font = UIFont(name: "HelveticaNeue-Bold", size: 11.0)!
-        d.textColor = UIColor(red:114/255, green:127/255, blue:141/255, alpha:1.0)
-        chart.chartDescription = d
-
-        // 4 update table view and pie chart view
-        self.tableView.reloadData()
-        self.pieChartView.reloadInputViews()
-        if !analyzeInProgress{
-            self.chart.animate(xAxisDuration: 0.0, yAxisDuration: 1.0)
         }
     }
     
