@@ -225,7 +225,9 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    // filter the expense results based on 1) text entered in search bar and 2) the scope button chosed
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        // scope button greater than >
         if (scope == ">") {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var result = false
@@ -238,6 +240,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 return result
             })
+        // scope button equals to =
         } else if (scope == "=") {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var result = false
@@ -250,6 +253,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 return result
             })
+        // scope button less than <
         } else if (scope == "<") {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var result = false
@@ -262,6 +266,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 return result
             })
+        // scope button acesending ↑ or descending ↓
         } else if (scope == "↑" || scope == "↓") {
             let searchRequest =
                 NSFetchRequest<NSManagedObject>(entityName: "Expense")
@@ -291,6 +296,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             } catch let error as NSError {
                 print("Could not fetch. \(error), \(error.userInfo)")
             }
+        // scope button All
         } else {
             filtered = expenses.filter({(expense: NSManagedObject) -> Bool in
                 var categoryMatch = false
@@ -312,6 +318,7 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return categoryMatch || merchantMatch || amountMatch || dateMatch
             })
         }
+        // update the table view to display the search results
         tableView.reloadData()
     }
     

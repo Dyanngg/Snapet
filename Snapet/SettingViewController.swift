@@ -50,13 +50,15 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            // save image to core data
+            // set context
             guard let appDelegate =
                 UIApplication.shared.delegate as? AppDelegate else {
                     return
             }
             let managedContext =
                 appDelegate.persistentContainer.viewContext
+            
+            // set request
             let entity =
                 NSEntityDescription.entity(forEntityName: "User",
                                            in: managedContext)!
@@ -64,12 +66,17 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
                                           insertInto: managedContext)
             let imgData = UIImageJPEGRepresentation(pickedImage, 1)
             expense.setValue(imgData, forKeyPath: "image")
+            
+            // save image to core data
             do {
                 try managedContext.save()
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
+            
+            // fectch from core data and display profile
             fetchAndDisplay()
+            
         } else {
             print("something wrong")
         }
@@ -81,15 +88,19 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func fetchAndDisplay() {
-        // fetch image from core data and display it
+        // set context
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
         let managedContext =
             appDelegate.persistentContainer.viewContext
+        
+        // set request
         let fetchRequest =
             NSFetchRequest<NSManagedObject>(entityName: "User")
+        
+        // fetch data based on request
         do {
             images = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
@@ -102,12 +113,14 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        //        DeleteAllData()
+        
+        // fetch from core data and display profile
         fetchAndDisplay()
+        
+        // set sliding menu
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
@@ -117,6 +130,8 @@ class SettingViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.navigationController?.navigationBar.barTintColor = barColor
         self.navigationController?.navigationBar.barStyle = UIBarStyle.blackTranslucent
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "AppleGothic", size: 20)!]
+        
+        // set budget
         budgetField.delegate = self
         budgetField.text = MainPageController.budgetNum
     }
