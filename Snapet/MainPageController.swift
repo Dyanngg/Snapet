@@ -45,12 +45,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     var total = 0.0
     var row = 0
     
-    var fetchedAmount = Double(-1.0)
-    var fetchedDate: Date? = nil
-    var fetchedAccount: Int? = nil
-    var fetchedMerchant: String? = nil
-    var fetchedCategory: String? = nil
-    
     var uploadedImages: [UIImage] = []
 
     var useCamera = false
@@ -75,7 +69,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         // Add the floating action button
         layoutFAB()
-        
+        // uncomment this line will delete all the core data when running the app
 //        DeleteAllData()
         imagePicker.delegate = self
         pickerController.assetType = .allPhotos
@@ -228,11 +222,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if expenses.count < 5 {
-            return expenses.count
-//        } else {
-//            return 5
-//        }
+        return expenses.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -269,13 +259,11 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         row = indexPath.row
-        print("select row is \(indexPath.row)")
         addNewData = false
         self.performSegue(withIdentifier: "toDetail", sender: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        print("delete row is \(indexPath.row)")
         if editingStyle == .delete {
             let merchant = expenses[indexPath.row].value(forKey: "merchant")
             let amt = expenses[indexPath.row].value(forKey: "amount")
@@ -283,7 +271,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             // delete local data
             var count = 0
             var index = 0
-            print("test1 \(expenses)")
             for (i, v) in MainPageController.category.enumerated() {
                 if v == (cat as! String) {
                     index = i
@@ -293,7 +280,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             for (_, v) in expenses.enumerated() {
                 if (v.value(forKey: "category") as! String) == (cat as! String) {
                     count = count + 1
-                    print(count)
                 }
             }
             if (count > 1) {
@@ -431,19 +417,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         // 3.1 fetch all data
         do {
             expenses = try managedContext.fetch(fetchRequest)
-            if !expenses.isEmpty{
-                let expense = expenses[expenses.count - 1]
-                fetchedAmount = (expense.value(forKeyPath: "amount") as? Double)!
-                print("fetched amount = \(fetchedAmount)")
-                fetchedDate = (expense.value(forKeyPath: "date") as? Date)
-                if (fetchedDate != nil) {
-                    print("fetched Date = \(String(describing: fetchedDate))")
-                }
-                fetchedAccount = (expense.value(forKeyPath: "account") as? Int)
-                fetchedMerchant = (expense.value(forKeyPath: "merchant") as? String)
-                fetchedCategory = (expense.value(forKeyPath: "category") as? String)
-            }
-            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -521,7 +494,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
             if !svc.isEdit {
                 expenses = svc.expenses
             }
-            print("expenses is assigned")
         }
         self.analyzeInProgress = false
     }
@@ -563,7 +535,6 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     /****     Imagepicker Stuff     ****/
     func showImagePicker() {
         pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
-            print("didSelectAssets")
             self.isOCR = true
             self.assets = assets
             for (_, item) in assets.enumerated(){

@@ -584,7 +584,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
             result.append(sorted[0])
             result.append(sorted[1])
             result.append(sorted[2])
-            print("sorted\(result)")
         } else if sorted.count == 3 {
             result.removeAll()
             result.append(sorted[0])
@@ -822,7 +821,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate, UIViewControl
         var category = ""
         let categoryReqest = NSFetchRequest<NSManagedObject>(entityName: "Expense")
         categoryReqest.predicate = NSPredicate(format: "merchant == %@", detectedMerchant)
-        print("detectedMerchant is = \(detectedMerchant)")
         do {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let managedContext = appDelegate.persistentContainer.viewContext

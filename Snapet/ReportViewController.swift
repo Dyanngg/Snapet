@@ -18,12 +18,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var expenses: [NSManagedObject] = []
     var filtered: [NSManagedObject] = []
     
-    var fetchedAmount = Double(-1.0)
-    var fetchedDate: Date? = nil
-    var fetchedAccount: Int? = nil
-    var fetchedMerchant: String? = nil
-    var fetchedCategory: String? = nil
-    
     var detectedAmount: Double? = nil
     var detectedDate: Date? = nil
     var detectedMerchant: String? = nil
@@ -166,7 +160,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
     /****     Fetching from Core Data   ****/
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("will appear")
         
         // 1 set context
         
@@ -213,19 +206,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
         do {
             expenses = try managedContext.fetch(fetchRequest)
-            if !expenses.isEmpty{
-                let expense = expenses[expenses.count - 1]
-                fetchedAmount = (expense.value(forKeyPath: "amount") as? Double)!
-                print("fetched amount = \(fetchedAmount)")
-                fetchedDate = (expense.value(forKeyPath: "date") as? Date)
-                if (fetchedDate != nil) {
-                    print("fetched Date = \(String(describing: fetchedDate))")
-                }
-                fetchedAccount = (expense.value(forKeyPath: "account") as? Int)
-                fetchedMerchant = (expense.value(forKeyPath: "merchant") as? String)
-                fetchedCategory = (expense.value(forKeyPath: "category") as? String)
-            }
-            
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -322,7 +302,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 appDelegate.persistentContainer.viewContext
             do {
                 filtered = try managedContext.fetch(searchRequest)
-                print("expenses: \(expenses)")
             } catch let error as NSError {
                 print("Could not fetch. \(error), \(error.userInfo)")
             }
@@ -391,7 +370,6 @@ class ReportViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if !svc.isEdit {
                 expenses = svc.expenses
             }
-            print("expenses is assigned")
         }
     }
 }
