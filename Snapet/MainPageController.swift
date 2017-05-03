@@ -80,6 +80,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
         imagePicker.delegate = self
         pickerController.assetType = .allPhotos
         pickerController.showsCancelButton = true
+        //dpickerController.defaultSelectedAssets?.removeAll()
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -188,6 +189,10 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        //pickerController.defaultSelectedAssets?.removeAll()
+    }
     
     
     func reloadPieChart(){
@@ -390,7 +395,7 @@ class MainPageController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.uploadedImages = []
-        pickerController.defaultSelectedAssets?.removeAll()
+        //pickerController.defaultSelectedAssets?.removeAll()
         
         // 1 set context
         
