@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1ED86A8D809B3158B1CDEA99 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E6B50181F56BD542C903C7 /* SwiftyJSON.framework */; };
-		3553FC4D1EBAD4EE00F9E436 /* Launch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3553FC4C1EBAD4EE00F9E436 /* Launch2.png */; };
+		3579D3381EED43F300282FB3 /* Launch2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3579D3371EED43F300282FB3 /* Launch2.png */; };
 		358C2CB91EA424A6006C136F /* MainPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 358C2CB81EA424A6006C136F /* MainPageController.swift */; };
 		3590A07A1E897BC20069DB2B /* Chrono.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3590A0761E897BC20069DB2B /* Chrono.swift */; };
 		3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 3590A0781E897BC20069DB2B /* chrono.min.js */; };
@@ -92,7 +92,7 @@
 /* Begin PBXFileReference section */
 		2FB7CB4FF627158547795930 /* Pods-Snapet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snapet.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snapet/Pods-Snapet.release.xcconfig"; sourceTree = "<group>"; };
 		352396581EAE78B00024172B /* Snapet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snapet-Bridging-Header.h"; sourceTree = "<group>"; };
-		3553FC4C1EBAD4EE00F9E436 /* Launch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Launch2.png; path = ../../../Desktop/Launch2.png; sourceTree = "<group>"; };
+		3579D3371EED43F300282FB3 /* Launch2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Launch2.png; sourceTree = SOURCE_ROOT; };
 		358C2CB81EA424A6006C136F /* MainPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainPageController.swift; sourceTree = "<group>"; };
 		3590A0761E897BC20069DB2B /* Chrono.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chrono.swift; sourceTree = "<group>"; };
 		3590A0781E897BC20069DB2B /* chrono.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = chrono.min.js; sourceTree = "<group>"; };
@@ -235,7 +235,7 @@
 				A73212761EB0486000547B48 /* SettingViewController.swift */,
 				A7FE71B31EA70CD1004087D6 /* UIColorExtensions.swift */,
 				A7FE71B51EA70D04004087D6 /* Palette.swift */,
-				3553FC4C1EBAD4EE00F9E436 /* Launch2.png */,
+				3579D3371EED43F300282FB3 /* Launch2.png */,
 				35B8BD591EB6F7BE008F0B34 /* MyTextField.swift */,
 				35ECD58E1E5A473A008BBD9C /* Main.storyboard */,
 				35ECD5961E5A473A008BBD9C /* LaunchScreen.storyboard */,
@@ -422,10 +422,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				35ECD5981E5A473A008BBD9C /* LaunchScreen.storyboard in Resources */,
+				3579D3381EED43F300282FB3 /* Launch2.png in Resources */,
 				35ECD5901E5A473A008BBD9C /* Main.storyboard in Resources */,
 				35B8BD571EB6F2DF008F0B34 /* Assets.xcassets in Resources */,
 				3590A07B1E897BC20069DB2B /* chrono.min.js in Resources */,
-				3553FC4D1EBAD4EE00F9E436 /* Launch2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
